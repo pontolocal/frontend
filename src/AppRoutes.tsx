@@ -1,10 +1,19 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { LandingPage } from "./pages/LandingPage";
+import { Header } from "./components/layout/Header";
+import MiniDrawerOverlay from "./components/layout/MiniDrawerOverlay";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./components/layout/theme";
+
 
 export default function AppRoutes() {
   return (
     <Router>
+      <Header />
+      <MiniDrawerOverlay />
+      
+     
       <Routes>
         {/* Coloque suas rotas aqui  */}
         <Route path="/" element={<LandingPage />} />
