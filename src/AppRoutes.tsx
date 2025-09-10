@@ -5,14 +5,14 @@ import { Header } from "./components/layout/Header";
 import MiniDrawerOverlay from "./components/layout/MiniDrawerOverlay";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./components/layout/theme";
-
+import { Footer } from "./components/layout/Footer";
 
 export default function AppRoutes() {
   return (
     <Router>
       <Header />
-      <MiniDrawerOverlay />
-      
+      {/* <MiniDrawerOverlay /> */}
+      <Footer />
      
       <Routes>
         {/* Coloque suas rotas aqui  */}
