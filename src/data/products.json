@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "name": "Mel Artesanal",
+    "description": "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
+    "image": "https://i.postimg.cc/HL5zFhNS/mel-1.png",
+    "price": 25.0,
+    "user_id": 1,
+    "category_id": 2,
+    "is_active": true
+  },
+  {
+    "id": 2,
+    "name": "Mel Artesanal",
+    "description": "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
+    "image": "https://i.postimg.cc/HL5zFhNS/mel-1.png",
+    "price": 25.0,
+    "user_id": 1,
+    "category_id": 2,
+    "is_active": true
+  },
+  {
+    "id": 3,
+    "name": "Mel Artesanal",
+    "description": "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
+    "image": "https://i.postimg.cc/HL5zFhNS/mel-1.png",
+    "price": 25.0,
+    "user_id": 1,
+    "category_id": 2,
+    "is_active": true
+  },
+  {
+    "id": 4,
+    "name": "Mel Artesanal",
+    "description": "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
+    "image": "https://i.postimg.cc/HL5zFhNS/mel-1.png",
+    "price": 25.0,
+    "user_id": 1,
+    "category_id": 2,
+    "is_active": true
+  },
+  {
+    "id": 5,
+    "name": "Mel Artesanal",
+    "description": "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
+    "image": "https://i.postimg.cc/HL5zFhNS/mel-1.png",
+    "price": 25.0,
+    "user_id": 1,
+    "category_id": 2,
+    "is_active": true
+  },
+  {
+    "id": 6,
+    "name": "Mel Artesanal",
+    "description": "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
+    "image": "https://i.postimg.cc/HL5zFhNS/mel-1.png",
+    "price": 25.0,
+    "user_id": 1,
+    "category_id": 2,
+    "is_active": true
+  },
+  {
+    "id": 7,
+    "name": "Mel Artesanal",
+    "description": "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
+    "image": "https://i.postimg.cc/HL5zFhNS/mel-1.png",
+    "price": 25.9,
+    "user_id": 1,
+    "category_id": 2,
+    "is_active": true
+  },
+  {
+    "id": 8,
+    "name": "Mel Artesanal",
+    "description": "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
+    "image": "https://i.postimg.cc/HL5zFhNS/mel-1.png",
+    "price": 25.0,
+    "user_id": 1,
+    "category_id": 2,
+    "is_active": true
+  },
+  {
+    "id": 9,
+    "name": "Mel Artesanal",
+    "description": "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
+    "image": "https://i.postimg.cc/HL5zFhNS/mel-1.png",
+    "price": 25.0,
+    "user_id": 1,
+    "category_id": 2,
+    "is_active": true
+  },
+  {
+    "id": 10,
+    "name": "Mel Artesanal",
+    "description": "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
+    "image": "https://i.postimg.cc/HL5zFhNS/mel-1.png",
+    "price": 25.0,
+    "user_id": 1,
+    "category_id": 2,
+    "is_active": true
+  },
+  {
+    "id": 11,
+    "name": "Mel Artesanal",
+    "description": "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
+    "image": "https://i.postimg.cc/HL5zFhNS/mel-1.png",
+    "price": 25.0,
+    "user_id": 1,
+    "category_id": 2,
+    "is_active": true
+  },
+  {
+    "id": 12,
+    "name": "Mel Artesanal",
+    "description": "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
+    "image": "https://i.postimg.cc/HL5zFhNS/mel-1.png",
+    "price": 25.0,
+    "user_id": 1,
+    "category_id": 2,
+    "is_active": true
+  }
+]
