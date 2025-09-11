@@ -6,12 +6,16 @@ import MiniDrawerOverlay from "./components/layout/MiniDrawerOverlay";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./components/layout/theme";
 import { Footer } from "./components/layout/Footer";
+import { ThankYouPage } from "./pages/ThankYouPage";
+import { FAQPage } from "./pages/FAQPage";
 
 export default function AppRoutes() {
   return (
     <Router>
       <Header />
       {/* <MiniDrawerOverlay /> */}
+      <ThankYouPage />
+      <FAQPage  />
       <Footer />
      
       <Routes>

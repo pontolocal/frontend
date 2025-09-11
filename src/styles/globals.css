@@ -24,4 +24,9 @@
   /* Fonts  */
   --font-inter: "Inter", sans-serif;
   
+  /* Border radius */
+  --radius-10: 10px;
+
+  /* Breakpoints */
+  --breakpoint-ss: 540px;
 }
