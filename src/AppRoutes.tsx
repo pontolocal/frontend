@@ -18,6 +18,8 @@ export default function AppRoutes() {
         {/* Coloque suas rotas aqui  */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/thankyou" element={<ThankYouPage />} />
+        <Route path="/faq" element={<FAQPage />} />
       </Routes>
       <Footer />
     </Router>
