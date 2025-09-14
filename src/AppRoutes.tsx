@@ -10,9 +10,9 @@ import { Footer } from "./components/layout/Footer";
 export default function AppRoutes() {
   return (
     <Router>
-      <Header />
-      {/* <MiniDrawerOverlay /> */}
-      <Footer />
+      {/* <Header /> */}
+      <MiniDrawerOverlay />
+      {/* <Footer /> */}
      
       <Routes>
         {/* Coloque suas rotas aqui  */}
