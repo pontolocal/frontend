@@ -2,23 +2,33 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { LandingPage } from "./pages/LandingPage";
 import { Header } from "./components/layout/Header";
-import MiniDrawerOverlay from "./components/layout/MiniDrawerOverlay";
-import { ThemeProvider } from "@mui/material/styles";
-import theme from "./components/layout/theme";
+// import MiniDrawerOverlay from "./components/layout/MiniDrawerOverlay";
+// import { ThemeProvider } from "@mui/material/styles";
+// import theme from "./components/layout/theme";
 import { Footer } from "./components/layout/Footer";
+import { ThankYouPage } from "./pages/ThankYouPage";
+import { FAQPage } from "./pages/FAQPage";
 
 export default function AppRoutes() {
   return (
     <Router>
+<<<<<<< HEAD
       {/* <Header /> */}
       <MiniDrawerOverlay />
       {/* <Footer /> */}
      
+=======
+      <Header />
+      {/* <MiniDrawerOverlay /> */}
+>>>>>>> 56036bb2fa46a5d3be8668cf40171dc5aa5afca5
       <Routes>
         {/* Coloque suas rotas aqui  */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/thankyou" element={<ThankYouPage />} />
+        <Route path="/faq" element={<FAQPage />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }

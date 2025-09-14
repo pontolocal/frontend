@@ -13,6 +13,10 @@ import MuiAppBar, {
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import CssBaseline from "@mui/material/CssBaseline";
+<<<<<<< HEAD
+=======
+import Divider from "@mui/material/Divider";
+>>>>>>> 56036bb2fa46a5d3be8668cf40171dc5aa5afca5
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
