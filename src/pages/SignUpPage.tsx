@@ -1,5 +1,6 @@
 // --- IMPORTS ---
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
+import * as React from 'react';
 import {
     Container, Paper, Typography, TextField, Button, RadioGroup, FormControlLabel,
     Radio, Tooltip, CircularProgress, Box, Link as MuiLink, InputAdornment, Checkbox
@@ -7,10 +8,7 @@ import {
 import { Person, Business, Email, Lock, WhatsApp, Link as LinkIcon, Home, LocationCity, Public, VpnKey } from '@mui/icons-material'
 import { maskCPF, maskCNPJ, maskWhatsApp, maskCEP } from '../lib/formatters'
 import { validateEmail, validateCPF, validateCNPJ, validatePassword, doPasswordsMatch } from '../lib/validators'
-import { SignUpFormData } from '../types/form'
-
-// --- TYPE DEFINITIONS ---
-type DocumentType = 'CPF' | 'CNPJ'
+import type { DocumentType, SignUpFormData } from '../types/form'
 
 // --- COMPONENT DEFINITION ---
 const SignUpPage = () => {

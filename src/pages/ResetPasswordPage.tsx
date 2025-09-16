@@ -1,12 +1,13 @@
 // --- IMPORTS ---
-import React, { useState } from 'react'
+import { useState } from 'react'
+import * as React from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import {
     Container, Paper, Typography, TextField, Button, Box, Alert, IconButton, InputAdornment
 } from '@mui/material'
 import { LockOutlined, Visibility, VisibilityOff, CheckCircleOutline } from '@mui/icons-material'
 import { validatePassword, doPasswordsMatch } from '../lib/validators'
-import { useApiSubmit } from '../hooks/useApiSubmit'
+import { useApiSubmit } from '../hooks/useApiSubmit.ts'
 
 // --- API SIMULATION ---
 /**
