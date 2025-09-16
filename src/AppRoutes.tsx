@@ -2,6 +2,12 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { LandingPage } from "./pages/LandingPage";
 import { Header } from "./components/layout/Header";
+import SignUpPage from './pages/SignUpPage'
+import LoginPage from './pages/LoginPage'
+import ForgotPasswordPage from './pages/ForgotPasswordPage'
+import ResetPasswordPage from './pages/ResetPasswordPage'
+import NotFoundPage from './pages/NotFoundPage'
+import TestPage from './pages/TestPage'
 // import MiniDrawerOverlay from "./components/layout/MiniDrawerOverlay";
 // import { ThemeProvider } from "@mui/material/styles";
 // import theme from "./components/layout/theme";
@@ -20,8 +26,14 @@ export default function AppRoutes() {
         <Route path="/home" element={<Home />} />
         <Route path="/thankyou" element={<ThankYouPage />} />
         <Route path="/faq" element={<FAQPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
     </Router>
   );
 }
+
