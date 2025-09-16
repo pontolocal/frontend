@@ -1,5 +1,9 @@
+import { Navbar } from "./Navbar"
+
 export const Header = () => {
   return (
-    <header></header>
+    <header className="w-full h-[80px]">
+      <Navbar />
+    </header>
   )
 }

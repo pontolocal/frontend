@@ -8,10 +8,12 @@
   --color-blue-1: #C2D2FC;
   --color-blue-2: #728CCC;
   --color-blue-3: #3C5491;
+  --color-blue-4: #1D2333;
   --color-white: #FFFFFF;
   --color-black: #000000;
   --color-grey-1: #F0F0F0;
   --color-grey-2: #696969;
+  --color-grey-3: #585A5C;
   --color-green-1: #DCFCE7;
   --color-green-2: #166537;
   --color-orange-1: #F9E7C0;
@@ -21,4 +23,10 @@
 
   /* Fonts  */
   --font-inter: "Inter", sans-serif;
+  
+  /* Border radius */
+  --radius-10: 10px;
+
+  /* Breakpoints */
+  --breakpoint-ss: 540px;
 }
