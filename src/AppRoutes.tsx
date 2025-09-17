@@ -16,7 +16,7 @@ import { FAQPage } from "./pages/FAQPage"
 const PublicLayout = () => (
   <>
     <Header />
-    <main>
+    <main className="pt-16">
       <Outlet />
       </main>
     <Footer />

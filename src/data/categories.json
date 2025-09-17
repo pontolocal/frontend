@@ -75,11 +75,6 @@
     "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
   },
   {
-    "id": 1,
-    "name": "padaria",
-    "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
-  },
-  {
     "id": 16,
     "name": "padaria",
     "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
@@ -93,5 +88,5 @@
     "id": 18,
     "name": "padaria",
     "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
-  },
+  }
 ]

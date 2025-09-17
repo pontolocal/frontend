@@ -5,9 +5,10 @@
     "description": "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
     "image": "https://i.postimg.cc/HL5zFhNS/mel-1.png",
     "price": 25.0,
-    "user_id": 1,
-    "category_id": 2,
-    "is_active": true
+    "storeName": "Apário São José",
+    "categoryName": "Hortifruti",
+    "is_active": true,
+    "rating": 3.5
   },
   {
     "id": 2,
@@ -15,9 +16,10 @@
     "description": "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
     "image": "https://i.postimg.cc/HL5zFhNS/mel-1.png",
     "price": 25.0,
-    "user_id": 1,
-    "category_id": 2,
-    "is_active": true
+    "storeName": "Apário São José",
+    "categoryName": "Hortifruti",
+    "is_active": true,
+    "rating": 3.5
   },
   {
     "id": 3,
@@ -25,9 +27,10 @@
     "description": "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
     "image": "https://i.postimg.cc/HL5zFhNS/mel-1.png",
     "price": 25.0,
-    "user_id": 1,
-    "category_id": 2,
-    "is_active": true
+    "storeName": "Apário São José",
+    "categoryName": "Hortifruti",
+    "is_active": true,
+    "rating": 3.5
   },
   {
     "id": 4,
@@ -35,9 +38,10 @@
     "description": "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
     "image": "https://i.postimg.cc/HL5zFhNS/mel-1.png",
     "price": 25.0,
-    "user_id": 1,
-    "category_id": 2,
-    "is_active": true
+    "storeName": "Apário São José",
+    "categoryName": "Hortifruti",
+    "is_active": true,
+    "rating": 3.5
   },
   {
     "id": 5,
@@ -45,9 +49,10 @@
     "description": "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
     "image": "https://i.postimg.cc/HL5zFhNS/mel-1.png",
     "price": 25.0,
-    "user_id": 1,
-    "category_id": 2,
-    "is_active": true
+    "storeName": "Apário São José",
+    "categoryName": "Hortifruti",
+    "is_active": true,
+    "rating": 3.5
   },
   {
     "id": 6,
@@ -55,19 +60,21 @@
     "description": "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
     "image": "https://i.postimg.cc/HL5zFhNS/mel-1.png",
     "price": 25.0,
-    "user_id": 1,
-    "category_id": 2,
-    "is_active": true
+    "storeName": "Apário São José",
+    "categoryName": "Hortifruti",
+    "is_active": true,
+    "rating": 3.5
   },
   {
     "id": 7,
     "name": "Mel Artesanal",
     "description": "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
     "image": "https://i.postimg.cc/HL5zFhNS/mel-1.png",
-    "price": 25.9,
-    "user_id": 1,
-    "category_id": 2,
-    "is_active": true
+    "price": 25.0,
+    "storeName": "Apário São José",
+    "categoryName": "Hortifruti",
+    "is_active": true,
+    "rating": 3.5
   },
   {
     "id": 8,
@@ -75,9 +82,10 @@
     "description": "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
     "image": "https://i.postimg.cc/HL5zFhNS/mel-1.png",
     "price": 25.0,
-    "user_id": 1,
-    "category_id": 2,
-    "is_active": true
+    "storeName": "Apário São José",
+    "categoryName": "Hortifruti",
+    "is_active": true,
+    "rating": 3.5
   },
   {
     "id": 9,
@@ -85,38 +93,9 @@
     "description": "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
     "image": "https://i.postimg.cc/HL5zFhNS/mel-1.png",
     "price": 25.0,
-    "user_id": 1,
-    "category_id": 2,
-    "is_active": true
-  },
-  {
-    "id": 10,
-    "name": "Mel Artesanal",
-    "description": "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
-    "image": "https://i.postimg.cc/HL5zFhNS/mel-1.png",
-    "price": 25.0,
-    "user_id": 1,
-    "category_id": 2,
-    "is_active": true
-  },
-  {
-    "id": 11,
-    "name": "Mel Artesanal",
-    "description": "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
-    "image": "https://i.postimg.cc/HL5zFhNS/mel-1.png",
-    "price": 25.0,
-    "user_id": 1,
-    "category_id": 2,
-    "is_active": true
-  },
-  {
-    "id": 12,
-    "name": "Mel Artesanal",
-    "description": "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
-    "image": "https://i.postimg.cc/HL5zFhNS/mel-1.png",
-    "price": 25.0,
-    "user_id": 1,
-    "category_id": 2,
-    "is_active": true
+    "storeName": "Apário São José",
+    "categoryName": "Hortifruti",
+    "is_active": true,
+    "rating": 3.5
   }
 ]
