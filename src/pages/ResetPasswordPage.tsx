@@ -1,4 +1,3 @@
-// --- IMPORTS ---
 import { useState } from 'react'
 import * as React from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom'
@@ -31,25 +30,18 @@ const fakeResetApiCall = (token: string, newPassword: string): Promise<{ message
     })
 }
 
-// --- TYPE DEFINITIONS ---
 type FieldName = 'password' | 'confirmPassword'
 
-// --- COMPONENT DEFINITION ---
 const ResetPasswordPage = () => {
-    // --- REACT & ROUTER HOOKS ---
     const navigate = useNavigate()
     const [searchParams] = useSearchParams()
 
-    // --- STATE MANAGEMENT ---
-    // State for form fields and UI control (visibility, success screen)
     const [passwords, setPasswords] = useState({ password: '', confirmPassword: '' })
     const [errors, setErrors] = useState({ password: '', confirmPassword: '' })
     const [showVisibility, setShowVisibility] = useState({ password: false, confirmPassword: false })
     const [touched, setTouched] = useState({ password: false, confirmPassword: false })
     const [isSuccess, setIsSuccess] = useState(false)
     
-    // --- CUSTOM HOOK FOR API SUBMISSION ---
-    // This hook encapsulates the logic for loading and error states for the API call.
     const { 
       execute: submitNewPassword, 
       isSubmitting, 
@@ -58,7 +50,6 @@ const ResetPasswordPage = () => {
 
     const token = searchParams.get('token')
 
-    // --- HANDLERS ---
     /**
      * Validates a specific field and returns an error message if invalid.
      * @param name The name of the field to validate.
@@ -75,7 +66,6 @@ const ResetPasswordPage = () => {
                 return 'As senhas não coincidem.'
             }
         }
-        // Also re-validates confirmPassword if the main password changes to ensure they still match.
         if (name === 'password' && values.confirmPassword) {
              if (!doPasswordsMatch(values.password, values.confirmPassword)) {
                 setErrors(prev => ({...prev, confirmPassword: 'As senhas não coincidem.'}))
@@ -86,23 +76,16 @@ const ResetPasswordPage = () => {
         return ''
     }
 
-    /**
-     * Updates the form state as the user types in the input fields.
-     */
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target as { name: FieldName, value: string }
         const newPasswords = { ...passwords, [name]: value }
         setPasswords(newPasswords)
-        // Provides real-time validation feedback after the field has been touched once.
         if (touched[name]) {
             const error = validateField(name, newPasswords)
             setErrors(prev => ({ ...prev, [name]: error }))
         }
     }
 
-    /**
-     * Marks a field as "touched" and triggers validation when the user clicks away from it.
-     */
     const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
         const { name } = e.target as { name: FieldName }
         if (!touched[name]) {
@@ -112,13 +95,9 @@ const ResetPasswordPage = () => {
         setErrors(prev => ({ ...prev, [name]: error }))
     }
 
-    /**
-     * Handles the final form submission process.
-     */
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault()
-        setTouched({ password: true, confirmPassword: true }) // Mark all as touched for final validation
-
+        setTouched({ password: true, confirmPassword: true }) 
         const passwordError = validateField('password', passwords)
         const confirmPasswordError = validateField('confirmPassword', passwords)
         setErrors({ password: passwordError, confirmPassword: confirmPasswordError })
@@ -126,13 +105,9 @@ const ResetPasswordPage = () => {
         if (passwordError || confirmPasswordError) return
 
         if (!token) {
-            // Pre-submission validation. In a real app, this page might redirect if no token is present.
             alert("Token de recuperação não encontrado.")
             return
         }
-        
-        // Executes the API call using our custom hook.
-        // The hook handles setting `isSubmitting` and `submissionError` automatically.
         const { success } = await submitNewPassword(token, passwords.password)
 
         if (success) {
@@ -145,8 +120,6 @@ const ResetPasswordPage = () => {
         <Container component="main" maxWidth="sm" sx={{ px: { xs: 2, sm: 0 } }}>
             <Paper elevation={8} sx={{ p: { xs: 3, sm: 5 }, width: '100%', maxWidth: '590px', mx: 'auto' }}>
                 {isSuccess ? (
-                    // --- SUCCESS VIEW ---
-                    // This view is shown after the password has been successfully reset.
                     <Box sx={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, p: 2 }}>
                         <CheckCircleOutline sx={{ fontSize: 60, color: 'success.main' }} />
                         <Typography component="h1" variant="h5" sx={{ fontWeight: 'bold' }}>Senha Atualizada!</Typography>
@@ -156,9 +129,7 @@ const ResetPasswordPage = () => {
                         </Button>
                     </Box>
                 ) : (
-                    // --- INITIAL FORM VIEW ---
-                    // This view is shown initially for the user to enter their new password.
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ width: '100%', display: 'flex', gap: 2, flexDirection: 'column', alignItems: 'center' }}>
                         <Typography component="h1" variant="h5" sx={{ fontWeight: 'bold', mt: 2 }}>Recuperar senha</Typography>
                         <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1, mb: 3 }}>Crie sua nova senha.</Typography>
 
