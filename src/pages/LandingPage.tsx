@@ -12,7 +12,7 @@ import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
 const Hero = () => (
   <section className="bg-gradient-to-b from-[#728CCC] to-[#C2D2FC] py-20 pt-40 text-center text-[#1D2333]">
     <div className="container mx-auto px-6">
-      <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+      <h1 className="text-3xl md:text-5xl font-bold leading-tight">
         Compre do Comércio Local
       </h1>
       <p className="text-lg mt-4 max-w-2xl mx-auto">
@@ -128,7 +128,7 @@ const Benefits = () => (
 )
 
 const FindStores = () => (
-    <section className="py-5 bg-[#F8F8F8] text-[#1D2333]">
+    <section className="pb-16 bg-[#F8F8F8] text-[#1D2333]">
         <div className="container mx-auto px-6">
             <h2 className="text-3xl font-bold text-center mb-4">Encontre Lojas próximas</h2>
             <p className="text-gray-600 text-center mb-12">Do artesanato à gastronomia, descubra o que só existe perto de você</p>

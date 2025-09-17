@@ -169,7 +169,7 @@ const SignUpPage = () => {
 
             <Paper elevation={8} className="p-6 md:p-8" sx={{ borderRadius: '41px', width: '100%', maxWidth: '500px' }}>
                 <form onSubmit={handleSubmit} noValidate>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
 
                         <Box>
                             <Typography variant="subtitle1" className="font-semibold text-gray-600 text-center" sx={{ mb: 2 }}>Documento *</Typography>
@@ -204,7 +204,7 @@ const SignUpPage = () => {
                         </Box>
 
                         {cepValidated && (
-                            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                                 <TextField size="small" label="Endereço" fullWidth value={formData.address} InputProps={{ readOnly: true, startAdornment: <InputAdornment position="start"><Home /></InputAdornment> }} />
                                 <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
                                     <TextField sx={{ width: { xs: '100%', sm: '50%' } }} size="small" label="Estado" fullWidth value={formData.state} InputProps={{ readOnly: true, startAdornment: <InputAdornment position="start"><Public /></InputAdornment> }} />

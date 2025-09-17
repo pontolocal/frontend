@@ -106,7 +106,7 @@ const ForgotPasswordPage = () => {
                             <Typography variant="body1" sx={{ color: 'text.secondary', mb: 3, lineHeight: 1.5, maxWidth: { xs: '90%', sm: '80%' }, mx: 'auto' }}>
                                 Foi enviado um email de recuperação de senha. Acesse ele para confirma a mudança de senha.
                             </Typography>
-                            <Typography variant="body2" sx={{ mb: 3, color: 'error.main', fontSize: { xs: '0.75rem', sm: '0.8rem' }, lineHeight: 1.4, maxWidth: '480px', mx: 'auto' }}>
+                            <Typography variant="body2" sx={{ mb: 3, color: 'error.main', fontSize: { xs: '0.8rem', sm: '1rem' }, lineHeight: 1.4, maxWidth: '480px', mx: 'auto' }}>
                                 O email pode demorar alguns minutos. Caso não tenha chegado, verifique sua caixa de lixo eletrônico (spam). Se ainda assim não tiver recebido, clique em enviar novamente após o tempo acabar...
                             </Typography>
                             {countdown > 0 && (

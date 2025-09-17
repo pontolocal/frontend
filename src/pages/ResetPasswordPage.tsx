@@ -129,7 +129,7 @@ const ResetPasswordPage = () => {
                         </Button>
                     </Box>
                 ) : (
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ width: '100%', display: 'flex', gap: 2, flexDirection: 'column', alignItems: 'center' }}>
                         <Typography component="h1" variant="h5" sx={{ fontWeight: 'bold', mt: 2 }}>Recuperar senha</Typography>
                         <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1, mb: 3 }}>Crie sua nova senha.</Typography>
 
