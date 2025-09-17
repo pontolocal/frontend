@@ -161,7 +161,7 @@ const SignUpPage = () => {
     return (
         <Container component="main" maxWidth="md" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <Box className="flex flex-col items-center mb-6">
-                <Box component="img" src="/images/LogoPontoLocal.png" alt="Imagem Logo PontoLocal" sx={{ width: { xs: '150px', sm: '192px' } }} className="mb-1" />
+                <Box component="img" src="../../public/LogoPontoLocal.png" alt="Imagem Logo PontoLocal" sx={{ width: { xs: '150px', sm: '192px' } }} className="mb-1" />
                 <Typography component="h1" variant="h6" className="font-bold text-black">
                     Crie sua conta
                 </Typography>
@@ -194,7 +194,7 @@ const SignUpPage = () => {
                             <TextField sx={{ width: { xs: '100%', sm: '50%' } }} size="small" name="whatsapp" label="WhatsApp *" type="tel" fullWidth onChange={handleChange} value={formData.whatsapp} placeholder={placeholders.whatsapp} InputProps={{ startAdornment: <InputAdornment position="start"><WhatsApp /></InputAdornment> }} />
                         </Box>
 
-                        <Typography variant="body1" className="font-bold text-gray-700 mt-2 border-t pt-2">Endereço</Typography>
+                        <Typography variant="body1" className="font-bold text-gray-700 mt-2 pt-2">Endereço</Typography>
 
                         <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2, alignItems: 'flex-start' }}>
                             <TextField sx={{ width: { xs: '100%', sm: '70%' } }} size="small" name="cep" label="CEP *" type="tel" fullWidth onChange={handleChange} value={formData.cep} error={!!errors.cep} helperText={errors.cep} placeholder={placeholders.cep} />
