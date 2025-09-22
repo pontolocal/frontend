@@ -11,6 +11,7 @@ import NotFoundPage from './pages/NotFoundPage'
 import { Footer } from "./components/layout/Footer"
 import { ThankYouPage } from "./pages/ThankYouPage"
 import { FAQPage } from "./pages/FAQPage"
+import Explore from "./pages/Explore"
 
 // Layout para páginas públicas (com Header e Footer)
 const PublicLayout = () => (
@@ -37,15 +38,19 @@ export default function AppRoutes() {
   return (
     <Router>
       <Routes>
-        {/* Grupo de Rotas Públicas */}
+        {/* Grupo de Rotas de Autenticação */}
         <Route element={<PublicLayout />}>
           <Route path="/" element={<LandingPage />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/explore" element={<Explore />} />
+          <Route path="/products" element={<Explore />} />
+          <Route path="/stores" element={<Explore />} />
+
           <Route path="/thankyou" element={<ThankYouPage />} />
           <Route path="/faq" element={<FAQPage />} />
         </Route>
 
-        {/* Grupo de Rotas de Autenticação */}
+        {/* Grupo de Rotas Públicas */}
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />

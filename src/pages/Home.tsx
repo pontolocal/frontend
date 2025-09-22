@@ -4,7 +4,7 @@ import ProductList from "../components/ui/ProductList";
 import { useProduct } from "../hooks/useProduct";
 import { useStores } from "../hooks/useStores";
 import SearchIcon from "@mui/icons-material/Search";
-import { Link as RouterLink } from "react-router-dom";
+import { Link, Link as RouterLink } from "react-router-dom";
 import { useCategories } from "../hooks/useCategories";
 import CategoryList from "../components/ui/CategoryList";
 
@@ -21,7 +21,7 @@ export const Home = () => {
     errorMessage: storesErrorMessage,
   } = useStores("/stores.json");
 
-    const {
+  const {
     categories,
     loading: categoriesLoading,
     error: categoriesError,
@@ -83,13 +83,14 @@ export const Home = () => {
           </div>
         </section>
         <section className="flex justify-center bg-blue-0 py-12">
-          {/* <Link to="/explore"></Link> */}
-          <button className="flex items-center justify-between gap-4 p-4 bg-white h-12 w-96 rounded shadow-sm shadow-gray-400 ">
-            <span className="opacity-40 text-sm">
-              Buscar por produtos ou lojas
-            </span>
-            <SearchIcon className="opacity-40" />
-          </button>
+          <Link to="/explore">
+            <button className="flex items-center justify-between gap-4 p-4 bg-white h-12 w-96 rounded shadow-sm shadow-gray-400 ">
+              <span className="opacity-40 text-sm">
+                Buscar por produtos ou lojas
+              </span>
+              <SearchIcon className="opacity-40" />
+            </button>
+          </Link>
         </section>
         <section className="flex justify-center py-24 bg-blue-1">
           <div className="m-auto">
@@ -98,7 +99,7 @@ export const Home = () => {
             ) : categoriesError ? (
               <p>{categoriesError}</p>
             ) : (
-              < CategoryList categories={categories}/>
+              <CategoryList categories={categories} />
             )}
           </div>
         </section>
