@@ -12,22 +12,15 @@ import { FAQPage } from "./pages/FAQPage";
 export default function AppRoutes() {
   return (
     <Router>
-<<<<<<< HEAD
-      {/* <Header /> */}
-      <MiniDrawerOverlay />
-      {/* <Footer /> */}
-     
-=======
       <Header />
-      {/* <MiniDrawerOverlay /> */}
->>>>>>> 56036bb2fa46a5d3be8668cf40171dc5aa5afca5
-      <Routes>
-        {/* Coloque suas rotas aqui  */}
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/thankyou" element={<ThankYouPage />} />
-        <Route path="/faq" element={<FAQPage />} />
-      </Routes>
+    
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/thankyou" element={<ThankYouPage />} />
+          <Route path="/faq" element={<FAQPage />} />
+        </Routes>
+
       <Footer />
     </Router>
   );

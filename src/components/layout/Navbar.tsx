@@ -4,7 +4,7 @@ import { MenuHamburguer } from "../ui/MenuHamburguer";
 
 export const Navbar = () => {
   return (
-    <nav className="flex w-full bg-white fixed items-center justify-between p-6">
+    <nav className="flex w-full bg-white fixed items-center justify-between p-6 z-1">
       <div className="w-[94px] sm:hidden flex justify-start">
         <MenuHamburguer />
       </div>
