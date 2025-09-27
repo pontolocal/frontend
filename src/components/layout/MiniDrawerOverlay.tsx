@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from 'react-router-dom';
 import {
   styled,
   useTheme,
@@ -13,10 +14,6 @@ import MuiAppBar, {
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import CssBaseline from "@mui/material/CssBaseline";
-<<<<<<< HEAD
-=======
-import Divider from "@mui/material/Divider";
->>>>>>> 56036bb2fa46a5d3be8668cf40171dc5aa5afca5
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -31,8 +28,11 @@ import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { PontoLocalLogo } from "../ui/PontoLocalLogo";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import DarkModeSwitch from "../ui/ButtonSwitch";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
+import Divider from "@mui/material/Divider";
 
 const drawerWidth = 240;
 
@@ -117,13 +117,18 @@ const Drawer = styled(MuiDrawer, {
     },
   ],
 }));
-const icons = [
-        <HomeIcon/>,
-        <FavoriteBorderIcon />,
-        <AddIcon />,
-        <ShoppingBagIcon />,
-        <SearchIcon color="primary"/>
-        ];
+const menuItems = [
+  { text: "Home", icon: <HomeIcon />, path:"/home" },
+  { text: "Favoritos", icon: <FavoriteBorderIcon />, path:"/" },
+  { text: "Anunciar", icon: <AddIcon />, path:"/" },
+  { text: "Meu dashboard", icon: <ShoppingBagIcon />,path:"/" },
+  { text: "Explorar produtos", icon: <SearchIcon />,path:"/" },
+];
+
+const helpItems = [
+  { text: "Ajuda", icon: <HelpOutlineIcon />,path:"/" },
+  { text: "Notificações", icon: <CircleNotificationsIcon />,path:"/" },
+];
 
 export default function MiniDrawer() {
   const theme = useTheme();
@@ -143,7 +148,7 @@ export default function MiniDrawer() {
       <AppBar
         position="relative"
         open={open}
-        sx={{ background: theme.palette.primary.main }}
+        sx={{ background: "#1D2333" }}
       >
         <Toolbar className="flex">
           <IconButton
@@ -160,18 +165,15 @@ export default function MiniDrawer() {
           >
             <MenuIcon />
           </IconButton>
-          <PontoLocalLogo/>
-          
+          <PontoLocalLogo />
+
           <div className="flex items-center space-x-2 ml-auto">
-          <DarkModeSwitch/>
-            <AccountCircleIcon/>
+            <DarkModeSwitch />
+            <AccountCircleIcon />
           </div>
-          
         </Toolbar>
-        
       </AppBar>
       <Drawer variant="permanent" open={open}>
-        
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
@@ -181,35 +183,80 @@ export default function MiniDrawer() {
             )}
           </IconButton>
         </DrawerHeader>
-        <List>
-          {["Home", "Favoritos", "Anunciar", "Meu dashboard", "Explorar produtos"].map(
-            (text, index) => (
-              <ListItem key={text} disablePadding sx={{ display: "block" }}>
+        <Box
+          sx={{
+            height: "100%", 
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <List>
+            {menuItems.map((item) => (
+              <ListItem
+                key={item.text}
+                disablePadding
+                sx={{ display: "block" }}
+              >
                 <ListItemButton
-                  sx={[
-                    { minHeight: 48, px: 2.5 },
-                    open
-                      ? { justifyContent: "initial" }
-                      : { justifyContent: "center" },
-                  ]}
-                >
+              component={Link} // Diz ao MUI para usar o componente Link
+              to={item.path}      // A URL de destino
+              sx={[
+                { minHeight: 48, px: 2.5 },
+                open ? { justifyContent: "initial" } : { justifyContent: "center" },
+              ]}
+            >
                   <ListItemIcon
                     sx={[
                       { minWidth: 0, justifyContent: "center" },
                       open ? { mr: 3 } : { mr: "auto" },
                     ]}
                   >
-                    {icons[index]}
+                    {item.icon}
                   </ListItemIcon>
                   <ListItemText
-                    primary={text}
-                    sx={[open ? { opacity: 1 } : { opacity: 0 }]}
+                    primary={item.text}
+                    sx={{ opacity: open ? 1 : 0 }}
                   />
                 </ListItemButton>
               </ListItem>
-            )
-          )}
-        </List>
+            ))}
+          </List>
+
+          <Box sx={{ marginTop: "auto" }}>
+            <Divider sx={{ my: 1 }} />
+            <List>
+              {helpItems.map((item) => (
+                <ListItem
+                  key={item.text}
+                  disablePadding
+                  sx={{ display: "block" }}
+                >
+                  <ListItemButton
+              component={Link} // Diz ao MUI para usar o componente Link
+              to={item.path}      // A URL de destino
+              sx={[
+                { minHeight: 48, px: 2.5 },
+                open ? { justifyContent: "initial" } : { justifyContent: "center" },
+              ]}
+            >
+                    <ListItemIcon
+                      sx={[
+                        { minWidth: 0, justifyContent: "center" },
+                        open ? { mr: 3 } : { mr: "auto" },
+                      ]}
+                    >
+                      {item.icon}
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={item.text}
+                      sx={{ opacity: open ? 1 : 0 }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          </Box>
+        </Box>
       </Drawer>
     </Box>
   );
