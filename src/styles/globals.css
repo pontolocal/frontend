@@ -10,8 +10,11 @@
   --color-blue-2: #728CCC;
   --color-blue-3: #3C5491;
   --color-blue-4: #1D2333;
+  --color-blue-5: #7BB3E0;
   --color-white: #FFFFFF;
   --color-black: #000000;
+  --color-black-opacity-60: rgba(0, 0, 0, 0.6);
+  --color-black-opacity-40: rgba(0, 0, 0, 0.4);
   --color-grey-1: #F0F0F0;
   --color-grey-2: #696969;
   --color-grey-3: #585A5C;
