@@ -60,9 +60,6 @@ const AppLayout = () => <Outlet />;
 export default function AppRoutes() {
   return (
     <Router>
-      {/* <Header /> */}
-      {/* <Footer /> */}
-
       <Routes>
         {/* Grupo de Rotas de Autenticação */}
         <Route element={<NonLoggedLayout />}>
