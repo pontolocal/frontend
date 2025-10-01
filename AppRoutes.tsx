@@ -12,6 +12,7 @@ import { Footer } from "./components/layout/Footer"
 import { ThankYouPage } from "./pages/ThankYouPage"
 import { FAQPage } from "./pages/FAQPage"
 import Welcome from './pages/Welcome'
+import PaginaDeTeste from './pages/PaginaDeTesteModal'
 
 // Layout para páginas públicas (com Header e Footer)
 const PublicLayout = () => (
@@ -49,6 +50,7 @@ export default function AppRoutes() {
           <Route path="/home" element={<Home />} />
           <Route path="/thankyou" element={<ThankYouPage />} />
           <Route path="/faq" element={<FAQPage />} />
+          
         </Route>
 
         {/* Grupo de Rotas de Autenticação */}
@@ -64,6 +66,9 @@ export default function AppRoutes() {
             <Route path="/welcome" element={<Welcome/>} />
             {/* Outras rotas da área logada virão aqui, como /dashboard, /profile, etc. */}
         </Route>
+
+          {/* ROTA DE TESTE*/}
+        <Route path="/teste-modal" element={<PaginaDeTeste />} />
 
         {/* Rota "Pega-Tudo" para página não encontrada */}
         <Route path="*" element={<NotFoundPage />} />
