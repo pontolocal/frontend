@@ -14,6 +14,8 @@ import { FAQPage } from "./pages/FAQPage"
 import Explore from "./pages/Explore"
 import ProductDetail from "./pages/ProductDetail"
 import Favorites from "./pages/Favorites"
+import Welcome from './pages/Welcome'
+import PaginaDeTeste from './pages/PaginaDeTesteModal'
 
 // Layout para páginas públicas (com Header e Footer)
 const PublicLayout = () => (
@@ -36,6 +38,11 @@ const AuthLayout = () => (
   </Box>
 )
 
+// Futuramente, aqui você pode adicionar a Sidebar e o Header do Dashboard
+const AppLayout = () => (
+    <Outlet />
+)
+
 export default function AppRoutes() {
   return (
     <Router>
@@ -53,6 +60,7 @@ export default function AppRoutes() {
 
           <Route path="/thankyou" element={<ThankYouPage />} />
           <Route path="/faq" element={<FAQPage />} />
+          
         </Route>
 
         {/* Grupo de Rotas Públicas */}
@@ -62,6 +70,15 @@ export default function AppRoutes() {
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
         </Route>
+
+        {/*Novo Grupo De Rotas Logadas */}
+        <Route element={<AppLayout />}>
+            <Route path="/welcome" element={<Welcome/>} />
+            {/* Outras rotas da área logada virão aqui, como /dashboard, /profile, etc. */}
+        </Route>
+
+          {/* ROTA DE TESTE*/}
+        <Route path="/teste-modal" element={<PaginaDeTeste />} />
 
         {/* Rota "Pega-Tudo" para página não encontrada */}
         <Route path="*" element={<NotFoundPage />} />
