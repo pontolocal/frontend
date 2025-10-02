@@ -1,0 +1,24 @@
+[
+  { 
+    "id": 1, 
+    "title": "Boas vindas!", 
+    "timestamp": "29/09/2025 às 10:15", 
+    "icon": "🎉", 
+    "subtitle": "Bem-vindo(a) ao Ponto Local!", 
+    "body": "Aqui você encontra produtos de qualidade, vendedores da sua região e a praticidade de comprar e receber como preferir. Explore, descubra e aproveite ofertas pensadas para você. Seu próximo achado está a um clique de distância! 🛍️" 
+  },
+  { 
+    "id": 2, 
+    "title": "Você tem 23 negociações pendentes", 
+    "timestamp": "01/10/2025 às 08:35", 
+    "body": "Você tem negociações em andamento... Confirme se a negociação com vendedor foi bem sucedida ou não.", 
+    "actionText": "Confirmar negociações", 
+    "isNew": true 
+  },
+  { 
+    "id": 3, 
+    "title": "Atualização de Segurança", 
+    "timestamp": "30/09/2025 às 14:00", 
+    "body": "Sua senha foi atualizada com sucesso. Se você não reconhece esta ação, entre em contato com o suporte imediatamente."
+  }
+]
