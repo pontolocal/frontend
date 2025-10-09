@@ -1,11 +1,8 @@
-
-import RegisterProduct from "./RegisterProduct";
-import UpdateProduct from "./UpdateProduct";
+import { ReviewPage } from "./ReviewPage";
 export const LandingPage = () => {
   return (
-    <>
-      <main><UpdateProduct />
-      <RegisterProduct /></main>
-    </>
-  )
-}
+    <main>
+      <ReviewPage />
+    </main>
+  );
+};

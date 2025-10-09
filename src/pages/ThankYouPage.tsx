@@ -17,10 +17,10 @@ export const ThankYouPage = () => {
             Quer continuar explorando os produtos
           </p>
           <div className="w-full flex justify-center items-center gap-4 max-ss:flex-col flex-row ">
-            <button className="max-w-[250px] w-full max-h-[50px] bg-blue-3 hover:bg-blue-2 flex justify-center items-center rounded-10 text-base text-white font-bold p-4">
+            <button className="max-w-[250px] w-full max-h-[50px] bg-blue-3 hover:bg-blue-2 flex justify-center items-center rounded-10 text-base text-white font-bold p-4 cursor-pointer">
               Começar a vender
             </button>
-            <button className="max-w-[250px] w-full max-h-[50px] bg-white hover:bg-blue-2 flex justify-center items-center hover:text-white rounded-10 text-base text-blue-3 border-2 border-blue-3 font-bold p-4">
+            <button className="max-w-[250px] w-full max-h-[50px] bg-white hover:bg-blue-2 flex justify-center items-center hover:text-white rounded-10 text-base text-blue-3 border-2 border-blue-3 font-bold p-4 cursor-pointer">
               Começar a vender
             </button>
           </div>
