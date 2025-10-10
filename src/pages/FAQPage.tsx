@@ -37,7 +37,6 @@ acompanhamento`,
 ];
 
 export const FAQPage = () => {
-  // Cria um estado para cada item (todos fechados inicialmente)
   const [openIndexes, setOpenIndexes] = useState(
     Array(faqData.length).fill(false)
   );

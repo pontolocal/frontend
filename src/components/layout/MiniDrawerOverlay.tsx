@@ -28,11 +28,11 @@ import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { PontoLocalLogo } from "../ui/PontoLocalLogo";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import DarkModeSwitch from "../ui/ButtonSwitch";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
 import Divider from "@mui/material/Divider";
+import ProfileIcon from "../ui/ProfileIcon";
 
 const drawerWidth = 240;
 
@@ -169,7 +169,7 @@ export default function MiniDrawer() {
 
           <div className="flex items-center space-x-2 ml-auto">
             <DarkModeSwitch />
-            <AccountCircleIcon />
+            <ProfileIcon/>
           </div>
         </Toolbar>
       </AppBar>
