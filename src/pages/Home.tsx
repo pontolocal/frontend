@@ -116,13 +116,13 @@ export const Home = () => {
           )}
         </section>
         <section className="flex justify-center py-24 bg-blue-1">
-          <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4 ">
+          <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-16 max-md:gap-4 ">
             {storesLoading ? (
               <p>Carregando</p>
             ) : storesErrorMessage ? (
               <p>{storesErrorMessage}</p>
             ) : (
-              stores?.slice(0, 3).map((store) => <StoreCard store={store} />)
+              stores?.slice(0, 3).map((store) => <StoreCard store={store} key={store.id}/>)
             )}
           </div>
         </section>

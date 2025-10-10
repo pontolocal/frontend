@@ -6,6 +6,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
+import FilterComponent from "../components/ui/FilterComponent";
 
 // import { useCategories } from "../hooks/useCategories";
 // import CategoryList from "../components/ui/CategoryList";
@@ -35,18 +36,6 @@ const Explore = () => {
     console.log(searchValue);
   };
 
-  // const renderComponents = () => {
-  //   switch (location) {
-  //     case "/products":
-  //       return;
-  //     case "/store":
-  //       return;
-
-  //     default:
-  //       return;
-  //   }
-  // };
-
   // const {
   //   categories,
   //   loading: categoriesLoading,
@@ -73,8 +62,9 @@ const Explore = () => {
           </button>
         </div>
         <div className="flex gap-2">
-          {pages.map((page) => (
+          {pages.map((page, index) => (
             <Button
+            key={index}
               component={Link}
               to={page.path}
               variant="outlined"
@@ -98,6 +88,8 @@ const Explore = () => {
           ))}
         </div>
       </section>
+
+      <FilterComponent/>
 
       {location === "/stores" ? (
         <section className="flex flex-col gap-4 justify-center items-center py-24 ">
