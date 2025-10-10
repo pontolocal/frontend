@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import StoreReviews from '../components/layout/RateContainer';
-import type { RatingAverage } from '../types/Review'; // Importe o tipo dos dados
+import type { RatingAverage } from '../types/Review';
 import type { Seller } from '../types/Review';
-import type { RatingsResponse } from '../types/Review';
+// import type { RatingsResponse } from '../types/Review';
 import MerchantProfile from '../components/layout/MerchantProfile';
 import { getSeller, getRatingAverage } from '../services/ratingService';
 

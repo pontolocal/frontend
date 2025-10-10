@@ -44,10 +44,8 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center items-center w-full text-xs text-grey-3">
-        <p>
-          © 2025 Plataforma Local. Todos os direitos reservados.
-        </p>
+      <div className="flex justify-center items-center w-full text-xs text-gray-3">
+        <p>© 2025 Plataforma Local. Todos os direitos reservados.</p>
       </div>
     </footer>
   );
