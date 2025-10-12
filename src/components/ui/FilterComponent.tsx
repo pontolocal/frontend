@@ -14,7 +14,7 @@ import Select from "@mui/material/Select";
 import type { SelectChangeEvent } from "@mui/material/Select";
 import cities from "../../data/cities.json";
 import categories from "../../data/categories.json";
-import { Padding } from "@mui/icons-material";
+import { Button } from "../../components/ui/Button";
 
 const FilterComponent = () => {
   const [address, setAddress] = React.useState("Endereço cadastrado");
@@ -45,9 +45,13 @@ const FilterComponent = () => {
   };
 
   return (
-    <div className="bg-white max-w-[1069px] m-auto px-12 py-8">
+    <div className="relative bg-white max-w-[1069px] m-auto px-12 py-8 rounded">
       <h2 className="font-bold text-xl pb-4">Filtros</h2>
-      <div className="flex justify-between gap-4">
+      <Button
+        styles="absolute top-4 right-4 text-xs text-blue-3 border-1 border-blue-3 max-w-24 h-8! hover:bg-blue-3 hover:text-white"
+        text="Limpar"
+      />
+      <div className="flex justify-between gap-4 max-md:flex-col">
         <div className="flex flex-col flex-1">
           <h3 className="font-bold opacity-60">Onde será sua busca?</h3>
           <div className="flex flex-col gap-4">
@@ -192,7 +196,7 @@ const FilterComponent = () => {
                 </FormControl>
               </Box>
             ) : (
-              <Box sx={{ "width": "200px" }}>
+              <Box sx={{ width: "200px" }}>
                 <label className="font-medium text-xs">{radius} km</label>
                 <Slider
                   valueLabelDisplay="auto"
@@ -261,7 +265,7 @@ const FilterComponent = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col flex-1">
+        <div className="flex flex-col flex-1 gap-4">
           <Box sx={{ minWidth: 120 }}>
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Ordenar por</InputLabel>
@@ -295,6 +299,7 @@ const FilterComponent = () => {
               </Select>
             </FormControl>
           </Box>
+          <Button styles="bg-blue-3 text-white" text="Aplicar" />
         </div>
       </div>
     </div>

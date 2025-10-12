@@ -43,11 +43,11 @@ const Explore = () => {
   // } = useCategories("/categories.json");
   return (
     <main className="bg-blue-0">
-      <section className="flex flex-col gap-4 items-center justify-center  py-12">
+      <section className="flex flex-col gap-4 items-center justify-center py-12 px-4">
         <h2 className="text-center font-bold text-2xl">
           Encontre produtos e lojas próximos de você
         </h2>
-        <div className="flex items-center justify-between gap-4 p-4 bg-white h-12 w-96 rounded shadow-sm shadow-gray-400 ">
+        <div className="flex items-center justify-between gap-4 p-4 bg-white h-12 max-w-96 w-full rounded shadow-sm shadow-gray-400 ">
           <input
             type="text"
             placeholder="Buscar por produtos ou lojas"
@@ -64,7 +64,7 @@ const Explore = () => {
         <div className="flex gap-2">
           {pages.map((page, index) => (
             <Button
-            key={index}
+              key={index}
               component={Link}
               to={page.path}
               variant="outlined"
@@ -89,7 +89,7 @@ const Explore = () => {
         </div>
       </section>
 
-      <FilterComponent/>
+      <FilterComponent />
 
       {location === "/stores" ? (
         <section className="flex flex-col gap-4 justify-center items-center py-24 ">
@@ -181,9 +181,11 @@ const Explore = () => {
                 </h2>
               )}
               <Link
-              to="/stores"
-              className="font-bold underline decoration-1 decoration-black text-sm"
-            >Mais lojas</Link>
+                to="/stores"
+                className="font-bold underline decoration-1 decoration-black text-sm"
+              >
+                Mais lojas
+              </Link>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-16 ">
               {storesLoading ? (
