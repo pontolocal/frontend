@@ -19,8 +19,8 @@ import { Button } from "../../components/ui/Button";
 const FilterComponent = () => {
   const [address, setAddress] = React.useState("Endereço cadastrado");
   const [area, setArea] = React.useState("Raio de distância");
-  const [city, setCity] = React.useState("Selecione");
-  const [category, setCategory] = React.useState("Selecione");
+  const [city, setCity] = React.useState("");
+  const [category, setCategory] = React.useState("");
   const [radius, setRadius] = React.useState(50);
 
   const handleChangeAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,9 +39,8 @@ const FilterComponent = () => {
     setCategory(event.target.value as string);
   };
 
-  const handleSliderChange = (event: Event, newValue: number) => {
+  const handleSliderChange = (_event: Event, newValue: number) => {
     setRadius(newValue);
-    console.log(newValue);
   };
 
   return (
@@ -196,7 +195,7 @@ const FilterComponent = () => {
                 </FormControl>
               </Box>
             ) : (
-              <Box sx={{ width: "200px" }}>
+              <Box>
                 <label className="font-medium text-xs">{radius} km</label>
                 <Slider
                   valueLabelDisplay="auto"
@@ -247,20 +246,23 @@ const FilterComponent = () => {
               </FormControl>
             </Box>
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 w-full">
             <h3 className="font-bold opacity-60">Faixa de preço</h3>
-            <div className="flex gap-2">
+            <div className="flex gap-2 w-full">
               <TextField
                 id="outlined-basic"
                 label="min"
                 variant="outlined"
                 type="number"
+                sx={{"width":"100%"}}
               />
               <TextField
                 id="outlined-basic"
                 label="max"
                 variant="outlined"
                 type="number"
+                sx={{"width":"100%"}}
+
               />
             </div>
           </div>

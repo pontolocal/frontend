@@ -4,9 +4,10 @@ import { useProduct } from "../hooks/useProduct";
 import { useStores } from "../hooks/useStores";
 import SearchIcon from "@mui/icons-material/Search";
 import { Link, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import FilterComponent from "../components/ui/FilterComponent";
+import { Pagination } from "@mui/material";
 
 // import { useCategories } from "../hooks/useCategories";
 // import CategoryList from "../components/ui/CategoryList";
@@ -20,6 +21,12 @@ const pages = [
 const Explore = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   let location: string = useLocation().pathname;
+
+  const [page, setPage] = useState(1);
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
+
   const {
     products,
     isLoading: productsLoading,
@@ -92,7 +99,7 @@ const Explore = () => {
       <FilterComponent />
 
       {location === "/stores" ? (
-        <section className="flex flex-col gap-4 justify-center items-center py-24 ">
+        <section className="flex flex-col gap-4 justify-center items-center py-12 ">
           <div className="flex justify-between w-full max-w-[1069px] m-auto px-4">
             {stores ? (
               <div>
@@ -116,6 +123,7 @@ const Explore = () => {
                 .map((store) => <StoreCard store={store} key={store.id} />)
             )}
           </div>
+          <Pagination count={10} page={page} onChange={handleChange} color="primary" className="m-auto w-fit pt-8" />
         </section>
       ) : location === "/products" ? (
         <section className="py-12">
@@ -138,6 +146,7 @@ const Explore = () => {
           ) : (
             <p>{productsErrorMessage}</p>
           )}
+          <Pagination count={10} page={page} onChange={handleChange} color="primary" className="m-auto w-fit pt-8" />
         </section>
       ) : (
         <div>

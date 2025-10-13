@@ -12,6 +12,8 @@ import { Footer } from "./components/layout/Footer"
 import { ThankYouPage } from "./pages/ThankYouPage"
 import { FAQPage } from "./pages/FAQPage"
 import Explore from "./pages/Explore"
+import ProductDetail from "./pages/ProductDetail"
+import Favorites from "./pages/Favorites"
 
 // Layout para páginas públicas (com Header e Footer)
 const PublicLayout = () => (
@@ -43,8 +45,11 @@ export default function AppRoutes() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/home" element={<Home />} />
           <Route path="/explore" element={<Explore />} />
+          <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/products" element={<Explore />} />
           <Route path="/stores" element={<Explore />} />
+          <Route path="/favorites" element={<Favorites />} />
+
 
           <Route path="/thankyou" element={<ThankYouPage />} />
           <Route path="/faq" element={<FAQPage />} />

@@ -52,7 +52,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
         <p className="text-sm">{product.description}</p>
       </div>
       <div className="flex flex-col gap-2">
-        <Link to="/">
+        <Link to={`/products/${product.id}`}>
           <Button
             styles="bg-white border justify-center text-blue-3 font-semibold"
             text="Ver detalhes"

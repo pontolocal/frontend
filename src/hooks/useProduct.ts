@@ -5,7 +5,7 @@ import type { ProductType } from "../models/Products";
 export const useProduct = (endpoint: string) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [products, setProducts] = useState<ProductType[]>();
+  const [products, setProducts] = useState<ProductType[]>([]);
 
   const api = new ProductServices();
   const fetchProducts = useCallback(async () => {
