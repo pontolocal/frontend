@@ -43,11 +43,6 @@ const Explore = () => {
     console.log(searchValue);
   };
 
-  // const {
-  //   categories,
-  //   loading: categoriesLoading,
-  //   error: categoriesError,
-  // } = useCategories("/categories.json");
   return (
     <main className="bg-blue-0">
       <section className="flex flex-col gap-4 items-center justify-center py-12 px-4">
