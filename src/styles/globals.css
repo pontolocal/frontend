@@ -5,32 +5,39 @@
 /* Default variables  */
 @theme {
   /* Colors  */
-  --color-blue-0: #E4EBFF;
-  --color-blue-1: #C2D2FC;
-  --color-blue-2: #728CCC;
-  --color-blue-3: #3C5491;
-  --color-blue-4: #1D2333;
-  --color-blue-5: #7BB3E0;
-  --color-white: #FFFFFF;
+  --color-blue-0: #e4ebff;
+  --color-blue-1: #c2d2fc;
+  --color-blue-2: #728ccc;
+  --color-blue-3: #3c5491;
+  --color-blue-4: #1d2333;
+  --color-blue-5: #7bb3e0;
+  --color-blue-6: #dbeafe;
+  --color-blue-7: #7BB3E0;
+  --color-white: #ffffff;
   --color-black: #000000;
   --color-black-opacity-60: rgba(0, 0, 0, 0.6);
   --color-black-opacity-40: rgba(0, 0, 0, 0.4);
-  --color-grey-1: #F0F0F0;
-  --color-grey-2: #696969;
-  --color-grey-3: #585A5C;
-  --color-green-1: #DCFCE7;
+  --color-gray-1: #f0f0f0;
+  --color-gray-2: #696969;
+  --color-gray-3: #585a5c;
+  --color-gray-4: #9e9e9e;
+  --color-gray-5: #B8B8B8;
+  --color-green-1: #dcfce7;
   --color-green-2: #166537;
   --color-orange-1: #F9E7C0;
   --color-orange-pale-2: #FFF4EB;
   --color-brown-1: #943412;
   --color-red-1: #FFC9B5;
   --color-red-2: #8A0900;
+  --color-red-3: #FFD9D9;
+  --color-red-4: #FEE2E2;
 
   /* Fonts  */
   --font-inter: "Inter", sans-serif;
-  
+
   /* Border radius */
   --radius-10: 10px;
+  --radius-41: 41px;
 
   /* Breakpoints */
   --breakpoint-ss: 540px;
