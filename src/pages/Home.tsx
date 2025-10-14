@@ -84,7 +84,7 @@ export const Home = () => {
         </section>
         <section className="flex justify-center bg-blue-0 py-12">
           <Link to="/explore">
-            <button className="flex items-center justify-between gap-4 p-4 bg-white h-12 w-96 rounded shadow-sm shadow-gray-400 ">
+            <button className="flex items-center justify-between gap-4 p-4 bg-white h-12 w-80 rounded shadow-sm shadow-gray-400 ">
               <span className="opacity-40 text-sm">
                 Buscar por produtos ou lojas
               </span>
@@ -92,7 +92,7 @@ export const Home = () => {
             </button>
           </Link>
         </section>
-        <section className="flex justify-center py-24 bg-blue-1">
+        <section className="flex justify-center py-12 bg-blue-1">
           <div className="m-auto">
             {categoriesLoading ? (
               <p>Carregando</p>
@@ -115,7 +115,7 @@ export const Home = () => {
             <p>{productsErrorMessage}</p>
           )}
         </section>
-        <section className="flex justify-center py-24 bg-blue-1">
+        <section className="flex justify-center py-12 bg-blue-1">
           <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-16 max-md:gap-4 ">
             {storesLoading ? (
               <p>Carregando</p>
