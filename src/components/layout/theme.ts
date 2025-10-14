@@ -1,5 +1,15 @@
 import { createTheme } from '@mui/material/styles'
 
+
+declare module '@mui/material/styles' {
+  interface Palette {
+    infoBox: Palette['primary']
+  }
+  interface PaletteOptions {
+    infoBox: PaletteOptions['primary']
+  }
+}
+
 export const theme = createTheme({
   // --- PALETA DE CORES ---
   palette: {
@@ -16,6 +26,13 @@ export const theme = createTheme({
       // @ts-ignore 
       alt: '#E4EBFF',
     },
+    success: {
+        main: '#22C55E', 
+    },
+    infoBox: {
+        main: '#C2D2FC',
+        contrastText: '#00000',
+    }
   },
 
   // --- CUSTOMIZAÇÃO DE COMPONENTES ---
