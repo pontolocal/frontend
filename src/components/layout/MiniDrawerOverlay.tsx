@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from 'react-router-dom';
 import {
   styled,
   useTheme,
@@ -13,7 +14,6 @@ import MuiAppBar, {
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -22,10 +22,17 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-
-
+import HomeIcon from "@mui/icons-material/Home";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import AddIcon from "@mui/icons-material/Add";
+import SearchIcon from "@mui/icons-material/Search";
+import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+import { PontoLocalLogo } from "../ui/PontoLocalLogo";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import DarkModeSwitch from "../ui/ButtonSwitch";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
+import Divider from "@mui/material/Divider";
 
 const drawerWidth = 240;
 
@@ -110,6 +117,18 @@ const Drawer = styled(MuiDrawer, {
     },
   ],
 }));
+const menuItems = [
+  { text: "Home", icon: <HomeIcon />, path:"/home" },
+  { text: "Favoritos", icon: <FavoriteBorderIcon />, path:"/favorites" },
+  { text: "Anunciar", icon: <AddIcon />, path:"/" },
+  { text: "Meu dashboard", icon: <ShoppingBagIcon />,path:"/" },
+  { text: "Explorar produtos", icon: <SearchIcon />,path:"/explore" },
+];
+
+const helpItems = [
+  { text: "Ajuda", icon: <HelpOutlineIcon />,path:"/faq" },
+  { text: "Notificações", icon: <CircleNotificationsIcon />,path:"/" },
+];
 
 export default function MiniDrawer() {
   const theme = useTheme();
@@ -126,8 +145,16 @@ export default function MiniDrawer() {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="relative" open={open} sx={{ background:theme.palette.primary.main }}>
-        <Toolbar>
+      <AppBar
+        position="fixed"
+        open={open}
+        sx={{
+          borderRadius: 0,
+          bgcolor: "white",
+          boxShadow: "none",
+        }}
+      >
+        <Toolbar className="flex border-0 rounded-none">
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -136,15 +163,30 @@ export default function MiniDrawer() {
             sx={[
               {
                 marginRight: 5,
+                zIndex: "999",
               },
               open && { display: "none" },
             ]}
           >
-            <MenuIcon />
+            <MenuIcon className="text-gray-500"/>
           </IconButton>
+          <PontoLocalLogo />
+
+          <div className="flex items-center space-x-2 ml-auto">
+            <DarkModeSwitch />
+            <AccountCircleIcon />
+          </div>
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open}>
+      <Drawer
+        variant="permanent"
+        open={open}
+        sx={{
+          "& .MuiDrawer-paper": {
+            borderRadius: 0,
+          },
+        }}
+      >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
@@ -154,112 +196,81 @@ export default function MiniDrawer() {
             )}
           </IconButton>
         </DrawerHeader>
-    
-        <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                sx={[
-                  {
-                    minHeight: 48,
-                    px: 2.5,
-                  },
-                  open
-                    ? {
-                        justifyContent: "initial",
-                      }
-                    : {
-                        justifyContent: "center",
-                      },
-                ]}
+        <Box
+          sx={{
+            height: "100%", 
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <List>
+            {menuItems.map((item) => (
+              <ListItem
+                key={item.text}
+                disablePadding
+                sx={{ display: "block" }}
               >
-                <ListItemIcon
-                  sx={[
-                    {
-                      minWidth: 0,
-                      justifyContent: "center",
-                    },
-                    open
-                      ? {
-                          mr: 3,
-                        }
-                      : {
-                          mr: "auto",
-                        },
-                  ]}
+                <ListItemButton
+              component={Link} // Diz ao MUI para usar o componente Link
+              to={item.path}      // A URL de destino
+              sx={[
+                { minHeight: 48, px: 2.5 },
+                open ? { justifyContent: "initial" } : { justifyContent: "center" },
+              ]}
+            >
+                  <ListItemIcon
+                    sx={[
+                      { minWidth: 0, justifyContent: "center" },
+                      open ? { mr: 3 } : { mr: "auto" },
+                    ]}
+                  >
+                    {item.icon}
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={item.text}
+                    sx={{ opacity: open ? 1 : 0 }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+
+          <Box sx={{ marginTop: "auto" }}>
+            <Divider sx={{ my: 1 }} />
+            <List>
+              {helpItems.map((item) => (
+                <ListItem
+                  key={item.text}
+                  disablePadding
+                  sx={{ display: "block" }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText
-                  primary={text}
-                  sx={[
-                    open
-                      ? {
-                          opacity: 1,
-                        }
-                      : {
-                          opacity: 0,
-                        },
-                  ]}
-                />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                sx={[
-                  {
-                    minHeight: 48,
-                    px: 2.5,
-                  },
-                  open
-                    ? {
-                        justifyContent: "initial",
-                      }
-                    : {
-                        justifyContent: "center",
-                      },
-                ]}
-              >
-                <ListItemIcon
-                  sx={[
-                    {
-                      minWidth: 0,
-                      justifyContent: "center",
-                    },
-                    open
-                      ? {
-                          mr: 3,
-                        }
-                      : {
-                          mr: "auto",
-                        },
-                  ]}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText
-                  primary={text}
-                  sx={[
-                    open
-                      ? {
-                          opacity: 1,
-                        }
-                      : {
-                          opacity: 0,
-                        },
-                  ]}
-                />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+                  <ListItemButton
+              component={Link} // Diz ao MUI para usar o componente Link
+              to={item.path}      // A URL de destino
+              sx={[
+                { minHeight: 48, px: 2.5 },
+                open ? { justifyContent: "initial" } : { justifyContent: "center" },
+              ]}
+            >
+                    <ListItemIcon
+                      sx={[
+                        { minWidth: 0, justifyContent: "center" },
+                        open ? { mr: 3 } : { mr: "auto" },
+                      ]}
+                    >
+                      {item.icon}
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={item.text}
+                      sx={{ opacity: open ? 1 : 0 }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          </Box>
+        </Box>
       </Drawer>
-     
     </Box>
   );
 }
