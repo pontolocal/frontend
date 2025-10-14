@@ -9,6 +9,7 @@ import { Footer } from "./components/layout/Footer";
 import { ThankYouPage } from "./pages/ThankYouPage";
 import { FAQPage } from "./pages/FAQPage";
 import ProductReviewsPage from "./pages/ProductReviewPage";
+import { PageReview } from "./pages/ReviewPage";
 
 export default function AppRoutes() {
   return (
@@ -21,6 +22,7 @@ export default function AppRoutes() {
           <Route path="/thankyou" element={<ThankYouPage />} />
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/review" element={<ProductReviewsPage/>}/>
+          <Route path="/review-page" element={<PageReview/>}/>
         </Routes>
 
       <Footer />
