@@ -22,6 +22,8 @@ import Favorites from "./pages/Favorites";
 import Welcome from "./pages/Welcome";
 import PaginaDeTeste from "./pages/PaginaDeTesteModal";
 import MiniDrawerOverlay from "./components/layout/MiniDrawerOverlay";
+import ProductReviewsPage from "./pages/ProductReviewPage";
+import { PageReview } from "./pages/ReviewPage";
 
 // Layout para páginas públicas (com Header e Footer)
 const LoggedLayout = () => (
@@ -75,6 +77,8 @@ export default function AppRoutes() {
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/thankyou" element={<ThankYouPage />} />
           <Route path="/faq" element={<FAQPage />} />
+          <Route path="/review" element={<ProductReviewsPage/>}/>
+          <Route path="/review-page" element={<PageReview/>}/>
         </Route>
 
         {/* Grupo de Rotas Públicas */}
