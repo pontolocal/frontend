@@ -1,0 +1,30 @@
+{
+  "storeId": "minha-loja-123",
+  "averageRating": 4.8,
+  "totalReviews": 127,
+  "ratingDistribution": {
+    "stars5": 85,
+    "stars4": 10,
+    "stars3": 3,
+    "stars2": 1,
+    "stars1": 1
+  },
+  "reviews": [
+    {
+      "id": "rev1",
+      "rating": 5,
+      "comment": "Produto excelente! Este comentário veio de um arquivo JSON.",
+      "createdAt": "há 2 dias",
+      "productName": "Coxinha de Frango",
+      "author": { "id": "user-1", "name": "Maria Silva", "initials": "MS", "photoUrl": "https://i.pravatar.cc/150?u=Maria" }
+    },
+    {
+      "id": "rev2",
+      "rating": 4,
+      "comment": "Muito bom, mas podia ter mais recheio.",
+      "createdAt": "há 1 semana",
+      "productName": "Bolinha de Queijo",
+      "author": { "id": "user-2", "name": "João Santos", "initials": "JS", "photoUrl": "https://i.pravatar.cc/150?u=Caua" }
+    }
+  ]
+}
