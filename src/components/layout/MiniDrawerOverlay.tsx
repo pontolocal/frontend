@@ -13,7 +13,6 @@ import MuiAppBar, {
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -22,10 +21,14 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-
-
+import HomeIcon from "@mui/icons-material/Home";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import AddIcon from "@mui/icons-material/Add";
+import SearchIcon from "@mui/icons-material/Search";
+import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+import { PontoLocalLogo } from "../ui/PontoLocalLogo";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import DarkModeSwitch from "../ui/ButtonSwitch";
 
 const drawerWidth = 240;
 
@@ -110,6 +113,13 @@ const Drawer = styled(MuiDrawer, {
     },
   ],
 }));
+const icons = [
+  <HomeIcon />,
+  <FavoriteBorderIcon />,
+  <AddIcon />,
+  <ShoppingBagIcon />,
+  <SearchIcon color="primary" />,
+];
 
 export default function MiniDrawer() {
   const theme = useTheme();
@@ -126,8 +136,16 @@ export default function MiniDrawer() {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="relative" open={open} sx={{ background:theme.palette.primary.main }}>
-        <Toolbar>
+      <AppBar
+        position="fixed"
+        open={open}
+        sx={{
+          borderRadius: 0,
+          bgcolor: "white",
+          boxShadow: "none",
+        }}
+      >
+        <Toolbar className="flex border-0 rounded-none">
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -136,15 +154,30 @@ export default function MiniDrawer() {
             sx={[
               {
                 marginRight: 5,
+                zIndex: "999",
               },
               open && { display: "none" },
             ]}
           >
-            <MenuIcon />
+            <MenuIcon className="text-gray-500"/>
           </IconButton>
+          <PontoLocalLogo />
+
+          <div className="flex items-center space-x-2 ml-auto">
+            <DarkModeSwitch />
+            <AccountCircleIcon />
+          </div>
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open}>
+      <Drawer
+        variant="permanent"
+        open={open}
+        sx={{
+          "& .MuiDrawer-paper": {
+            borderRadius: 0,
+          },
+        }}
+      >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
@@ -154,112 +187,40 @@ export default function MiniDrawer() {
             )}
           </IconButton>
         </DrawerHeader>
-    
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+          {[
+            "Home",
+            "Favoritos",
+            "Anunciar",
+            "Meu dashboard",
+            "Explorar produtos",
+          ].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 sx={[
-                  {
-                    minHeight: 48,
-                    px: 2.5,
-                  },
+                  { minHeight: 48, px: 2.5 },
                   open
-                    ? {
-                        justifyContent: "initial",
-                      }
-                    : {
-                        justifyContent: "center",
-                      },
+                    ? { justifyContent: "initial" }
+                    : { justifyContent: "center" },
                 ]}
               >
                 <ListItemIcon
                   sx={[
-                    {
-                      minWidth: 0,
-                      justifyContent: "center",
-                    },
-                    open
-                      ? {
-                          mr: 3,
-                        }
-                      : {
-                          mr: "auto",
-                        },
+                    { minWidth: 0, justifyContent: "center" },
+                    open ? { mr: 3 } : { mr: "auto" },
                   ]}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {icons[index]}
                 </ListItemIcon>
                 <ListItemText
                   primary={text}
-                  sx={[
-                    open
-                      ? {
-                          opacity: 1,
-                        }
-                      : {
-                          opacity: 0,
-                        },
-                  ]}
-                />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                sx={[
-                  {
-                    minHeight: 48,
-                    px: 2.5,
-                  },
-                  open
-                    ? {
-                        justifyContent: "initial",
-                      }
-                    : {
-                        justifyContent: "center",
-                      },
-                ]}
-              >
-                <ListItemIcon
-                  sx={[
-                    {
-                      minWidth: 0,
-                      justifyContent: "center",
-                    },
-                    open
-                      ? {
-                          mr: 3,
-                        }
-                      : {
-                          mr: "auto",
-                        },
-                  ]}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText
-                  primary={text}
-                  sx={[
-                    open
-                      ? {
-                          opacity: 1,
-                        }
-                      : {
-                          opacity: 0,
-                        },
-                  ]}
+                  sx={[open ? { opacity: 1 } : { opacity: 0 }]}
                 />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
       </Drawer>
-     
     </Box>
   );
 }
