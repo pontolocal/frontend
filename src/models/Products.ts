@@ -4,7 +4,8 @@ export interface ProductType {
   description: string;
   image: string;
   price: number;
-  user_id: number;
-  category_id?: number;
+  storeName: string;
+  categoryName: string;
+  rating?: number;
   is_active: boolean;
 }
