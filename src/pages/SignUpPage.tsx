@@ -1,18 +1,18 @@
 // --- IMPORTS ---
 import { useState, useEffect } from 'react'
-import * as React from 'react';
+import { Link as RouterLink } from "react-router-dom"
+import * as React from 'react'
 import {
     Container, Paper, Typography, TextField, Button, RadioGroup, FormControlLabel,
     Radio, Tooltip, CircularProgress, Box, Link as MuiLink, InputAdornment, Checkbox
 } from '@mui/material'
-import { Person, Business, Email, Lock, WhatsApp, Link as LinkIcon, Home, LocationCity, Public, VpnKey } from '@mui/icons-material'
+import { Person, Business, ArrowBack, Email, Lock, WhatsApp, Link as LinkIcon, Home, LocationCity, Public, VpnKey } from '@mui/icons-material'
 import { maskCPF, maskCNPJ, maskWhatsApp, maskCEP } from '../lib/formatters'
 import { validateEmail, validateCPF, validateCNPJ, validatePassword, doPasswordsMatch } from '../lib/validators'
 import type { DocumentType, SignUpFormData } from '../types/form'
 
-// --- COMPONENT DEFINITION ---
 const SignUpPage = () => {
-    // --- STATE MANAGEMENT ---
+
     const [formData, setFormData] = useState<SignUpFormData>({
         companyName: '', fullName: '', email: '', password: '', confirmPassword: '', whatsapp: '', socialLink: '',
         cep: '', address: '', complement: '', neighborhood: '', city: '', state: '', document: '', companyInfo: '',
@@ -25,11 +25,6 @@ const SignUpPage = () => {
     const [termsAccepted, setTermsAccepted] = useState<boolean>(false)
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true)
 
-    // --- SIDE EFFECTS ---
-    /**
-     * This effect monitors changes in form data, validation states, and terms acceptance.
-     * It determines whether the submit button should be enabled or disabled based on these factors.
-     */
     useEffect(() => {
         const { companyName, fullName, email, password, confirmPassword, whatsapp, cep, document } = formData
         const isNameFilled = documentType === 'CPF' ? fullName : companyName
@@ -39,7 +34,6 @@ const SignUpPage = () => {
         setIsButtonDisabled(!(requiredFieldsFilled && cepValidated && documentValidated && termsAccepted && !hasErrors))
     }, [formData, documentType, cepValidated, documentValidated, termsAccepted, errors])
 
-    // --- CONSTANTS & HELPERS ---
     const placeholders = {
         fullName: 'Digite seu nome completo',
         companyName: 'Digite o nome da sua empresa',
@@ -53,11 +47,6 @@ const SignUpPage = () => {
         confirmPassword: 'Repita sua senha',
     }
 
-    // --- EVENT HANDLERS ---
-    /**
-     * Handles changes for all text inputs.
-     * It applies the correct mask based on the input's name.
-     */
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
         const { name, value } = e.target
         let maskedValue = value
@@ -72,10 +61,6 @@ const SignUpPage = () => {
         setFormData(prev => ({ ...prev, [name]: maskedValue }))
     }
 
-    /**
-     * Handles the blur event for input fields to perform validation.
-     * Sets an error message if the validation fails.
-     */
     const handleBlur = (e: React.FocusEvent<HTMLInputElement>): void => {
         const { name, value } = e.target as { name: keyof SignUpFormData, value: string }
         let errorMsg: string = ''
@@ -100,10 +85,6 @@ const SignUpPage = () => {
         setErrors(prev => ({ ...prev, [name]: errorMsg || undefined }))
     }
 
-    /**
-     * Handles the change of the document type (CPF/CNPJ).
-     * Resets related form fields and validation states.
-     */
     const handleDocumentTypeChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const newDocType = e.target.value as DocumentType
         setDocumentType(newDocType)
@@ -112,10 +93,6 @@ const SignUpPage = () => {
         setErrors(prev => ({ ...prev, document: undefined }))
     }
 
-    /**
-     * Fetches address information from the ViaCEP API based on the entered CEP.
-     * Updates the form with the address data upon success or sets an error.
-     */
     const handleCepLookup = async (): Promise<void> => {
         const cep = formData.cep.replace(/\D/g, '')
         if (cep.length !== 8) return
@@ -148,28 +125,31 @@ const SignUpPage = () => {
         }
     }
 
-    /**
-     * Handles the form submission.
-     */
     const handleSubmit = (e: React.FormEvent): void => {
         e.preventDefault()
         // In a real application, this is where you would make the API call to your backend.
         console.log('Form submitted:', formData)
     }
 
-    // --- JSX RENDER ---
     return (
         <Container component="main" maxWidth="md" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <Box className="flex flex-col items-center mb-6">
                 <Box component="img" src="../../public/LogoPontoLocal.png" alt="Imagem Logo PontoLocal" sx={{ width: { xs: '150px', sm: '192px' } }} className="mb-1" />
-                <Typography component="h1" variant="h6" className="font-bold text-black">
+                <Typography component="h1" variant="h6" sx={{ fontWeight: '600' }}>
                     Crie sua conta
                 </Typography>
             </Box>
 
-            <Paper elevation={8} className="p-6 md:p-8" sx={{ borderRadius: '41px', width: '100%', maxWidth: '500px' }}>
+            <Box sx={{ width: '100%', maxWidth: '700px', display: 'flex', justifyContent: { xs: 'center', sm: 'flex-start' } }}>
+                <MuiLink component={RouterLink} to="/" variant="body2" sx={{ display: 'flex', fontWeight: 'bold', color: 'text.primary', textDecoration: 'none', mb: 1, fontSize: { xs: '0.9rem', sm: '1rem' } }}>
+                    <ArrowBack sx={{ fontSize: { xs: 16, sm: 18 }, mr: 0.5 }} />
+                    Voltar à página inicial
+                </MuiLink>
+            </Box>
+
+            <Paper elevation={8} className="p-6 md:p-8" sx={{ borderRadius: '41px', width: '100%', maxWidth: '700px' }}>
                 <form onSubmit={handleSubmit} noValidate>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
 
                         <Box>
                             <Typography variant="subtitle1" className="font-semibold text-gray-600 text-center" sx={{ mb: 2 }}>Documento *</Typography>
@@ -180,8 +160,7 @@ const SignUpPage = () => {
                         </Box>
 
                         {documentType === 'CPF' ? (
-                            <TextField size="small" name="fullName" label="Nome completo *" fullWidth onChange={handleChange} value={formData.fullName} placeholder={placeholders.fullName} InputProps={{ startAdornment: <InputAdornment position="start"><Person /></InputAdornment> }} />
-                        ) : (
+                            <TextField size="small" name="fullName" label="Nome completo *" fullWidth onChange={handleChange} value={formData.fullName} placeholder={placeholders.fullName} InputProps={{ startAdornment: <InputAdornment position="start"><Person /></InputAdornment> }} />) : (
                             <TextField sx={{ '& .MuiOutlinedInput-root': { height: '40px' }, }} size="small" name="companyName" label="Nome da empresa *" fullWidth onChange={handleChange} value={formData.companyName} placeholder={placeholders.companyName} InputProps={{ startAdornment: <InputAdornment position="start"><Business /></InputAdornment> }} />
                         )}
 
@@ -190,15 +169,15 @@ const SignUpPage = () => {
                         <TextField size="small" name="companyInfo" label={documentType === 'CPF' ? "Fale sobre você" : "Fale sobre a sua empresa"} fullWidth multiline rows={3} onChange={handleChange} value={formData.companyInfo} />
 
                         <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
-                            <TextField sx={{ width: { xs: '100%', sm: '50%' }, '& .MuiInputBase-input::placeholder': { fontSize: { xs: '1rem', sm: '0.75rem', }, } }} size="small" name="socialLink" label="Link (site ou rede social)" fullWidth onChange={handleChange} value={formData.socialLink} placeholder={placeholders.socialLink} InputProps={{ startAdornment: <InputAdornment position="start"><LinkIcon /></InputAdornment> }} />
+                            <TextField sx={{ width: { xs: '100%', sm: '50%' } }} size="small" name="socialLink" label="Link (site ou rede social)" fullWidth onChange={handleChange} value={formData.socialLink} placeholder={placeholders.socialLink} InputProps={{ startAdornment: <InputAdornment position="start"><LinkIcon /></InputAdornment> }} />
                             <TextField sx={{ width: { xs: '100%', sm: '50%' } }} size="small" name="whatsapp" label="WhatsApp *" type="tel" fullWidth onChange={handleChange} value={formData.whatsapp} placeholder={placeholders.whatsapp} InputProps={{ startAdornment: <InputAdornment position="start"><WhatsApp /></InputAdornment> }} />
                         </Box>
 
                         <Typography variant="body1" className="font-bold text-gray-700 mt-2 pt-2">Endereço</Typography>
 
                         <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2, alignItems: 'flex-start' }}>
-                            <TextField sx={{ width: { xs: '100%', sm: '70%' } }} size="small" name="cep" label="CEP *" type="tel" fullWidth onChange={handleChange} value={formData.cep} error={!!errors.cep} helperText={errors.cep} placeholder={placeholders.cep} />
-                            <Button sx={{ width: { xs: '100%', sm: '30%' }, height: '40px' }} variant="contained" color="primary" onClick={handleCepLookup} disabled={isCepLoading || formData.cep.replace(/\D/g, '').length < 8}>
+                            <TextField sx={{ width: { xs: '100%', sm: '70%' } }} size="small" name="cep" label="Digite seu CEP *" type="tel" fullWidth onChange={handleChange} value={formData.cep} error={!!errors.cep} helperText={errors.cep} placeholder={placeholders.cep} />
+                            <Button sx={{ width: { xs: '100%', sm: '20%' }, height: '40px' }} variant="contained" color="primary" onClick={handleCepLookup} disabled={isCepLoading || formData.cep.replace(/\D/g, '').length < 8}>
                                 {isCepLoading ? <CircularProgress size={24} color="inherit" /> : 'Validar CEP'}
                             </Button>
                         </Box>
@@ -216,7 +195,7 @@ const SignUpPage = () => {
                         <TextField size="small" name="complement" label="Complemento" fullWidth onChange={handleChange} value={formData.complement} placeholder={placeholders.complement} InputProps={{ startAdornment: <InputAdornment position="start"><Home /></InputAdornment> }} />
 
                         <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
-                            <TextField sx={{ width: { xs: '100%', sm: '50%' }, '& .MuiOutlinedInput-root': { height: '40px' }, '& .MuiInputBase-input': { fontSize: '0.8rem' } }} size="small" name="password" label="Crie uma senha *" type="password" fullWidth onChange={handleChange} onBlur={handleBlur} value={formData.password} error={!!errors.password} helperText={errors.password} placeholder={placeholders.password} InputProps={{ startAdornment: <InputAdornment position="start"><Lock /></InputAdornment> }} />
+                            <TextField sx={{ width: { xs: '100%', sm: '50%' } }} size="small" name="password" label="Crie uma senha *" type="password" fullWidth onChange={handleChange} onBlur={handleBlur} value={formData.password} error={!!errors.password} helperText={errors.password} placeholder={placeholders.password} InputProps={{ startAdornment: <InputAdornment position="start"><Lock /></InputAdornment> }} />
                             <TextField sx={{ width: { xs: '100%', sm: '50%' } }} size="small" name="confirmPassword" label="Confirmar senha *" type="password" fullWidth onChange={handleChange} onBlur={handleBlur} value={formData.confirmPassword} error={!!errors.confirmPassword} helperText={errors.confirmPassword} placeholder={placeholders.confirmPassword} InputProps={{ startAdornment: <InputAdornment position="start"><Lock /></InputAdornment> }} />
                         </Box>
 

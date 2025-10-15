@@ -24,6 +24,7 @@ import PaginaDeTeste from "./pages/PaginaDeTesteModal";
 import MiniDrawerOverlay from "./components/layout/MiniDrawerOverlay";
 import ProductReviewsPage from "./pages/ProductReviewPage";
 import { PageReview } from "./pages/ReviewPage";
+import RegisterProduct from "./pages/RegisterProductPage";
 
 // Layout para páginas públicas (com Header e Footer)
 const LoggedLayout = () => (
@@ -46,6 +47,15 @@ const NonLoggedLayout = () => (
   </>
 );
 
+const Logged = () => (
+  <>
+    <MiniDrawerOverlay />
+    <main className="pt-16">
+      <Outlet />
+    </main>
+  </>
+)
+
 // Layout para páginas de autenticação (com fundo gradiente)
 const AuthLayout = () => (
   <Box
@@ -55,9 +65,6 @@ const AuthLayout = () => (
     <Outlet />
   </Box>
 );
-
-// Futuramente, aqui você pode adicionar a Sidebar e o Header do Dashboard
-const AppLayout = () => <Outlet />;
 
 export default function AppRoutes() {
   return (
@@ -90,8 +97,9 @@ export default function AppRoutes() {
         </Route>
 
         {/*Novo Grupo De Rotas Logadas */}
-        <Route element={<AppLayout />}>
+        <Route element={<Logged />}>
           <Route path="/welcome" element={<Welcome />} />
+          <Route path="/register-product" element={<RegisterProduct/>} />
           {/* Outras rotas da área logada virão aqui, como /dashboard, /profile, etc. */}
         </Route>
 
@@ -102,5 +110,5 @@ export default function AppRoutes() {
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
-  );
+  )
 }

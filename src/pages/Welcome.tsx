@@ -1,20 +1,22 @@
 import { Card, Typography, Button, Box, useTheme } from '@mui/material'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
+import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
-// Agurdando os components de Navbar e SideBar
 
 const Welcome = () => {
   const theme = useTheme()
 
+  const navigate = useNavigate()
+
   const handleStartSelling = () => {
-    console.log("Ao clicar no botão 'Começar a divulgar' vai redirecionar para /products/new?")
+    navigate('/register-product')
   }
 
   const handleNotNow = () => {
-    console.log("Ao clicar no botão 'Agora Não' vai redirecionar para /dashboard?")
+    navigate('/home')
   }
 
-  const SUCCESS_COLOR_FROM_THEME = theme.palette.success.main
 
   return (
     <Box
@@ -110,20 +112,28 @@ const Welcome = () => {
               </Typography>
             </Box>
 
-            <ul className="space-y-2 mt-2" style={{ listStyle: 'none', padding: 0 }}>
-              <li className="flex items-center gap-3 justify-start">
-                <CheckCircleOutlineIcon style={{ color: SUCCESS_COLOR_FROM_THEME }} />
-                <Typography variant="body1" color="text.primary">Alcance pessoas da sua região</Typography>
-              </li>
-              <li className="flex items-center gap-3 justify-start">
-                <CheckCircleOutlineIcon style={{ color: SUCCESS_COLOR_FROM_THEME }} />
-                <Typography variant="body1" color="text.primary">Publicação rápida e fácil</Typography>
-              </li>
-              <li className="flex items-center gap-3 justify-start">
-                <CheckCircleOutlineIcon style={{ color: SUCCESS_COLOR_FROM_THEME }} />
-                <Typography variant="body1" color="text.primary">Totalmente gratuito</Typography>
-              </li>
-            </ul>
+            <List>
+              <ListItem disablePadding>
+                <ListItemIcon sx={{ minWidth: 'auto', mr: 1.5 }}>
+                  <CheckCircleOutlineIcon color="success" />
+                </ListItemIcon>
+                <ListItemText primary="Alcance pessoas da sua região" />
+              </ListItem>
+
+              <ListItem disablePadding>
+                <ListItemIcon sx={{ minWidth: 'auto', mr: 1.5 }}>
+                  <CheckCircleOutlineIcon color="success" />
+                </ListItemIcon>
+                <ListItemText primary="Publicação rápida e fácil" />
+              </ListItem>
+
+              <ListItem disablePadding>
+                <ListItemIcon sx={{ minWidth: 'auto', mr: 1.5 }}>
+                  <CheckCircleOutlineIcon color="success" />
+                </ListItemIcon>
+                <ListItemText primary="Totalmente gratuito" />
+              </ListItem>
+            </List>
           </Box>
         </Box>
 
