@@ -6,8 +6,8 @@ import type { SwitchProps } from "@mui/material";
 const DarkModeSwitch = styled((props: SwitchProps) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
 ))(({ theme }) => ({
-  width: 62,
-  height: 34,
+  width: 52,
+  height: 28,
   padding: 7,
   "& .MuiSwitch-switchBase": {
     margin: 1,
@@ -15,7 +15,7 @@ const DarkModeSwitch = styled((props: SwitchProps) => (
     transform: "translateX(6px)",
     "&.Mui-checked": {
       color: "#fff",
-      transform: "translateX(22px)",
+      transform: "translateX(24px)",
       "& .MuiSwitch-thumb:before": {
         backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
           '#fff',
@@ -31,9 +31,9 @@ const DarkModeSwitch = styled((props: SwitchProps) => (
     },
   },
   "& .MuiSwitch-thumb": {
-    backgroundColor: "#001e3c",
-    width: 32,
-    height: 32,
+    backgroundColor: "#728CCC",
+    width: 24,
+    height: 24,
     "&::before": {
       content: "''",
       position: "absolute",

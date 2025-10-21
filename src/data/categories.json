@@ -1,92 +1,102 @@
 [
   {
     "id": 1,
-    "name": "padaria",
+    "name": "Restaurante",
     "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
   },
   {
     "id": 2,
-    "name": "padaria",
+    "name": "Doces",
     "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
   },
   {
     "id": 3,
-    "name": "padaria",
+    "name": "Bebidas",
     "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
   },
   {
     "id": 4,
-    "name": "padaria",
+    "name": "Lanches",
     "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
   },
   {
     "id": 5,
-    "name": "padaria",
+    "name": "Artesanato",
     "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
   },
   {
     "id": 6,
-    "name": "padaria",
+    "name": "Moda",
     "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
   },
   {
     "id": 7,
-    "name": "padaria",
+    "name": "Móveis",
     "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
   },
   {
     "id": 8,
-    "name": "padaria",
+    "name": "Decoração",
     "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
   },
   {
     "id": 9,
-    "name": "padaria",
+    "name": "Massas",
     "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
   },
   {
     "id": 10,
-    "name": "padaria",
+    "name": "Tecnologia",
     "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
   },
   {
     "id": 11,
-    "name": "padaria",
+    "name": "Usados",
     "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
   },
   {
     "id": 12,
-    "name": "padaria",
+    "name": "Jardinagem",
     "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
   },
   {
     "id": 13,
-    "name": "padaria",
+    "name": "Pet",
     "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
   },
   {
     "id": 14,
-    "name": "padaria",
+    "name": "Beleza",
     "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
   },
   {
     "id": 15,
-    "name": "padaria",
+    "name": "Saúde",
     "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
   },
   {
     "id": 16,
-    "name": "padaria",
+    "name": "Outros",
     "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
   },
   {
     "id": 17,
-    "name": "padaria",
+    "name": "Papelaria",
     "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
   },
   {
     "id": 18,
-    "name": "padaria",
+    "name": "Livros",
+    "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
+  },
+   {
+    "id": 19,
+    "name": "Brinquedos",
+    "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
+  },
+   {
+    "id": 20,
+    "name": "Esporte",
     "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
   }
 ]

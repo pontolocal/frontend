@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import StoreReviews from '../components/layout/RateContainer';
-import type { RatingAverage } from '../types/Review';
-import type { Seller } from '../types/Review';
+import React, { useState, useEffect } from "react";
+import StoreReviews from "../components/layout/RateContainer.tsx";
+import type { RatingAverage } from "../types/Review.ts";
+import type { Seller } from "../types/Review.ts";
 // import type { RatingsResponse } from '../types/Review';
-import MerchantProfile from '../components/layout/MerchantProfile.tsx';
-import { getSeller, getRatingAverage } from '../services/ratingService';
+import MerchantProfile from "../components/layout/MerchantProfile.tsx";
+import { getSeller, getRatingAverage } from "../services/ratingService.ts";
 
-const ProductPage: React.FC = () => {
+const StoreDetail: React.FC = () => {
   const [sellerData, setSellerData] = useState<Seller | null>(null);
-  const [ratingAverage, setRatingAverage] = useState<RatingAverage | null>(null);
+  const [ratingAverage, setRatingAverage] = useState<RatingAverage | null>(
+    null
+  );
   const [error, setError] = useState<string | null>(null); // Estado para guardar erros
 
   useEffect(() => {
@@ -18,14 +20,16 @@ const ProductPage: React.FC = () => {
         // 2. Chama as funções da API em paralelo
         const [seller, ratings] = await Promise.all([
           getSeller(),
-          getRatingAverage()
+          getRatingAverage(),
         ]);
         setSellerData(seller);
         setRatingAverage(ratings);
         console.log("Dados carregados com sucesso!");
       } catch (err) {
         console.error(err);
-        setError("Não foi possível carregar os dados. Tente novamente mais tarde.");
+        setError(
+          "Não foi possível carregar os dados. Tente novamente mais tarde."
+        );
       }
     };
     loadPageData();
@@ -33,11 +37,19 @@ const ProductPage: React.FC = () => {
 
   // Renderização condicional para loading e erro
   if (error) {
-    return <div className="flex justify-center items-center h-screen"><p>{error}</p></div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p>{error}</p>
+      </div>
+    );
   }
 
   if (!sellerData || !ratingAverage) {
-    return <div className="flex justify-center items-center h-screen"><p>Carregando...</p></div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p>Carregando...</p>
+      </div>
+    );
   }
 
   return (
@@ -61,5 +73,5 @@ const ProductPage: React.FC = () => {
       </div>
     </div>
   );
-}
-export default ProductPage;
+};
+export default StoreDetail;

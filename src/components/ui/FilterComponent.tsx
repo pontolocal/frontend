@@ -16,12 +16,32 @@ import cities from "../../data/cities.json";
 import categories from "../../data/categories.json";
 import { Button } from "../../components/ui/Button";
 
-const FilterComponent = () => {
+const FilterComponent = ({ prevCategory }: any) => {
+  const formatName = (name : string) => {
+    const nameFormatted = name.normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "") 
+    .replace(/ç/g, "c") 
+    .replace(/%20/g, "-") 
+    .replace(/\s+/g, "-") 
+    .toLowerCase()
+    .trim();
+    return nameFormatted
+  }
+
+  const [category, setCategory] = React.useState(formatName(prevCategory.slice(1, prevCategory.length)));
+
+  React.useEffect(() => {
+    if (prevCategory) {
+      setCategory(formatName(prevCategory.slice(1, prevCategory.length)));
+      console.log('category', formatName(prevCategory.slice(1, prevCategory.length)))
+    }
+  }, [prevCategory]);
+
   const [address, setAddress] = React.useState("Endereço cadastrado");
   const [area, setArea] = React.useState("Raio de distância");
   const [city, setCity] = React.useState("");
-  const [category, setCategory] = React.useState("");
   const [radius, setRadius] = React.useState(50);
+  // console.log("categoria", category);
 
   const handleChangeAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAddress((event.target as HTMLInputElement).value);
@@ -210,42 +230,44 @@ const FilterComponent = () => {
           </div>
         </div>
         <div className="flex flex-col gap-4 flex-1">
-          <div>
-            <Box sx={{ minWidth: 120 }}>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Categoria</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={category}
-                  label="Cidade"
-                  onChange={handleChangeCategory}
-                  sx={{
-                    borderRadius: 1,
-                    "& fieldset": { borderRadius: 1 },
-                  }}
-                  MenuProps={{
-                    PaperProps: {
-                      sx: {
-                        borderRadius: 1,
-                        maxHeight: 300,
-                        overflowY: "auto",
-                      },
+          <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Categoria</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={category}
+                onChange={handleChangeCategory}
+                className="text-black"
+                sx={{
+                  borderRadius: 1,
+                  color: "black",
+                  "& fieldset": { borderRadius: 1, color: "black" },
+                }}
+                MenuProps={{
+                  PaperProps: {
+                    sx: {
+                      borderRadius: 1,
+                      maxHeight: 300,
+                      overflowY: "auto",
+                      color: "black",
                     },
-                    MenuListProps: {
-                      sx: {
-                        py: 0,
-                      },
+                  },
+                  MenuListProps: {
+                    sx: {
+                      py: 0,
+                      color: "black",
                     },
-                  }}
-                >
-                  {categories.map((category) => (
-                    <MenuItem value={category.name}>{category.name}</MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Box>
-          </div>
+                  },
+                }}
+              >
+                {categories.map((category) => (
+                  <MenuItem value={formatName(category.name)}>{category.name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+
           <div className="flex flex-col gap-4 w-full">
             <h3 className="font-bold opacity-60">Faixa de preço</h3>
             <div className="flex gap-2 w-full">
@@ -254,15 +276,14 @@ const FilterComponent = () => {
                 label="min"
                 variant="outlined"
                 type="number"
-                sx={{"width":"100%"}}
+                sx={{ width: "100%" }}
               />
               <TextField
                 id="outlined-basic"
                 label="max"
                 variant="outlined"
                 type="number"
-                sx={{"width":"100%"}}
-
+                sx={{ width: "100%" }}
               />
             </div>
           </div>

@@ -8,6 +8,7 @@ import { useProduct } from "../hooks/useProduct";
 import { useState } from "react";
 import { Button } from "../components/ui/Button";
 import { Rating } from "@mui/material";
+import { SecAvaliacoes } from "./Dashboard/sections/SecAvaliacoes";
 
 const product = {
   id: 1,
@@ -24,42 +25,42 @@ const product = {
 
 const relatedProducts = [
   {
-  id: 1,
-  name: "Mel Artesanal",
-  description:
-    "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
-  image: "https://i.postimg.cc/HL5zFhNS/mel-1.png",
-  price: 25.0,
-  storeName: "Apário São José",
-  categoryName: "Hortifruti",
-  is_active: true,
-  rating: 3.5,
-},
-{
-  id: 1,
-  name: "Mel Artesanal",
-  description:
-    "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
-  image: "https://i.postimg.cc/HL5zFhNS/mel-1.png",
-  price: 25.0,
-  storeName: "Apário São José",
-  categoryName: "Hortifruti",
-  is_active: true,
-  rating: 3.5,
-},
-{
-  id: 1,
-  name: "Mel Artesanal",
-  description:
-    "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
-  image: "https://i.postimg.cc/HL5zFhNS/mel-1.png",
-  price: 25.0,
-  storeName: "Apário São José",
-  categoryName: "Hortifruti",
-  is_active: true,
-  rating: 3.5,
-}
-]
+    id: 1,
+    name: "Mel Artesanal",
+    description:
+      "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
+    image: "https://i.postimg.cc/HL5zFhNS/mel-1.png",
+    price: 25.0,
+    storeName: "Apário São José",
+    categoryName: "Hortifruti",
+    is_active: true,
+    rating: 3.5,
+  },
+  {
+    id: 1,
+    name: "Mel Artesanal",
+    description:
+      "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
+    image: "https://i.postimg.cc/HL5zFhNS/mel-1.png",
+    price: 25.0,
+    storeName: "Apário São José",
+    categoryName: "Hortifruti",
+    is_active: true,
+    rating: 3.5,
+  },
+  {
+    id: 1,
+    name: "Mel Artesanal",
+    description:
+      "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
+    image: "https://i.postimg.cc/HL5zFhNS/mel-1.png",
+    price: 25.0,
+    storeName: "Apário São José",
+    categoryName: "Hortifruti",
+    is_active: true,
+    rating: 3.5,
+  },
+];
 
 const ProductDetail = () => {
   const [isFavorited, setIsFavorited] = useState<boolean>();
@@ -122,6 +123,9 @@ const ProductDetail = () => {
             </Link>
           </div>
         </div>
+      </section>
+      <section className="pt-8 max-w-[1069px] m-auto">
+        <SecAvaliacoes />
       </section>
       <section className="pt-8 max-w-[1069px] m-auto">
         <h2 className="font-bold text-xl">Produtos relacionados</h2>
