@@ -18,8 +18,6 @@ const PaginaDeTeste = () => {
   const [contactModalOpen, setContactModalOpen] = useState(false)
   const [notificationModalOpen, setNotificationModalOpen] = useState(false)
 
-  // Gerencia a lista de notificações da página.
-  // Para este exemplo, o estado inicial é carregado a partir do arquivo notifications.json.
   const [notifications, setNotifications] = useState<Notification[]>(notificationsData)
 
   const handleLogout = () => { console.log("Ação: Usuário deslogado!"); setLogoutModalOpen(false)
@@ -39,7 +37,6 @@ const PaginaDeTeste = () => {
     setNotificationModalOpen(false)
   }
   
-  // vi que faltava um botão para fechar as notificações e criei essa função de exemplo para remover uma notificação da lista quando o 'X' é clicado.
   const handleDismissNotification = (id: string | number) => {
     setNotifications((currentNotifications) =>
       currentNotifications.filter((notif) => notif.id !== id)

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ChevronDown from "../assets/images/chevron-down.svg";
+import { ContactModal } from "../components/modal/ContactModal";
 
 const faqData = [
   {
@@ -40,6 +41,8 @@ export const FAQPage = () => {
   const [openIndexes, setOpenIndexes] = useState(
     Array(faqData.length).fill(false)
   );
+
+  const [contactModalOpen, setContactModalOpen] = useState(false)
 
   const toggleItem = (index: number) => {
     setOpenIndexes((prev) =>
@@ -82,9 +85,10 @@ export const FAQPage = () => {
           </div>
         ))}
       </div>
-      <button className="max-w-[250px] w-full max-h-[50px] bg-blue-3 hover:bg-blue-2 flex justify-center items-center rounded-10 text-base text-white font-bold p-4">
+      <button className="max-w-[250px] w-full max-h-[50px] bg-blue-3 hover:bg-blue-2 flex justify-center items-center rounded-10 text-base text-white font-bold p-4" onClick={() => setContactModalOpen(true)}>
        Fale Conosco
       </button>
+      <ContactModal isOpen={contactModalOpen} onClose={() => setContactModalOpen(false)} />
     </main>
   );
 };

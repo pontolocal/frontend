@@ -22,15 +22,21 @@ import Favorites from "./pages/Favorites";
 import Welcome from "./pages/Welcome";
 import PaginaDeTeste from "./pages/PaginaDeTesteModal";
 import MiniDrawerOverlay from "./components/layout/MiniDrawerOverlay";
-import ProductReviewsPage from "./pages/ProductReviewPage";
 import { PageReview } from "./pages/ReviewPage";
 import RegisterProduct from "./pages/RegisterProductPage";
+import { Dashboard } from "./pages/Dashboard/index";
+import { MyProfile } from "./pages/MyProfilePage";
+import UpdateProduct from "./pages/UpdateProductPage";
+import StoreDetail from "./pages/StoreDetail";
+import EditProfile from "./pages/EditProfile";
+import { Notifications } from "@mui/icons-material";
+// import ExploreCategory from "./pages/ExploreCategory";
 
 // Layout para páginas públicas (com Header e Footer)
 const LoggedLayout = () => (
   <>
     <MiniDrawerOverlay />
-    <main className="pt-16">
+    <main className="pt-16 pl-16 max-md:pl-0 ">
       <Outlet />
     </main>
     <Footer />
@@ -47,16 +53,6 @@ const NonLoggedLayout = () => (
   </>
 );
 
-const Logged = () => (
-  <>
-    <MiniDrawerOverlay />
-    <main className="pt-16">
-      <Outlet />
-    </main>
-  </>
-)
-
-// Layout para páginas de autenticação (com fundo gradiente)
 const AuthLayout = () => (
   <Box
     className="min-h-screen w-full flex flex-col items-center justify-center p-4"
@@ -81,11 +77,19 @@ export default function AppRoutes() {
           <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/products" element={<Explore />} />
           <Route path="/stores" element={<Explore />} />
+          <Route path="/:categoryName" element={<Explore />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/thankyou" element={<ThankYouPage />} />
           <Route path="/faq" element={<FAQPage />} />
-          <Route path="/review" element={<ProductReviewsPage/>}/>
-          <Route path="/review-page" element={<PageReview/>}/>
+          <Route path="/stores/:id" element={<StoreDetail/>} />
+          <Route path="/review-page" element={<PageReview />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/welcome" element={<Welcome />} />
+          <Route path="/register-product" element={<RegisterProduct />} />
+          <Route path="/profile" element={<MyProfile />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
+          <Route path="/update-product/:id" element={<UpdateProduct />} />
+          <Route path="/notifications" element={<Notifications />} />
         </Route>
 
         {/* Grupo de Rotas Públicas */}
@@ -96,19 +100,11 @@ export default function AppRoutes() {
           <Route path="/reset-password" element={<ResetPasswordPage />} />
         </Route>
 
-        {/*Novo Grupo De Rotas Logadas */}
-        <Route element={<Logged />}>
-          <Route path="/welcome" element={<Welcome />} />
-          <Route path="/register-product" element={<RegisterProduct/>} />
-          {/* Outras rotas da área logada virão aqui, como /dashboard, /profile, etc. */}
-        </Route>
-
         {/* ROTA DE TESTE*/}
         <Route path="/teste-modal" element={<PaginaDeTeste />} />
 
-        {/* Rota "Pega-Tudo" para página não encontrada */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
-  )
+  );
 }

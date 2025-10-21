@@ -64,7 +64,7 @@ export const Home = () => {
             </Button>
             <Button
               component={RouterLink}
-              to="/product-register"
+              to="/register-product"
               variant="contained"
               size="large"
               sx={{

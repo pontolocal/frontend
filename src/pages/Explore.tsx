@@ -9,9 +9,6 @@ import Button from "@mui/material/Button";
 import FilterComponent from "../components/ui/FilterComponent";
 import { Pagination } from "@mui/material";
 
-// import { useCategories } from "../hooks/useCategories";
-// import CategoryList from "../components/ui/CategoryList";
-
 const pages = [
   { name: "Todos", path: "/explore" },
   { name: "Produtos", path: "/products" },
@@ -91,7 +88,11 @@ const Explore = () => {
         </div>
       </section>
 
-      <FilterComponent />
+      <FilterComponent
+        prevCategory={
+          (location !== "/stores" || "/products" || "/explore") && location
+        }
+      />
 
       {location === "/stores" ? (
         <section className="flex flex-col gap-4 justify-center items-center py-12 ">
@@ -118,7 +119,13 @@ const Explore = () => {
                 .map((store) => <StoreCard store={store} key={store.id} />)
             )}
           </div>
-          <Pagination count={10} page={page} onChange={handleChange} color="primary" className="m-auto w-fit pt-8" />
+          <Pagination
+            count={10}
+            page={page}
+            onChange={handleChange}
+            color="primary"
+            className="m-auto w-fit pt-8"
+          />
         </section>
       ) : location === "/products" ? (
         <section className="py-12">
@@ -141,7 +148,13 @@ const Explore = () => {
           ) : (
             <p>{productsErrorMessage}</p>
           )}
-          <Pagination count={10} page={page} onChange={handleChange} color="primary" className="m-auto w-fit pt-8" />
+          <Pagination
+            count={10}
+            page={page}
+            onChange={handleChange}
+            color="primary"
+            className="m-auto w-fit pt-8"
+          />
         </section>
       ) : (
         <div>
@@ -176,7 +189,9 @@ const Explore = () => {
             <div className="flex justify-between items-end w-full max-w-[1069px] m-auto px-4">
               {stores ? (
                 <div>
-                  <h2 className="font-bold text-2xl">Resultados da busca</h2>
+                  <h2 className="font-bold text-2xl">
+                    Resultados da busca
+                  </h2>
                   <span>{stores.length} lojas encontradas</span>
                 </div>
               ) : (
