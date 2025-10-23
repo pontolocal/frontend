@@ -9,6 +9,7 @@ import { BtnPrimary } from "../../../components/ui/Buttons/BtnPrimary.js";
 import { ChipDisponibilidade } from "../../../components/ui/Chips/ChipDisponibilidade.js";
 import { BtnGhost } from "../../../components/ui/Buttons/BtnGhost.js";
 import Pagination from "../../../components/ui/Pagination/index.js";
+import { Link } from "react-router-dom";
 
 type Filtro = "todos" | Disponibilidade;
 
@@ -135,13 +136,15 @@ export function SecAnuncios() {
                 </button>
 
                 <div className="flex items-center gap-2 justify-end shrink-0 order-2 sm:order-1">
-                  <button
-                    className="p-1 rounded-md border border-transparent text-gray-600 hover:text-[#1E40AF] hover:bg-[#EEF3FB] hover:border-[#E2E8F0] transition-colors"
-                    title="Editar"
-                    aria-label="Editar"
-                  >
-                    <EditOutlinedIcon fontSize="small" />
-                  </button>
+                  <Link to={`update-product/${a.id}`}>
+                    <button
+                      className="p-1 rounded-md border border-transparent text-gray-600 hover:text-[#1E40AF] hover:bg-[#EEF3FB] hover:border-[#E2E8F0] transition-colors"
+                      title="Editar"
+                      aria-label="Editar"
+                    >
+                      <EditOutlinedIcon fontSize="small" />
+                    </button>
+                  </Link>
                   <button
                     className="p-2 rounded-md border border-transparent text-gray-600 hover:text-[#1E40AF] hover:bg-[#EEF3FB] hover:border-[#E2E8F0] transition-colors"
                     title="Excluir"

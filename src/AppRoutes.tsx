@@ -88,7 +88,7 @@ export default function AppRoutes() {
           <Route path="/register-product" element={<RegisterProduct />} />
           <Route path="/profile" element={<MyProfile />} />
           <Route path="/edit-profile" element={<EditProfile />} />
-          <Route path="/update-product/:id" element={<UpdateProduct />} />
+          <Route path="/dashboard/update-product/:id" element={<UpdateProduct />} />
           <Route path="/notifications" element={<Notifications />} />
         </Route>
 
