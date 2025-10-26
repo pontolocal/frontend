@@ -23,7 +23,7 @@ border border-[#D2D2D2] transition";
     "text-[#696969] border-[#D2D2D2] bg-[#F0F0F0] hover:bg-gray-100";
 
   return (
-    <div className="p-4">
+    <div className="p-4 max-w-[1069px] m-auto">
       <div className=" mb-5 md:mb-8 flex flex-col items-center text-center md:block md:text-left">
         <h1 className=" pt-5 md:pt-0 font-bold text-xl md:text-3xl">
           Olá, João
