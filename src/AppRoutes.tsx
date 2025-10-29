@@ -20,7 +20,7 @@ import Explore from "./pages/Explore";
 import ProductDetail from "./pages/ProductDetail";
 import Favorites from "./pages/Favorites";
 import Welcome from "./pages/Welcome";
-import PaginaDeTeste from "./pages/PaginaDeTesteModal";
+// import PaginaDeTeste from "./pages/PaginaDeTesteModal";
 import MiniDrawerOverlay from "./components/layout/MiniDrawerOverlay";
 import { PageReview } from "./pages/ReviewPage";
 import RegisterProduct from "./pages/RegisterProductPage";
@@ -30,7 +30,8 @@ import UpdateProduct from "./pages/UpdateProductPage";
 import StoreDetail from "./pages/StoreDetail";
 import EditProfile from "./pages/EditProfile";
 import { Notifications } from "@mui/icons-material";
-// import ExploreCategory from "./pages/ExploreCategory";
+import { AuthProvider } from "./api/AuthContext";
+import { PrivateRoute } from "./api/PrivateRoute";
 
 // Layout para páginas públicas (com Header e Footer)
 const LoggedLayout = () => (
@@ -64,47 +65,175 @@ const AuthLayout = () => (
 
 export default function AppRoutes() {
   return (
-    <Router>
-      <Routes>
-        {/* Grupo de Rotas de Autenticação */}
-        <Route element={<NonLoggedLayout />}>
-          <Route path="/" element={<LandingPage />} />
-        </Route>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          {/* Grupo de Rotas de Autenticação */}
+          <Route element={<NonLoggedLayout />}>
+            <Route path="/" element={<LandingPage />} />
+          </Route>
 
-        <Route element={<LoggedLayout />}>
-          <Route path="/home" element={<Home />} />
-          <Route path="/explore" element={<Explore />} />
-          <Route path="/products/:id" element={<ProductDetail />} />
-          <Route path="/products" element={<Explore />} />
-          <Route path="/stores" element={<Explore />} />
-          <Route path="/:categoryName" element={<Explore />} />
-          <Route path="/favorites" element={<Favorites />} />
-          <Route path="/thankyou" element={<ThankYouPage />} />
-          <Route path="/faq" element={<FAQPage />} />
-          <Route path="/stores/:id" element={<StoreDetail/>} />
-          <Route path="/review-page" element={<PageReview />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/welcome" element={<Welcome />} />
-          <Route path="/register-product" element={<RegisterProduct />} />
-          <Route path="/profile" element={<MyProfile />} />
-          <Route path="/edit-profile" element={<EditProfile />} />
-          <Route path="/update-product/:id" element={<UpdateProduct />} />
-          <Route path="/notifications" element={<Notifications />} />
-        </Route>
+          <Route element={<LoggedLayout />}>
+            <Route
+              path="/home"
+              element={
+                <PrivateRoute>
+                  <Home />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/explore"
+              element={
+                <PrivateRoute>
+                  <Explore />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/products/:id"
+              element={
+                <PrivateRoute>
+                  <ProductDetail />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/products"
+              element={
+                <PrivateRoute>
+                  <Explore />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/stores"
+              element={
+                <PrivateRoute>
+                  <Explore />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/:categoryName"
+              element={
+                <PrivateRoute>
+                  <Explore />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/favorites"
+              element={
+                <PrivateRoute>
+                  <Favorites />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/thankyou"
+              element={
+                <PrivateRoute>
+                  <ThankYouPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/faq"
+              element={
+                <PrivateRoute>
+                  <FAQPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/stores/:id"
+              element={
+                <PrivateRoute>
+                  <StoreDetail />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/review-page"
+              element={
+                <PrivateRoute>
+                  <PageReview />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/welcome"
+              element={
+                <PrivateRoute>
+                  <Welcome />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/register-product"
+              element={
+                <PrivateRoute>
+                  <RegisterProduct />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <PrivateRoute>
+                  <MyProfile />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/edit-profile"
+              element={
+                <PrivateRoute>
+                  <EditProfile />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/update-product/:id"
+              element={
+                <PrivateRoute>
+                  <UpdateProduct />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/notifications"
+              element={
+                <PrivateRoute>
+                  <Notifications />
+                </PrivateRoute>
+              }
+            />
+          </Route>
 
-        {/* Grupo de Rotas Públicas */}
-        <Route element={<AuthLayout />}>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="/reset-password" element={<ResetPasswordPage />} />
-        </Route>
+          {/* Grupo de Rotas Públicas */}
+          <Route element={<AuthLayout />}>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
+          </Route>
 
-        {/* ROTA DE TESTE*/}
-        <Route path="/teste-modal" element={<PaginaDeTeste />} />
+          {/* ROTA DE TESTE*/}
+          {/* <Route path="/teste-modal" element={<PaginaDeTeste />} /> */}
 
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </Router>
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
