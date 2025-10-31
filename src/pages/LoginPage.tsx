@@ -29,8 +29,10 @@ import { validateEmail } from "../lib/validators";
 import { useLogin } from "../hooks/useLogin";
 import type { LoginRequest } from "../models/User";
 import { useAuth } from "../api/AuthContext";
+import { GoogleLogin } from "@react-oauth/google";
 
 const LoginPage = () => {
+  const { login } = useAuth();
   const [formData, setFormData] = useState<LoginRequest>({
     login: "",
     password: "",
@@ -67,7 +69,12 @@ const LoginPage = () => {
     }
   };
 
-  const { login: responseLogin, fetchLogin, isLoading, errorMessage } = useLogin("/auth/login");
+  const {
+    login: responseLogin,
+    fetchLogin,
+    isLoading,
+    errorMessage,
+  } = useLogin("/auth/login");
   const [formSummited, setFormSummited] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -78,7 +85,6 @@ const LoginPage = () => {
     const isPasswordValid = formData.password.length >= 8;
 
     if (isloginValid && isPasswordValid) {
-
       fetchLogin(formData);
       console.log("Validation OK! Submitting data:", { ...formData });
       //   alert("Login enviado com sucesso!");
@@ -94,12 +100,10 @@ const LoginPage = () => {
     }
   };
 
-  const { login } = useAuth();
-
   useEffect(() => {
     if (errorMessage === "") {
       login(responseLogin.token);
-      navigate("/home");
+      navigate("/welcome");
     } else {
       if (formSummited) {
         setStateError(true);
@@ -157,11 +161,8 @@ const LoginPage = () => {
               component="img"
               src="../../public/LogoPontoLocal.png"
               alt="Logo Ponto Local"
-              sx={{ width: { xs: "150px", sm: "250px" }, mb: 1 }}
+              sx={{ width: { xs: "150px", sm: "200px" }, mb: 1 }}
             />
-            <Typography component="h1" variant="h6" sx={{ fontWeight: "600" }}>
-              Faça login em sua conta
-            </Typography>
           </Box>
 
           <Box
@@ -192,13 +193,21 @@ const LoginPage = () => {
 
             <Paper
               elevation={8}
-              className="p-6 md:p-20"
+              className="p-6 md:p-8"
               sx={{ width: "100%", maxWidth: { xs: 351, sm: 700, md: 650 } }}
             >
               <form onSubmit={handleSubmit} noValidate>
                 <Box
                   sx={{ display: "flex", flexDirection: "column", gap: 2.5 }}
                 >
+                  <Typography
+                    component="h1"
+                    variant="h6"
+                    sx={{ fontWeight: "600", margin: "auto" }}
+                  >
+                    Faça login em sua conta
+                  </Typography>
+
                   <TextField
                     label="login"
                     name="login"
@@ -322,7 +331,19 @@ const LoginPage = () => {
                       gap: 2,
                     }}
                   >
-                    <Button
+                    <div className="m-auto">
+                      <GoogleLogin
+                        onSuccess={(credentialResponse) => {
+                          if (credentialResponse.credential) {
+                            login(credentialResponse.credential);
+                          }
+                        }}
+                        onError={() => {
+                          console.error("Erro ao tentar login com Google");
+                        }}
+                      />
+                    </div>
+                    {/* <Button
                       variant="contained"
                       fullWidth
                       startIcon={<Google />}
@@ -335,8 +356,8 @@ const LoginPage = () => {
                       }}
                     >
                       Entrar com o Google
-                    </Button>
-                    <Button
+                    </Button> */}
+                    {/* <Button
                       variant="contained"
                       fullWidth
                       startIcon={<Facebook />}
@@ -349,7 +370,7 @@ const LoginPage = () => {
                       }}
                     >
                       Entrar com o Facebook
-                    </Button>
+                    </Button> */}
                   </Box>
                 </Box>
               </form>

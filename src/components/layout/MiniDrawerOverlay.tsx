@@ -39,6 +39,7 @@ import type { Notification } from "../../types/notifications";
 import notificationsData from "../../data/notifications.json";
 import ButtonSwitch from "../ui/ButtonSwitch";
 import { useGlobal } from "../../context/GlobalContext";
+import { useAuth } from "../../api/AuthContext";
 
 const drawerWidth = 300;
 
@@ -147,10 +148,13 @@ export default function MiniDrawer() {
     setOpen(false);
   };
 
+  const {logout} = useAuth()
+
   const handleLogout = () => {
     console.log("Ação: Usuário deslogado!");
     setLogoutModalOpen(false);
     setAnchorEl(null);
+    logout()
     navigate("/");
   };
 
