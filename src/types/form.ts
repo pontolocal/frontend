@@ -18,8 +18,7 @@ export interface SignUpFormData {
 
 export interface EditFormData {
   name: string;
-  newPassword: string;
-  lastPassword: string;
+  companyName: string;
   whatsapp: string;
   social_media_link: string;
   zip_code: string;

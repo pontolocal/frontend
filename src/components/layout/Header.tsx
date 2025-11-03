@@ -5,7 +5,7 @@ import Box from '@mui/material/Box'
 import CloseIcon from '@mui/icons-material/Close'
 import { PontoLocalLogo } from "../ui/PontoLocalLogo"
 import { MenuHamburguer } from "../ui/MenuHamburguer"
-import { useGlobal } from '../../context/GlobalContext'
+import { useGlobal } from '../../hooks/useGlobal'
 
 export const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

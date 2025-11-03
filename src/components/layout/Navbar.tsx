@@ -2,7 +2,7 @@ import { Link as RouterLink } from 'react-router-dom'
 import Button from '@mui/material/Button'
 import { PontoLocalLogo } from "../ui/PontoLocalLogo"
 import { MenuHamburguer } from "../ui/MenuHamburguer"
-import { useGlobal } from '../../context/GlobalContext'
+import { useGlobal } from '../../hooks/useGlobal'
 
 export const Header = () => { 
   const { themeMode } = useGlobal()

@@ -24,12 +24,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const login = (newToken: string) => {
     setToken(newToken);
     localStorage.setItem("token", newToken);
-
   };
 
   const logout = () => {
     setToken(null);
     localStorage.removeItem("token");
+    localStorage.removeItem("userId");
     setIsTokenValid(false);
   };
 

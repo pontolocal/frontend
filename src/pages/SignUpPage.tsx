@@ -214,29 +214,29 @@ const SignUpPage = () => {
     role,
   };
 
-  const { user, fetchUser, isLoading, errorMessage } =
+  const { fetchUser, isLoading, errorMessage } =
     useUser("/auth/register");
 
   const navigate = useNavigate();
 
-  const [formSummited, setFormSummited] = useState<boolean>(false)
+  const [formSummited, setFormSummited] = useState<boolean>(false);
 
   const handleSubmit = (e: React.FormEvent): void => {
-    setFormSummited(true)
+    setFormSummited(true);
     e.preventDefault();
     fetchUser(requestData);
   };
 
   useEffect(() => {
-      if (errorMessage === "") {
-        navigate("/login");
-      } else {
-        if(formSummited) {
-          setStateError(true);
-        }
-        setFormSummited(false)
+    if (errorMessage === "") {
+      navigate("/login");
+    } else {
+      if (formSummited) {
+        setStateError(true);
       }
-    }, [errorMessage, navigate])
+      setFormSummited(false);
+    }
+  }, [errorMessage, navigate]);
 
   const [stateError, setStateError] = React.useState(false);
 
@@ -280,12 +280,9 @@ const SignUpPage = () => {
               component="img"
               src="../../public/LogoPontoLocal.png"
               alt="Imagem Logo PontoLocal"
-              sx={{ width: { xs: "150px", sm: "192px" } }}
+              sx={{ width: { xs: "100px", sm: "150px" } }}
               className="mb-1"
             />
-            <Typography component="h1" variant="h6" sx={{ fontWeight: "600" }}>
-              Crie sua conta
-            </Typography>
           </Box>
 
           <Box
@@ -321,6 +318,13 @@ const SignUpPage = () => {
           >
             <form onSubmit={handleSubmit} noValidate>
               <Box sx={{ display: "flex", flexDirection: "column", gap: 2.5 }}>
+                <Typography
+                  component="h1"
+                  variant="h6"
+                  sx={{ fontWeight: "600", margin: "auto" }}
+                >
+                  Crie sua conta
+                </Typography>
                 <Box>
                   <Typography
                     variant="subtitle1"

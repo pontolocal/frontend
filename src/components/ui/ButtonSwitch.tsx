@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Switch from '@mui/material/Switch';
-import { useGlobal } from '../../context/GlobalContext';
+import { useGlobal } from '../../hooks/useGlobal'
 
 export default function ControlledSwitches() {
   const { themeMode, setThemeMode } = useGlobal()

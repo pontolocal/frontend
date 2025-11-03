@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { jwtDecode } from "jwt-decode";
 
@@ -7,6 +7,7 @@ type GlobalContextType = {
   setThemeMode: (value: string) => void;
   userId: number | null;
   userInfos: GoogleJwtPayload | null;
+  setUserId: any;
 };
 
 type GoogleJwtPayload = {
@@ -15,7 +16,9 @@ type GoogleJwtPayload = {
   picture: string;
 };
 
-const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
+export const GlobalContext = createContext<GlobalContextType | undefined>(
+  undefined
+);
 
 export const GlobalProvider = ({ children }: { children: ReactNode }) => {
   const [themeMode, setThemeMode] = useState("light");
@@ -39,10 +42,18 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
           name: decoded.name,
           email: decoded.email,
           picture: decoded.picture,
-        })
+        });
       } else {
-        const id = Number(decoded.id ?? decoded.userId ?? decoded.sub ?? null);
-        setUserId(isNaN(id) ? null : id);
+        const storageId = localStorage.getItem("userId");
+        setUserId(Number(storageId));
+        // if (storageId) {
+        //   setUserId(Number(storageId));
+        // }
+
+        console.log(
+          "user Id que veio do storage",
+          localStorage.getItem("userId")
+        );
       }
     } catch (err) {
       console.error("Token inválido:", err);
@@ -56,16 +67,10 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
         setThemeMode,
         userId,
         userInfos,
+        setUserId,
       }}
     >
       {children}
     </GlobalContext.Provider>
   );
-};
-
-export const useGlobal = () => {
-  const context = useContext(GlobalContext);
-  if (!context)
-    throw new Error("useGlobal deve ser usado dentro de GlobalProvider");
-  return context;
 };

@@ -11,6 +11,20 @@ export interface UserRegisterRequest {
   role: number;
 }
 
+export interface UserUpdateRequest {
+  name: string;
+  address_complement: string;
+  document: string;
+  role: number;
+  social_media_link: string;
+  whatsapp: string;
+  zip_code: string;
+  city: string;
+  address: string;
+  state: string;
+  photo?: string;
+}
+
 export interface UserRegisterResponse {
   id: number;
   login: string;
@@ -30,18 +44,6 @@ export interface UserLoginResponse {
   ];
   id: number;
 }
-
-export interface UserUpdateRequest {
-  name: string;
-  password: string;
-  whatsapp: string;
-  social_media_link: string;
-  zip_code: string;
-  address_complement: string;
-  document: string;
-  photo: string;
-}
-
 
 export interface LoginRequest {
   login: string;

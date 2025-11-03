@@ -21,8 +21,6 @@ import {
   Lock,
   Visibility,
   VisibilityOff,
-  Google,
-  Facebook,
   Email,
 } from "@mui/icons-material";
 import { validateEmail } from "../lib/validators";
@@ -30,6 +28,7 @@ import { useLogin } from "../hooks/useLogin";
 import type { LoginRequest } from "../models/User";
 import { useAuth } from "../api/AuthContext";
 import { GoogleLogin } from "@react-oauth/google";
+import { useGlobal } from "../hooks/useGlobal";
 
 const LoginPage = () => {
   const { login } = useAuth();
@@ -40,6 +39,7 @@ const LoginPage = () => {
   const [errors, setErrors] = useState({ login: "", password: "" });
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const {setUserId} = useGlobal()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -75,6 +75,7 @@ const LoginPage = () => {
     isLoading,
     errorMessage,
   } = useLogin("/auth/login");
+
   const [formSummited, setFormSummited] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -103,6 +104,8 @@ const LoginPage = () => {
   useEffect(() => {
     if (errorMessage === "") {
       login(responseLogin.token);
+      setUserId(responseLogin.id)
+      localStorage.setItem("userId", responseLogin.id)
       navigate("/welcome");
     } else {
       if (formSummited) {

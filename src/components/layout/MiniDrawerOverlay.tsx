@@ -38,8 +38,9 @@ import { NotificationModal } from "../../components/modal/NotificationModal";
 import type { Notification } from "../../types/notifications";
 import notificationsData from "../../data/notifications.json";
 import ButtonSwitch from "../ui/ButtonSwitch";
-import { useGlobal } from "../../context/GlobalContext";
+import { useGlobal } from '../../hooks/useGlobal'
 import { useAuth } from "../../api/AuthContext";
+import { useGetUser } from "../../hooks/useGetUser";
 
 const drawerWidth = 300;
 
@@ -140,6 +141,12 @@ export default function MiniDrawer() {
 
   const { themeMode } = useGlobal()
 
+  const {user, fetchGetUser} = useGetUser(`/auth/get/${localStorage.getItem("userId")}`)
+
+  React.useEffect(() => {
+    fetchGetUser()
+  }, [])
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -218,12 +225,12 @@ export default function MiniDrawer() {
                 className="flex items-center gap-2"
                 onClick={(e) => setAnchorEl(e.currentTarget)}
               >
-                <Avatar sx={{ bgcolor: "#728CCC" }}>J</Avatar>
+                <Avatar sx={{ bgcolor: "#728CCC" }}>{user?.name[0]}</Avatar>
                 <div className="leading-tight hidden md:block">
                   <div className="text-sm font-semibold text-blue-3">
-                    João Silva
+                    {user?.name.split(" ")[0]}
                   </div>
-                  <div className="text-xs text-gray-500">Comerciante</div>
+                  <div className="text-xs text-gray-500">{user?.role === "INDIVIDUAL" ? "consumidor" : "comerciante"}</div>
                 </div>
               </div>
             </div>
