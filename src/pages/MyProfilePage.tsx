@@ -3,21 +3,42 @@ import TrashIcon from "../assets/images/trash-icon.svg";
 import UserIconSt2 from "../assets/images/user-outline-icon-st-2.svg";
 import EditIcon from "../assets/images/edit-icon.svg";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DeleteModal } from "../components/modal/DeleteModal";
+import { useGetUser } from "../hooks/useGetUser";
+import { useDeleteUser } from "../hooks/useDeleteUser";
+// import { useGlobal } from "../hooks/useGlobal";
+import { useAuth } from "../api/AuthContext";
 
 export const MyProfile = () => {
+  // const {setUserId} = useGlobal()
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { user, fetchGetUser } = useGetUser(
+    `/auth/get/${localStorage.getItem("userId")}`
+  );
+  const { fetchDeleteUser } = useDeleteUser(
+    `/auth/delete/${localStorage.getItem("userId")}`
+  );
+
+  const {logout} = useAuth()
 
   const handleDelete = () => {
     console.log("Ação: Usuário deletado!");
+    fetchDeleteUser();
+    navigate("/");
     setDeleteModalOpen(false);
-    navigate("/")
+    setTimeout(() => {
+      logout();
+    }, 4000);
   };
 
+  useEffect(() => {
+    fetchGetUser();
+  }, []);
+
   return (
-    <main className="w-full min-h-screen flex items-start justify-center bg-blue-100 p-4">
+    <main className="w-full min-h-full flex items-center justify-center bg-blue-100 px-4 py-32">
       <div className="w-full lg:max-w-[1210px] bg-white rounded-41 p-10 flex flex-col gap-8 items-start h-auto">
         <div className="w-full flex flex-col lg:flex-row lg:items-start items-center justify-between gap-4">
           <div className="flex items-center justify-center lg:items-start w-full lg:w-auto">
@@ -42,8 +63,10 @@ export const MyProfile = () => {
             </div>
           </div>
           <div className="flex flex-col gap-4 order-2 lg:order-1 w-full lg:w-auto">
-            <p className="font-semibold">João Pedro da Silva</p>
-            <p className="font-semibold">***.***.000-00</p>
+            <p className="font-semibold">{user?.name}</p>
+            <p className="font-semibold">
+              ***.***.{user?.document.slice(8, 14)}
+            </p>
             <div className="flex gap-2 flex-col lg:flex-row">
               <p className="font-semibold">
                 Sobre:{" "}
@@ -52,7 +75,7 @@ export const MyProfile = () => {
                 </span>
               </p>
             </div>
-            <p className="font-semibold">(54) 99999-9999</p>
+            <p className="font-semibold">{user?.whatsapp}</p>
           </div>
           <Link to="/edit-profile">
             <button className="order-1 lg:order-2  lg:w-auto lg:max-w-[208px] text-xs lg:text-base px-4 py-2 border border-gray-4 rounded-[10px] flex justify-center items-center cursor-pointer gap-4 hover:bg-blue-6  transition-colors">
@@ -70,18 +93,16 @@ export const MyProfile = () => {
         <span className="w-full h-[1px] bg-gray-5"></span>
         <div className="self-start flex gap-2 flex-col">
           <p className="font-semibold">
-            CEP: <span className="font-normal">46.454-805</span>
+            CEP: <span className="font-normal">{user?.zipCode}</span>
           </p>
           <div className="flex lg:flex-row gap-2 flex-col">
             <p className="font-semibold">
-              Endereço:
-              <span className="font-normal">
-                Rua da Esquina ao lado da Farmacia, 120.
-              </span>
+              Endereço:{" "}
+              <span className="font-normal">{user?.addressComplement}</span>
             </p>
             <div className="flex gap-2">
-              <p className="font-semibold">SP</p>
-              <p className="font-semibold">Queimados</p>
+              <p className="font-semibold">{user?.city} - </p>
+              <p className="font-semibold">{user?.state}</p>
             </div>
           </div>
         </div>

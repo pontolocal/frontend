@@ -5,9 +5,11 @@ import Box from '@mui/material/Box'
 import CloseIcon from '@mui/icons-material/Close'
 import { PontoLocalLogo } from "../ui/PontoLocalLogo"
 import { MenuHamburguer } from "../ui/MenuHamburguer"
+import { useGlobal } from '../../hooks/useGlobal'
 
 export const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { themeMode } = useGlobal()
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
@@ -53,7 +55,7 @@ export const Header = () => {
       </Box>
 
       {/* --- Painel do Menu Mobile --- */}
-      <div className={`fixed top-0 left-0 w-full h-screen bg-white z-[60] transform transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"} flex flex-col items-center justify-center`}>
+      <div className={`fixed top-0 left-0 w-full h-screen ${themeMode === "light" ? "bg-white" : "bg-blue-3"} z-[60] transform transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"} flex flex-col items-center justify-center`}>
         <button onClick={toggleMobileMenu} aria-label="Fechar menu" className="absolute top-6 right-6">
           <CloseIcon sx={{ fontSize: 30 }} />
         </button>

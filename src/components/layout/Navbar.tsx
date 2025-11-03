@@ -2,10 +2,12 @@ import { Link as RouterLink } from 'react-router-dom'
 import Button from '@mui/material/Button'
 import { PontoLocalLogo } from "../ui/PontoLocalLogo"
 import { MenuHamburguer } from "../ui/MenuHamburguer"
+import { useGlobal } from '../../hooks/useGlobal'
 
 export const Header = () => { 
+  const { themeMode } = useGlobal()
   return (
-    <header className="flex w-full bg-white fixed items-center justify-between p-6 shadow-sm z-50">
+    <header className={`flex w-full ${themeMode==="light" ? "bg-white" : "bg-blue-3"} fixed items-center justify-between p-6 shadow-sm z-50`}>
       <div className="w-[94px] sm:hidden flex justify-start">
         <MenuHamburguer />
       </div>
