@@ -14,8 +14,12 @@ export const MyProfile = () => {
   // const {setUserId} = useGlobal()
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const navigate = useNavigate();
-  const { user, fetchGetUser } = useGetUser(`/auth/get/${localStorage.getItem("userId")}`);
-  const { fetchDeleteUser } = useDeleteUser(`/auth/delete/${localStorage.getItem("userId")}`);
+  const { user, fetchGetUser } = useGetUser(
+    `/auth/get/${localStorage.getItem("userId")}`
+  );
+  const { fetchDeleteUser } = useDeleteUser(
+    `/auth/delete/${localStorage.getItem("userId")}`
+  );
 
   const {logout} = useAuth()
 
@@ -24,7 +28,9 @@ export const MyProfile = () => {
     fetchDeleteUser();
     navigate("/");
     setDeleteModalOpen(false);
-    logout()
+    setTimeout(() => {
+      logout();
+    }, 4000);
   };
 
   useEffect(() => {
