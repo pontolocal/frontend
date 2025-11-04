@@ -7,11 +7,12 @@ import { useEffect, useState } from "react";
 import { DeleteModal } from "../components/modal/DeleteModal";
 import { useGetUser } from "../hooks/useGetUser";
 import { useDeleteUser } from "../hooks/useDeleteUser";
-// import { useGlobal } from "../hooks/useGlobal";
 import { useAuth } from "../api/AuthContext";
+import { useGlobal } from "../hooks/useGlobal";
 
 export const MyProfile = () => {
   // const {setUserId} = useGlobal()
+  const {themeMode} = useGlobal()
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const navigate = useNavigate();
   const { user, fetchGetUser } = useGetUser(
@@ -38,8 +39,8 @@ export const MyProfile = () => {
   }, []);
 
   return (
-    <main className="w-full min-h-full flex items-center justify-center bg-blue-100 px-4 py-32">
-      <div className="w-full lg:max-w-[1210px] bg-white rounded-41 p-10 flex flex-col gap-8 items-start h-auto">
+    <main className="w-full min-h-full flex items-center justify-center px-4 py-32">
+      <div className={`w-full lg:max-w-[1210px] rounded-41 p-10 flex flex-col gap-8 items-start h-auto ${themeMode === "light" ? "bg-white" : "bg-blue-4"}`}>
         <div className="w-full flex flex-col lg:flex-row lg:items-start items-center justify-between gap-4">
           <div className="flex items-center justify-center lg:items-start w-full lg:w-auto">
             <div className="flex flex-col  items-center text-center gap-2 h-auto">
@@ -57,7 +58,7 @@ export const MyProfile = () => {
                   />
                 </div>
               </div>
-              <p className="text-xs font-bold text-black/40">
+              <p className="text-xs font-bold opacity-50">
                 Clique no ícone para alterar a foto
               </p>
             </div>
@@ -114,7 +115,7 @@ export const MyProfile = () => {
           <div className="w-[48px] h-[48px] bg-red-4 rounded-full flex justify-center items-center">
             <img src={TrashIcon} alt="TrashIcon" />
           </div>
-          <span>Deletar Perfil</span>
+          <span className="text-black!">Deletar Perfil</span>
         </button>
       </div>
       <DeleteModal

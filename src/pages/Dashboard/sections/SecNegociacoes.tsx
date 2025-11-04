@@ -1,14 +1,13 @@
 import { useMemo, useState } from "react";
-import {
-  buildNegociações,
-  type Status,
-} from "../../../data/dashboardMock.js";
+import { buildNegociações, type Status } from "../../../data/dashboardMock.js";
 import { ChipStatus } from "../../../components/ui/Chips/ChipStatus.js";
 import { BtnPrimary } from "../../../components/ui/Buttons/BtnPrimary.js";
 import { BtnGhost } from "../../../components/ui/Buttons/BtnGhost.js";
 import Pagination from "../../../components/ui/Pagination/index.js";
+import { useGlobal } from "../../../hooks/useGlobal.js";
 
 export function SecNegociacoes() {
+  const { themeMode } = useGlobal();
   const [filter, setFilter] = useState<"todos" | Status>("todos");
   const [page, setPage] = useState(1);
   const pageSize = 10;
@@ -23,7 +22,11 @@ export function SecNegociacoes() {
 
   return (
     <div className="text-black">
-      <div className="bg-white md:rounded-xl shadow-sm mb-4 md:mb-8">
+      <div
+        className={`md:rounded-xl shadow-sm mb-4 md:mb-8 ${
+          themeMode === "light" ? "bg-white text-black" : "bg-blue-4 text-white"
+        }`}
+      >
         <div className="flex items-center justify-between">
           <div className="flex w-full gap-1 px-1 py-5 md:gap-5 md:px-6 md:py-6">
             {tabs.map((k) => (
@@ -39,11 +42,11 @@ export function SecNegociacoes() {
                   px-2 py-2 md:px-6 md:py-2
                   rounded-xl text-xs md:text-sm leading-none
                   font-semibold transition whitespace-nowrap
-                  border border-[#D2D2D2]
+                  border border-[#D2D2D2] cursor-pointer
                   ${
                     filter === k
-                      ? "bg-[#DCE5FE] shadow-sm"
-                      : "bg-white hover:bg-[#EEF3FF]"
+                      ? "bg-blue-2 shadow-sm"
+                      : "bg-transparent hover:bg-blue-2"
                   }
                 `}
               >
@@ -60,7 +63,11 @@ export function SecNegociacoes() {
         </div>
       </div>
 
-      <div className="mb-3 md:mb-7 flex flex-col items-center text-center gap-2 md:flex-row md:items-center md:justify-between md:text-left">
+      <div
+        className={`mb-3 md:mb-7 flex flex-col items-center text-center gap-2 md:flex-row md:items-center md:justify-between md:text-left ${
+          themeMode === "light" ? "text-black" : "text-white"
+        }`}
+      >
         <h2 className="font-semibold text-xl md:text-2xl">
           Meu histórico de negociações
         </h2>
@@ -73,7 +80,11 @@ export function SecNegociacoes() {
         {pageData.map((o) => (
           <div
             key={o.id}
-            className="bg-white md:rounded-xl border border-[#DDDDDD] p-4 sm:px-6 md:px-8"
+            className={`md:rounded-xl border border-[#DDDDDD] p-4 sm:px-6 md:px-8 ${
+              themeMode === "light"
+                ? "bg-white text-black"
+                : "bg-blue-4 text-white"
+            }`}
           >
             <div className="grid grid-cols-1 sm:grid-cols-[2fr_1fr_2fr] sm:gap-6 gap-4 items-center">
               <div className="flex items-start gap-[38px] min-w-0">
@@ -83,7 +94,7 @@ export function SecNegociacoes() {
                   className="w-[153px] h-[114px] rounded-md object-cover flex-shrink-0"
                 />
                 <div className="min-w-0">
-                  <p className="text-xs font-medium">{o.date}</p>
+                  <p className="text-xs font-medium ">{o.date}</p>
                   <p className="text-xs font-medium text-[#696969]">
                     {o.store}
                   </p>
@@ -107,7 +118,7 @@ export function SecNegociacoes() {
                     ? "Comprar novamente"
                     : "Confirmar compra"}
                 </button>
-                <button className={`${BtnGhost} w-full sm:w-auto`}>
+                <button className={`${BtnGhost} w-full sm:w-auto text-black`}>
                   Ver loja
                 </button>
               </div>

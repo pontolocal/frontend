@@ -1,4 +1,5 @@
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material'
+import { useGlobal } from '../../hooks/useGlobal'
 
 interface DeleteModalProps {
   isOpen: boolean
@@ -15,6 +16,7 @@ export const DeleteModal = ({
   title = 'Deletar Perfil',
   message = 'Tem certeza que deseja deletar seu perfil? Esta ação não pode ser desfeita.',
 }: DeleteModalProps) => {
+  const {themeMode} = useGlobal()
   return (
     <Dialog 
       open={isOpen} 
@@ -26,6 +28,8 @@ export const DeleteModal = ({
           width: '100%',     
           maxWidth: '380px',
           minHeight: '200px',
+          backgroundColor: themeMode === "light" ? "white" : "#1D2333",
+          color: themeMode === "light" ? "black" : "white"
         } 
       }}
     >
@@ -37,7 +41,7 @@ export const DeleteModal = ({
         {title}
       </DialogTitle>
       <DialogContent sx={{ paddingTop: '0 !important' }}>
-        <DialogContentText>{message}</DialogContentText>
+        <DialogContentText sx={{color: themeMode === "light" ? "black" : "white"}}>{message}</DialogContentText>
       </DialogContent>
       <DialogActions sx={{ padding: '16px 24px', gap: 1 }}>
         <Button 

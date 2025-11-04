@@ -8,6 +8,7 @@ import { useState } from "react";
 import Button from "@mui/material/Button";
 import FilterComponent from "../components/ui/FilterComponent";
 import { Pagination } from "@mui/material";
+import { useGlobal } from "../hooks/useGlobal";
 
 const pages = [
   { name: "Todos", path: "/explore" },
@@ -16,6 +17,7 @@ const pages = [
 ];
 
 const Explore = () => {
+  const {themeMode} = useGlobal()
   const [searchValue, setSearchValue] = useState<string>("");
   let location: string = useLocation().pathname;
 
@@ -41,17 +43,17 @@ const Explore = () => {
   };
 
   return (
-    <main className="bg-blue-0">
+    <main className={`${themeMode=== "light" ? "bg-blue-0" : "bg-blue-8"}`}>
       <section className="flex flex-col gap-4 items-center justify-center py-12 px-4">
         <h2 className="text-center font-bold text-2xl">
           Encontre produtos e lojas próximos de você
         </h2>
-        <div className="flex items-center justify-between gap-4 p-4 bg-white h-12 max-w-96 w-full rounded shadow-sm shadow-gray-400 ">
+        <div className={`flex items-center justify-between gap-4 p-4 ${themeMode=== "light" ? "bg-white" : "bg-blue-4 text-white"} h-12 max-w-96 w-full rounded shadow-sm shadow-gray-400`}>
           <input
             type="text"
             placeholder="Buscar por produtos ou lojas"
             autoFocus
-            className=" w-full outline-0"
+            className="w-full outline-0"
             onChange={(e) => {
               setSearchValue(e.target.value);
             }}
@@ -95,7 +97,7 @@ const Explore = () => {
       />
 
       {location === "/stores" ? (
-        <section className="flex flex-col gap-4 justify-center items-center py-12 ">
+        <section className="flex flex-col gap-4 justify-center items-center py-12">
           <div className="flex justify-between w-full max-w-[1069px] m-auto px-4">
             {stores ? (
               <div>
@@ -185,7 +187,7 @@ const Explore = () => {
               <p>{productsErrorMessage}</p>
             )}
           </section>
-          <section className="flex flex-col gap-4 justify-center items-center py-24 bg-blue-1">
+          <section className={`flex flex-col gap-4 justify-center items-center py-24 ${themeMode=== "light" ? "bg-blue-1" : "bg-blue-3"}`}>
             <div className="flex justify-between items-end w-full max-w-[1069px] m-auto px-4">
               {stores ? (
                 <div>

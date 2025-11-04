@@ -21,7 +21,7 @@ export const GlobalContext = createContext<GlobalContextType | undefined>(
 );
 
 export const GlobalProvider = ({ children }: { children: ReactNode }) => {
-  const [themeMode, setThemeMode] = useState("light");
+  const [themeMode, setThemeMode] = useState(localStorage.getItem("theme") || "light");
   const [userId, setUserId] = useState<number | null>(null);
   const [userInfos, setUserInfos] = useState<GoogleJwtPayload | null>(null);
 
@@ -59,6 +59,10 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
       console.error("Token inválido:", err);
     }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("theme", themeMode)
+  }, [themeMode])
 
   return (
     <GlobalContext.Provider

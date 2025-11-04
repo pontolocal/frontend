@@ -6,11 +6,13 @@ import { useState } from "react";
 import Rating from "@mui/material/Rating";
 import { FavoriteBorder } from "@mui/icons-material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useGlobal } from "../../hooks/useGlobal";
 
 const ProductCard = ({ product }: { product: ProductType }) => {
+  const {themeMode} = useGlobal()
   const [isFavorited, setIsFavorited] = useState<boolean>();
   return (
-    <div className="relative flex flex-col w-[335px] p-8 shadow-xl rounded-2xl bg-white">
+    <div className={`relative flex flex-col w-[335px] p-8 shadow-xl rounded-2xl ${themeMode === "light" ? "bg-white" : "bg-blue-4"}`}>
       <img
         src={product.image}
         alt={product.name}
@@ -54,7 +56,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
       <div className="flex flex-col gap-2">
         <Link to={`/products/${product.id}`}>
           <Button
-            styles="bg-white border justify-center text-blue-3 font-semibold"
+            styles="border justify-center text-blue-3 font-semibold"
             text="Ver detalhes"
           />
         </Link>

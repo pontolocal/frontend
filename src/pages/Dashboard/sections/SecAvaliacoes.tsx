@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { avaliacoesMock } from "../../../data/dashboardMock";
+import { useGlobal } from "../../../hooks/useGlobal";
 
 type AvaliacaoFilter =
   | "Todos"
@@ -18,11 +19,12 @@ type Review = {
   name: string;
   stars: 1 | 2 | 3 | 4 | 5;
   text?: string;
-  ago?: string; 
-  createdAt?: string | number | Date; 
+  ago?: string;
+  createdAt?: string | number | Date;
 };
 
 export function SecAvaliacoes() {
+  const {themeMode} = useGlobal()
   const [filter, setFilter] = useState<AvaliacaoFilter>("Todos");
 
   const reviews = avaliacoesMock as Review[];
@@ -94,34 +96,37 @@ export function SecAvaliacoes() {
   return (
     <div>
       {/* filtros */}
-     <div className="bg-white md:rounded-xl p-6 shadow-sm mb-7
-                grid grid-cols-3 gap-2 md:gap-3">
-  {filters.map((label) => (
-    <button
-      key={label}
-      onClick={() => setFilter(label)}
-      aria-pressed={filter === label}
-      className={`w-full
+      <div
+        className={`md:rounded-xl p-6 shadow-sm mb-7
+                grid grid-cols-3 gap-2 md:gap-3 ${themeMode === "light" ? "bg-white" : "bg-blue-4"}`}
+      >
+        {filters.map((label) => (
+          <button
+            key={label}
+            onClick={() => setFilter(label)}
+            aria-pressed={filter === label}
+            className={`w-full
                   px-2 py-2 md:px-6 md:py-2
                   rounded-xl text-xs md:text-sm leading-none
                   font-semibold transition whitespace-nowrap
                   border border-[#D2D2D2]
-                  ${filter === label ? "bg-[#DCE5FE] shadow-sm" : "bg-white hover:bg-[#EEF3FF]"}`}
-    >
-      {label}
-    </button>
-  ))}
-</div>
+                  ${
+                    filter === label
+                      ? "bg-blue-2 shadow-sm"
+                      : "bg-transparent hover:bg-blue-2"
+                  }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
 
-
-      <div className="bg-white md:rounded-xl py-13 px-10 shadow-sm mb-4">
-        <h3
-          className="font-bold text-xl sm:text-xl md:text-2xl text-center sm:text-left mb-6 sm:mb-8 md:mb-11"
-        >
+      <div className={`md:rounded-xl py-13 px-10 shadow-sm mb-4 ${themeMode === "light" ? "bg-white" : "bg-blue-4"}`}>
+        <h3 className="font-bold text-xl sm:text-xl md:text-2xl text-center sm:text-left mb-6 sm:mb-8 md:mb-11">
           Avaliações da loja
         </h3>
 
-        <div className="bg-[#F8FAFF] rounded-md p-6 flex flex-col sm:flex-row items-center sm:items-start justify-between gap-6 mb-4">
+        <div className="rounded-md p-6 flex flex-col sm:flex-row items-center sm:items-start justify-between gap-6 mb-4">
           <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
             <div className="flex items-center gap-2">
               <div className="text-4xl font-bold">{media.toFixed(1)}</div>
@@ -173,7 +178,7 @@ export function SecAvaliacoes() {
           <span className="text-sm text-[#6B7A99]">
             {filter === "Todos" ? "Todas as avaliações" : `Filtro: ${filter}`}
           </span>
-          <span className="text-sm text-[#1F384C] font-medium">
+          <span className="text-sm font-medium">
             {filteredReviews.length} resultado
             {filteredReviews.length === 1 ? "" : "s"}
           </span>
@@ -181,7 +186,7 @@ export function SecAvaliacoes() {
 
         <div className="space-y-6">
           {filteredReviews.length === 0 && (
-            <div className="text-sm text-[#6B7A99]">
+            <div className="text-sm">
               Nenhuma avaliação encontrada.
             </div>
           )}
@@ -194,7 +199,7 @@ export function SecAvaliacoes() {
               <div className="flex-1">
                 <div className="flex flex-wrap items-center gap-2 text-sm">
                   <span className="font-semibold">{r.name}</span>
-                  <div className="flex items-center bg-white  px-1 py-0.5">
+                  <div className="flex items-center px-1 py-0.5">
                     {Array.from({ length: 5 }).map((_, i) =>
                       i < r.stars ? (
                         <StarIcon
@@ -211,10 +216,10 @@ export function SecAvaliacoes() {
                       )
                     )}
                   </div>
-                  {r.ago && <span className="text-[#6B7A99]">{r.ago}</span>}
+                  {r.ago && <span className="opacity-40">{r.ago}</span>}
                 </div>
                 {r.text && (
-                  <p className="text-sm text-[#1F384C] mt-1">{r.text}</p>
+                  <p className="text-sm mt-1">{r.text}</p>
                 )}
               </div>
             </div>
