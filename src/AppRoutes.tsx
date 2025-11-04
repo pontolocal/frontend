@@ -32,17 +32,22 @@ import EditProfile from "./pages/EditProfile";
 import { Notifications } from "@mui/icons-material";
 import { AuthProvider } from "./api/AuthContext";
 import { PrivateRoute } from "./api/PrivateRoute";
+import { useGlobal } from "./hooks/useGlobal";
 
 // Layout para páginas públicas (com Header e Footer)
-const LoggedLayout = () => (
-  <>
+
+const LoggedLayout = () => {
+  const {themeMode} = useGlobal()
+  return (
+    <>
     <MiniDrawerOverlay />
-    <main className="pt-16 pl-16 max-md:pl-0 ">
+    <main className={`pt-16 pl-16 max-md:pl-0 ${themeMode === "light" ? "bg-blue-1 text-black" : "bg-blue-8 text-white!"}`}>
       <Outlet />
     </main>
     <Footer />
   </>
-);
+  )
+}
 
 const NonLoggedLayout = () => (
   <>

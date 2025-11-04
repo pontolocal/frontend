@@ -38,7 +38,7 @@ import { NotificationModal } from "../../components/modal/NotificationModal";
 import type { Notification } from "../../types/notifications";
 import notificationsData from "../../data/notifications.json";
 import ButtonSwitch from "../ui/ButtonSwitch";
-import { useGlobal } from '../../hooks/useGlobal'
+import { useGlobal } from "../../hooks/useGlobal";
 import { useAuth } from "../../api/AuthContext";
 import { useGetUser } from "../../hooks/useGetUser";
 
@@ -139,13 +139,15 @@ export default function MiniDrawer() {
   const [logoutModalOpen, setLogoutModalOpen] = React.useState(false);
   const navigate = useNavigate();
 
-  const { themeMode } = useGlobal()
+  const { themeMode } = useGlobal();
 
-  const {user, fetchGetUser} = useGetUser(`/auth/get/${localStorage.getItem("userId")}`)
+  const { user, fetchGetUser } = useGetUser(
+    `/auth/get/${localStorage.getItem("userId")}`
+  );
 
   React.useEffect(() => {
-    fetchGetUser()
-  }, [])
+    fetchGetUser();
+  }, []);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -155,13 +157,13 @@ export default function MiniDrawer() {
     setOpen(false);
   };
 
-  const {logout} = useAuth()
+  const { logout } = useAuth();
 
   const handleLogout = () => {
     console.log("Ação: Usuário deslogado!");
     setLogoutModalOpen(false);
     setAnchorEl(null);
-    logout()
+    logout();
     navigate("/");
   };
 
@@ -230,7 +232,9 @@ export default function MiniDrawer() {
                   <div className="text-sm font-semibold text-blue-3">
                     {user?.name.split(" ")[0]}
                   </div>
-                  <div className="text-xs text-gray-500">{user?.role === "INDIVIDUAL" ? "consumidor" : "comerciante"}</div>
+                  <div className="text-xs text-gray-500">
+                    {user?.role === "INDIVIDUAL" ? "consumidor" : "comerciante"}
+                  </div>
                 </div>
               </div>
             </div>
@@ -243,6 +247,8 @@ export default function MiniDrawer() {
             sx={{
               "& .MuiPaper-root": {
                 borderRadius: 2,
+                backgroundColor: themeMode=== "light" ? "white" : "#1d2333",
+                color: themeMode=== "light" ? "black" : "white",
               },
             }}
           >
@@ -289,7 +295,7 @@ export default function MiniDrawer() {
           },
         }}
       >
-        <DrawerHeader className={`${themeMode==="dark" && "bg-[#1d2333]"}`}>
+        <DrawerHeader className={`${themeMode === "dark" && "bg-[#1d2333]"}`}>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />
@@ -303,7 +309,8 @@ export default function MiniDrawer() {
             height: "100%",
             display: "flex",
             flexDirection: "column",
-            backgroundColor: `${themeMode==="light" ? "white" : "#1d2333"}`
+            backgroundColor: `${themeMode === "light" ? "white" : "#1d2333"}`,
+            borderColor: "black",
           }}
         >
           <List>
@@ -311,7 +318,7 @@ export default function MiniDrawer() {
               <ListItem
                 key={item.text}
                 disablePadding
-                sx={{ display: "block"}}
+                sx={{ display: "block" }}
                 onClick={handleDrawerClose}
               >
                 <ListItemButton
@@ -326,7 +333,11 @@ export default function MiniDrawer() {
                 >
                   <ListItemIcon
                     sx={[
-                      { minWidth: 0, justifyContent: "center", color: `${themeMode==="dark" && "white"}` },
+                      {
+                        minWidth: 0,
+                        justifyContent: "center",
+                        color: `${themeMode === "dark" && "white"}`,
+                      },
                       open ? { mr: 3 } : { mr: "auto" },
                     ]}
                   >
@@ -334,7 +345,10 @@ export default function MiniDrawer() {
                   </ListItemIcon>
                   <ListItemText
                     primary={item.text}
-                    sx={{ opacity: open ? 1 : 0, color: themeMode==="dark" ? "white" : "gray"}}
+                    sx={{
+                      opacity: open ? 1 : 0,
+                      color: themeMode === "dark" ? "white" : "gray",
+                    }}
                   />
                 </ListItemButton>
               </ListItem>
@@ -362,7 +376,11 @@ export default function MiniDrawer() {
                 >
                   <ListItemIcon
                     sx={[
-                      { minWidth: 0, justifyContent: "center", color: themeMode==="dark" ? "white" : "gray"},
+                      {
+                        minWidth: 0,
+                        justifyContent: "center",
+                        color: themeMode === "dark" ? "white" : "gray",
+                      },
                       open ? { mr: 3 } : { mr: "auto" },
                     ]}
                   >
@@ -370,7 +388,10 @@ export default function MiniDrawer() {
                   </ListItemIcon>
                   <ListItemText
                     primary="Ajuda"
-                    sx={{ opacity: open ? 1 : 0, color: themeMode==="dark" ? "white" : "gray"}}
+                    sx={{
+                      opacity: open ? 1 : 0,
+                      color: themeMode === "dark" ? "white" : "gray",
+                    }}
                   />
                 </ListItemButton>
               </ListItem>
@@ -392,7 +413,11 @@ export default function MiniDrawer() {
                 >
                   <ListItemIcon
                     sx={[
-                      { minWidth: 0, justifyContent: "center", color: themeMode==="dark" ? "white" : "gray" },
+                      {
+                        minWidth: 0,
+                        justifyContent: "center",
+                        color: themeMode === "dark" ? "white" : "gray",
+                      },
                       open ? { mr: 3 } : { mr: "auto" },
                     ]}
                   >
@@ -400,7 +425,10 @@ export default function MiniDrawer() {
                   </ListItemIcon>
                   <ListItemText
                     primary="Notificação"
-                    sx={{ opacity: open ? 1 : 0, color: themeMode==="dark" ? "white" : "gray"}}
+                    sx={{
+                      opacity: open ? 1 : 0,
+                      color: themeMode === "dark" ? "white" : "gray",
+                    }}
                   />
                 </ListItemButton>
               </ListItem>

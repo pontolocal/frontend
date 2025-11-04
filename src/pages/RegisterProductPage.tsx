@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import type { Product } from "../types/Product";
 import ChevronDown from "../assets/images/chevron-down.svg";
+import { useGlobal } from "../hooks/useGlobal";
 const RegisterProduct: React.FC = () => {
   const [formData, setFormData] = useState<Product>({
     name: "",
@@ -11,10 +12,10 @@ const RegisterProduct: React.FC = () => {
     image: undefined,
   });
 
+  const {themeMode} = useGlobal()
+
   const [preview, setPreview] = useState<string | null>(null);
   const [dragActive, setDragActive] = useState(false);
-
-  // referência para o input file
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleChange = (
@@ -69,17 +70,17 @@ const RegisterProduct: React.FC = () => {
   };
 
   return (
-    <main className="w-full  flex justify-center items-start bg-blue-0 flex-1 p-4 ">
-      <div className="flex justify-center items-center h-full w-full max-w-[750px]  flex-col p-2 gap-4 ">
+    <div className={`w-full  flex justify-center items-star flex-1 p-4 ${themeMode === "light" ? "bg-blue-0" : "bg-blue-8"}`}>
+      <div className="flex justify-center items-center h-full w-full max-w-[750px]  flex-col p-2 gap-4">
         <h2 className="text-xl font-bold">Cadastrar Produto</h2>
         <div className="flex self-start">
           <img src={ChevronDown} alt="ChevronDown" className="-rotate-90" />{" "}
-          <p className="font-bold text-black-opacity-60">Voltar ao início</p>
+          <p className="font-bold opacity-50">Voltar ao início</p>
         </div>
 
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-2 bg-white rounded-2xl shadow p-12 w-full "
+          className={`flex flex-col gap-2 bg-white rounded-2xl shadow p-12 w-full ${themeMode === "light" ? "bg-white!" : "bg-blue-4!"}`}
         >
           <label htmlFor="name" className="text-sm font-bold">
             Nome do produto
@@ -191,7 +192,7 @@ const RegisterProduct: React.FC = () => {
           </button>
         </form>
       </div>
-    </main>
+    </div>
   );
 };
 

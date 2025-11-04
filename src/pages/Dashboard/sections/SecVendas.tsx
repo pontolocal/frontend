@@ -4,8 +4,10 @@ import { ChipStatus } from "../../../components/ui/Chips/ChipStatus.js";
 import { BtnGhost } from "../../../components/ui/Buttons/BtnGhost.js";
 import { BtnPrimary } from "../../../components/ui/Buttons/BtnPrimary.js";
 import Pagination from "../../../components/ui/Pagination/index.js";
+import { useGlobal } from "../../../hooks/useGlobal.js";
 
 export function SecVendas() {
+  const { themeMode } = useGlobal();
   const [filter, setFilter] = useState<"todos" | Status>("todos");
   const [page, setPage] = useState(1);
   const pageSize = 10;
@@ -28,7 +30,11 @@ export function SecVendas() {
         Relatório de vendas
       </h3>
 
-      <div className="bg-white md:rounded-xl shadow-sm mb-4 p-4 pb-[49px] text-center md:text-left">
+      <div
+        className={`md:rounded-xl shadow-sm mb-4 p-4 pb-[49px] text-center md:text-left ${
+          themeMode === "light" ? "bg-white text-black" : "bg-blue-4 text-white"
+        }`}
+      >
         <p className="text-base">
           Total de cliques: <span className="font-semibold">47</span>
         </p>
@@ -47,7 +53,13 @@ export function SecVendas() {
       </div>
 
       <div>
-        <div className="bg-white md:rounded-xl shadow-sm mb-4 md:mb-8">
+        <div
+          className={`md:rounded-xl shadow-sm mb-4 md:mb-8 ${
+            themeMode === "light"
+              ? "bg-white text-black"
+              : "bg-blue-4 text-white"
+          }`}
+        >
           <div className="flex items-center justify-between">
             <div className="flex w-full gap-1 px-1 py-5 md:gap-5 md:px-6 md:py-6">
               {(["todos", "confirmado", "pendente", "cancelado"] as const).map(
@@ -67,8 +79,8 @@ export function SecVendas() {
                 border border-[#D2D2D2]
                 ${
                   filter === k
-                    ? "bg-[#DCE5FE] shadow-sm"
-                    : "bg-white hover:bg-[#EEF3FF]"
+                    ? "bg-transparent shadow-sm"
+                    : "bg-white hover:bg-blue-2"
                 }
               `}
                   >
@@ -100,7 +112,11 @@ export function SecVendas() {
         {pageData.map((o) => (
           <div
             key={o.id}
-            className="bg-white md:rounded-xl border border-[#DDDDDD] p-4 sm:px-6 md:px-8"
+            className={`md:rounded-xl border border-[#DDDDDD] p-4 sm:px-6 md:px-8 ${
+              themeMode === "light"
+                ? "bg-white text-black"
+                : "bg-blue-4 text-white"
+            }`}
           >
             <div className="grid grid-cols-1 sm:grid-cols-[2fr_1fr_2fr] gap-4 sm:gap-6 items-center">
               <div className="flex items-start gap-[38px] min-w-0">
@@ -123,7 +139,6 @@ export function SecVendas() {
                 </div>
               </div>
 
-          
               <div className="hidden sm:flex justify-center items-center place-self-center">
                 <ChipStatus status={o.status} />
               </div>

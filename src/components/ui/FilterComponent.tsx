@@ -15,8 +15,10 @@ import type { SelectChangeEvent } from "@mui/material/Select";
 import cities from "../../data/cities.json";
 import categories from "../../data/categories.json";
 import { Button } from "../../components/ui/Button";
+import { useGlobal } from "../../hooks/useGlobal";
 
 const FilterComponent = ({ prevCategory }: any) => {
+  const {themeMode} = useGlobal()
   const formatName = (name : string) => {
     const nameFormatted = name.normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "") 
@@ -64,7 +66,8 @@ const FilterComponent = ({ prevCategory }: any) => {
   };
 
   return (
-    <div className="relative bg-white max-w-[1069px] m-auto px-12 py-8 rounded">
+    
+    <div className={`relative max-w-[1069px] m-auto px-12 py-8 rounded ${themeMode=== "light" ? "bg-white" : "bg-blue-4"}`}>
       <h2 className="font-bold text-xl pb-4">Filtros</h2>
       <Button
         styles="absolute top-4 right-4 text-xs text-blue-3 border-1 border-blue-3 max-w-24 h-8! hover:bg-blue-3 hover:text-white"

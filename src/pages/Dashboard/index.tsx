@@ -4,10 +4,13 @@ import { SecVendas } from "./sections/SecVendas.js";
 import { SecAnuncios } from "./sections/SecAnuncios.js";
 import { SecAvaliacoes } from "./sections/SecAvaliacoes.js";
 import { SecNegociacoes } from "./sections/SecNegociacoes.js";
+import { useGlobal } from "../../hooks/useGlobal.js";
 
 export type Tab = "Negociações" | "vendas" | "anuncios" | "avaliacoes";
 
 export const Dashboard = () => {
+  const {themeMode} = useGlobal()
+
   const [tab, setTab] = useState<Tab>("Negociações");
 
   const tabBtn =
@@ -17,10 +20,10 @@ text-[10px] md:text-sm leading-none \
 rounded-xl font-semibold \
 border border-[#D2D2D2] transition";
 
-  const tabActive = "bg-white border-[#D2D2D2] shadow-sm";
+  const tabActive = "bg-blue-2! border-[#D2D2D2] shadow-sm cursor-pointer";
 
   const tabIdle =
-    "text-[#696969] border-[#D2D2D2] bg-[#F0F0F0] hover:bg-gray-100";
+    "text-[#696969] border-[#D2D2D2] bg-[#F0F0F0] hover:bg-blue-2 cursor-pointer";
 
   return (
     <div className="p-4 max-w-[1069px] m-auto">
@@ -28,7 +31,7 @@ border border-[#D2D2D2] transition";
         <h1 className=" pt-5 md:pt-0 font-bold text-xl md:text-3xl">
           Olá, João
         </h1>
-        <p className="text-[#404040] md:text-sm">
+        <p className="text-gray-500 md:text-sm">
           Bem-vindo (a) ao seu dashboard geral
         </p>
       </div>
@@ -45,7 +48,7 @@ border border-[#D2D2D2] transition";
           <button
             key={k}
             onClick={() => setTab(k)}
-            className={`${tabBtn} ${tab === k ? tabActive : tabIdle}`}
+            className={`${tabBtn} ${tab === k ? tabActive : tabIdle} ${themeMode=== "light" ? "bg-white text-black" : "bg-blue-4 text-white"}`}
           >
             {label}
           </button>

@@ -2,10 +2,13 @@ import { Card, Typography, Button, Box, useTheme } from '@mui/material'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import { useGlobal } from '../hooks/useGlobal'
 
 
 const Welcome = () => {
   const theme = useTheme()
+  const {themeMode} = useGlobal()
+
 
   const navigate = useNavigate()
 
@@ -20,24 +23,23 @@ const Welcome = () => {
 
   return (
     <Box
-      className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-6"
-      style={{ backgroundColor: theme.palette.background.default }}
+      className={`flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 ${themeMode === "light" ? "bg-blue-1" : "bg-blue-3"}`}
     >
       <Card
-        className="w-full max-w-4xl p-6 sm:p-10 text-center shadow-lg"
+        className={`w-full max-w-4xl p-6 sm:p-10 text-center shadow-lg ${themeMode === "light" ? "bg-blue-1" : "bg-blue-3"}`}
+        sx={{backgroundColor: themeMode === "light" ? "white" : "#1d2333", color: themeMode === "light" ? "black" : "white"}}
       >
         <Typography
           variant="h4"
           component="h1"
           className="font-bold"
-          sx={{ color: theme.palette.text.primary, fontSize: '2.25rem', mb: 4 }}
+          sx={{ color: themeMode === "light" ? "black" : "white", fontSize: '2.25rem', mb: 4 }}
         >
           Quer vender?
         </Typography>
         <Typography
           variant="body1"
           className="mt-2"
-          color="text.secondary"
           sx={{ mb: 6 }}
         >
           Venha divulgar os seus produtos e alcançar mais pessoas da sua região
@@ -80,7 +82,7 @@ const Welcome = () => {
           >
             <Box
               sx={{
-                backgroundColor: theme.palette.infoBox.main,
+                backgroundColor: themeMode === "light" ? "#c2d2fc" : "#3C5491",
                 borderRadius: '10px',
                 padding: '35px 35px',
                 margin: { xs: '0 auto', md: '0' },
@@ -92,7 +94,6 @@ const Welcome = () => {
                 component="p"
                 sx={{
                   fontWeight: 'bold',
-                  color: theme.palette.infoBox.contrastText,
                   fontSize: '1rem',
                   mb: 3.5
                 }}
@@ -101,11 +102,9 @@ const Welcome = () => {
               </Typography>
               <Typography
                 variant="body2"
-                color="text.secondary"
                 className="mt-1"
                 sx={{
                   fontWeight: 'normal',
-                  color: theme.palette.infoBox.contrastText
                 }}
               >
                 Comece agora a divulgar e aumente sua visibilidade
@@ -187,7 +186,6 @@ const Welcome = () => {
             className="text-sm hover:underline mt-2"
             style={{
               fontSize: theme.typography.body2.fontSize,
-              color: theme.palette.text.secondary
             }}
           >
             Precisa de ajuda? Veja nosso guia
