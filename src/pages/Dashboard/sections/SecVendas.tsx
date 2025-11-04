@@ -79,8 +79,8 @@ export function SecVendas() {
                 border border-[#D2D2D2]
                 ${
                   filter === k
-                    ? "bg-transparent shadow-sm"
-                    : "bg-white hover:bg-blue-2"
+                    ? "bg-blue-2 shadow-sm"
+                    : "bg-transparent hover:bg-blue-2"
                 }
               `}
                   >

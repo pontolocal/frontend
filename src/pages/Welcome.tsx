@@ -23,7 +23,7 @@ const Welcome = () => {
 
   return (
     <Box
-      className={`flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 ${themeMode === "light" ? "bg-blue-1" : "bg-blue-3"}`}
+      className={`flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 ${themeMode === "light" ? "bg-blue-0" : "bg-blue-8"}`}
     >
       <Card
         className={`w-full max-w-4xl p-6 sm:p-10 text-center shadow-lg ${themeMode === "light" ? "bg-blue-1" : "bg-blue-3"}`}
@@ -195,7 +195,6 @@ const Welcome = () => {
       </Card>
       <Typography
         variant="body2"
-        color="text.secondary"
         sx={{
           mt: 6,
           textAlign: 'center'

@@ -431,14 +431,28 @@ const EditProfile = () => {
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
-                          <Person />
+                          <Person
+                            style={{
+                              color: themeMode === "light" ? "gray" : "white",
+                            }}
+                          />
                         </InputAdornment>
                       ),
+                    }}
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        color: themeMode === "light" ? "black" : "white",
+                        "& fieldset": {
+                          borderColor: themeMode === "light" ? "gray" : "white",
+                        },
+                      },
+                      "& .MuiInputLabel-root": {
+                        color: themeMode === "light" ? "gray" : "white",
+                      },
                     }}
                   />
                 ) : (
                   <TextField
-                    sx={{ "& .MuiOutlinedInput-root": { height: "40px" } }}
                     size="small"
                     name="name"
                     label="Nome da empresa *"
@@ -452,6 +466,18 @@ const EditProfile = () => {
                           <Business />
                         </InputAdornment>
                       ),
+                    }}
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        color: themeMode === "light" ? "black" : "white",
+                        "& fieldset": {
+                          borderColor: themeMode === "light" ? "gray" : "white",
+                        },
+                        height: "40px",
+                      },
+                      "& .MuiInputLabel-root": {
+                        color: themeMode === "light" ? "gray" : "white",
+                      },
                     }}
                   />
                 )}
@@ -470,9 +496,24 @@ const EditProfile = () => {
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <VpnKey />
+                        <VpnKey
+                          style={{
+                            color: themeMode === "light" ? "gray" : "white",
+                          }}
+                        />
                       </InputAdornment>
                     ),
+                  }}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      color: themeMode === "light" ? "black" : "white",
+                      "& fieldset": {
+                        borderColor: themeMode === "light" ? "gray" : "white",
+                      },
+                    },
+                    "& .MuiInputLabel-root": {
+                      color: themeMode === "light" ? "gray" : "white",
+                    },
                   }}
                 />
                 {/* <TextField
@@ -498,7 +539,6 @@ const EditProfile = () => {
                   }}
                 >
                   <TextField
-                    sx={{ width: { xs: "100%", sm: "50%" } }}
                     size="small"
                     name="social_media_link"
                     label="Link (site ou rede social)"
@@ -509,13 +549,28 @@ const EditProfile = () => {
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
-                          <LinkIcon />
+                          <LinkIcon
+                            style={{
+                              color: themeMode === "light" ? "gray" : "white",
+                            }}
+                          />
                         </InputAdornment>
                       ),
                     }}
+                    sx={{
+                      width: { xs: "100%", sm: "50%" },
+                      "& .MuiOutlinedInput-root": {
+                        color: themeMode === "light" ? "black" : "white",
+                        "& fieldset": {
+                          borderColor: themeMode === "light" ? "gray" : "white",
+                        },
+                      },
+                      "& .MuiInputLabel-root": {
+                        color: themeMode === "light" ? "gray" : "white",
+                      },
+                    }}
                   />
                   <TextField
-                    sx={{ width: { xs: "100%", sm: "50%" } }}
                     size="small"
                     name="whatsapp"
                     label="WhatsApp *"
@@ -527,9 +582,25 @@ const EditProfile = () => {
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
-                          <WhatsApp />
+                          <WhatsApp
+                            style={{
+                              color: themeMode === "light" ? "gray" : "white",
+                            }}
+                          />
                         </InputAdornment>
                       ),
+                    }}
+                    sx={{
+                      width: { xs: "100%", sm: "50%" },
+                      "& .MuiOutlinedInput-root": {
+                        color: themeMode === "light" ? "black" : "white",
+                        "& fieldset": {
+                          borderColor: themeMode === "light" ? "gray" : "white",
+                        },
+                      },
+                      "& .MuiInputLabel-root": {
+                        color: themeMode === "light" ? "gray" : "white",
+                      },
                     }}
                   />
                 </Box>
@@ -550,7 +621,6 @@ const EditProfile = () => {
                   }}
                 >
                   <TextField
-                    sx={{ width: { xs: "100%", sm: "70%" } }}
                     size="small"
                     name="zip_code"
                     label="Digite seu CEP *"
@@ -561,6 +631,18 @@ const EditProfile = () => {
                     error={!!errors.zip_code}
                     helperText={errors.zip_code}
                     placeholder={placeholders.zip_code}
+                    sx={{
+                      width: { xs: "100%", sm: "70%" },
+                      "& .MuiOutlinedInput-root": {
+                        color: themeMode === "light" ? "black" : "white",
+                        "& fieldset": {
+                          borderColor: themeMode === "light" ? "gray" : "white",
+                        },
+                      },
+                      "& .MuiInputLabel-root": {
+                        color: themeMode === "light" ? "gray" : "white",
+                      },
+                    }}
                   />
                   <Button
                     sx={{ width: { xs: "100%", sm: "20%" }, height: "40px" }}
@@ -594,9 +676,26 @@ const EditProfile = () => {
                         readOnly: true,
                         startAdornment: (
                           <InputAdornment position="start">
-                            <Home />
+                            <Home
+                              style={{
+                                color: themeMode === "light" ? "gray" : "white",
+                              }}
+                            />
                           </InputAdornment>
                         ),
+                      }}
+                      sx={{
+                        width: { xs: "100%", sm: "50%" },
+                        "& .MuiOutlinedInput-root": {
+                          color: themeMode === "light" ? "black" : "white",
+                          "& fieldset": {
+                            borderColor:
+                              themeMode === "light" ? "gray" : "white",
+                          },
+                        },
+                        "& .MuiInputLabel-root": {
+                          color: themeMode === "light" ? "gray" : "white",
+                        },
                       }}
                     />
                     <Box
@@ -607,7 +706,6 @@ const EditProfile = () => {
                       }}
                     >
                       <TextField
-                        sx={{ width: { xs: "100%", sm: "50%" } }}
                         size="small"
                         label="Estado"
                         fullWidth
@@ -617,13 +715,30 @@ const EditProfile = () => {
                           readOnly: true,
                           startAdornment: (
                             <InputAdornment position="start">
-                              <Public />
+                              <Public
+                                style={{
+                                  color:
+                                    themeMode === "light" ? "gray" : "white",
+                                }}
+                              />
                             </InputAdornment>
                           ),
                         }}
+                        sx={{
+                          width: { xs: "100%", sm: "50%" },
+                          "& .MuiOutlinedInput-root": {
+                            color: themeMode === "light" ? "black" : "white",
+                            "& fieldset": {
+                              borderColor:
+                                themeMode === "light" ? "gray" : "white",
+                            },
+                          },
+                          "& .MuiInputLabel-root": {
+                            color: themeMode === "light" ? "gray" : "white",
+                          },
+                        }}
                       />
                       <TextField
-                        sx={{ width: { xs: "100%", sm: "50%" } }}
                         size="small"
                         label="Cidade"
                         name="city"
@@ -633,9 +748,27 @@ const EditProfile = () => {
                           readOnly: true,
                           startAdornment: (
                             <InputAdornment position="start">
-                              <LocationCity />
+                              <LocationCity
+                                style={{
+                                  color:
+                                    themeMode === "light" ? "gray" : "white",
+                                }}
+                              />
                             </InputAdornment>
                           ),
+                        }}
+                        sx={{
+                          width: { xs: "100%", sm: "50%" },
+                          "& .MuiOutlinedInput-root": {
+                            color: themeMode === "light" ? "black" : "white",
+                            "& fieldset": {
+                              borderColor:
+                                themeMode === "light" ? "gray" : "white",
+                            },
+                          },
+                          "& .MuiInputLabel-root": {
+                            color: themeMode === "light" ? "gray" : "white",
+                          },
                         }}
                       />
                     </Box>
@@ -653,9 +786,24 @@ const EditProfile = () => {
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Home />
+                        <Home
+                          style={{
+                            color: themeMode === "light" ? "gray" : "white",
+                          }}
+                        />
                       </InputAdornment>
                     ),
+                  }}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      color: themeMode === "light" ? "black" : "white",
+                      "& fieldset": {
+                        borderColor: themeMode === "light" ? "gray" : "white",
+                      },
+                    },
+                    "& .MuiInputLabel-root": {
+                      color: themeMode === "light" ? "gray" : "white",
+                    },
                   }}
                 />
 

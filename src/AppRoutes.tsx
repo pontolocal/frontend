@@ -41,7 +41,7 @@ const LoggedLayout = () => {
   return (
     <>
     <MiniDrawerOverlay />
-    <main className={`pt-16 pl-16 max-md:pl-0 ${themeMode === "light" ? "bg-blue-1 text-black" : "bg-blue-8 text-white!"}`}>
+    <main className={`pt-16 pl-16 max-md:pl-0 ${themeMode === "light" ? "bg-blue-0 text-black" : "bg-blue-8 text-white!"}`}>
       <Outlet />
     </main>
     <Footer />

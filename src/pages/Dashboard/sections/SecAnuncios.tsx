@@ -10,6 +10,7 @@ import { ChipDisponibilidade } from "../../../components/ui/Chips/ChipDisponibil
 import { BtnGhost } from "../../../components/ui/Buttons/BtnGhost.js";
 import Pagination from "../../../components/ui/Pagination/index.js";
 import { Link } from "react-router-dom";
+import { useGlobal } from "../../../hooks/useGlobal.js";
 
 type Filtro = "todos" | Disponibilidade;
 
@@ -27,6 +28,7 @@ function BreakAfter({ text, anchor }: { text: string; anchor: string }) {
 }
 
 export function SecAnuncios() {
+  const {themeMode} = useGlobal()
   const [filter, setFilter] = useState<Filtro>("todos");
   const [page, setPage] = useState(1);
   const pageSize = 10;
@@ -58,7 +60,7 @@ export function SecAnuncios() {
 
   return (
     <div>
-      <div className="bg-white md:rounded-xl shadow-sm mb-4 md:mb-8">
+      <div className={`md:rounded-xl shadow-sm mb-4 md:mb-8 ${themeMode === "light" ? "bg-white" : "bg-blue-4"}`}>
         <div className="flex items-center justify-between">
           <div className="flex w-full gap-1 px-1 py-5 md:gap-5 md:px-6 md:py-6">
             {FILTERS.map((k) => (
@@ -75,8 +77,8 @@ export function SecAnuncios() {
                   border border-[#D2D2D2]
               ${
                 filter === k
-                  ? "bg-[#DCE5FE] shadow-sm"
-                  : "bg-white hover:bg-[#EEF3FF]"
+                  ? "bg-blue-2 shadow-sm"
+                  : "bg-transparent hover:bg-blue-2"
               }`}
               >
                 {LABEL[k]}
@@ -101,7 +103,7 @@ export function SecAnuncios() {
         {pageData.map((a) => (
           <div
             key={a.id}
-            className="bg-white md:rounded-xl border border-[#DDDDDD] p-4 sm:px-6 md:px-8"
+            className={`md:rounded-xl border border-[#DDDDDD] p-4 sm:px-6 md:px-8 ${themeMode === "light" ? "bg-white" : "bg-blue-4 text-white!"}`}
           >
             <div className="grid grid-cols-1 sm:grid-cols-[2fr_1fr_2fr] gap-4 sm:gap-6 items-center">
               <div className="flex items-start gap-[38px] min-w-0">
@@ -112,7 +114,7 @@ export function SecAnuncios() {
                 />
                 <div className="min-w-0">
                   <p className="text-base font-bold truncate">{a.title}</p>
-                  <p className="text-xs text-[#1F384C] leading-snug line-clamp-2 break-words">
+                  <p className="text-xs leading-snug line-clamp-2 break-words">
                     <BreakAfter text={a.desc} anchor="crocante" />
                   </p>
 
