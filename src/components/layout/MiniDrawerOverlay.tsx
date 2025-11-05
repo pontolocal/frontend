@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 import {
   styled,
   useTheme,
@@ -28,13 +28,21 @@ import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { PontoLocalLogo } from "../ui/PontoLocalLogo";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import DarkModeSwitch from "../ui/ButtonSwitch";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
 import Divider from "@mui/material/Divider";
+import { useMediaQuery } from "@mui/material";
+import { Avatar, Menu, MenuItem } from "@mui/material";
+import { LogoutModal } from "../modal/LogoutModal";
+import { NotificationModal } from "../../components/modal/NotificationModal";
+import type { Notification } from "../../types/notifications";
+import notificationsData from "../../data/notifications.json";
+import ButtonSwitch from "../ui/ButtonSwitch";
+import { useGlobal } from "../../hooks/useGlobal";
+import { useAuth } from "../../api/AuthContext";
+import { useGetUser } from "../../hooks/useGetUser";
 
-const drawerWidth = 240;
+const drawerWidth = 300;
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -62,7 +70,6 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "flex-end",
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
 
@@ -72,67 +79,75 @@ interface AppBarProps extends MuiAppBarProps {
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
-})<AppBarProps>(({ theme }) => ({
+})<AppBarProps>(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(["width", "margin"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  variants: [
-    {
-      props: ({ open }) => open,
-      style: {
-        marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(["width", "margin"], {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-      },
+  ...(open && {
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: drawerWidth,
+      width: `calc(100% - ${drawerWidth}px)`,
     },
-  ],
+  }),
 }));
 
 const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme }) => ({
-  width: drawerWidth,
+  shouldForwardProp: (prop) => prop !== "open" && prop !== "isMobile",
+})<{ open?: boolean; isMobile?: boolean }>(({ theme, open, isMobile }) => ({
+  // width: drawerWidth,
   flexShrink: 0,
   whiteSpace: "nowrap",
   boxSizing: "border-box",
-  variants: [
-    {
-      props: ({ open }) => open,
-      style: {
-        ...openedMixin(theme),
-        "& .MuiDrawer-paper": openedMixin(theme),
-      },
-    },
-    {
-      props: ({ open }) => !open,
-      style: {
-        ...closedMixin(theme),
-        "& .MuiDrawer-paper": closedMixin(theme),
-      },
-    },
-  ],
-}));
-const menuItems = [
-  { text: "Home", icon: <HomeIcon />, path:"/home" },
-  { text: "Favoritos", icon: <FavoriteBorderIcon />, path:"/favorites" },
-  { text: "Anunciar", icon: <AddIcon />, path:"/" },
-  { text: "Meu dashboard", icon: <ShoppingBagIcon />,path:"/" },
-  { text: "Explorar produtos", icon: <SearchIcon />,path:"/explore" },
-];
+  ...(isMobile
+    ? {
+        "& .MuiDrawer-paper": {
+          zIndex: 9999,
 
-const helpItems = [
-  { text: "Ajuda", icon: <HelpOutlineIcon />,path:"/faq" },
-  { text: "Notificações", icon: <CircleNotificationsIcon />,path:"/" },
+          boxSizing: "border-box",
+        },
+      }
+    : {
+        ...(open
+          ? {
+              ...openedMixin(theme),
+              "& .MuiDrawer-paper": openedMixin(theme),
+            }
+          : {
+              ...closedMixin(theme),
+              "& .MuiDrawer-paper": closedMixin(theme),
+            }),
+      }),
+}));
+
+const menuItems = [
+  { text: "Home", icon: <HomeIcon />, path: "/home" },
+  { text: "Favoritos", icon: <FavoriteBorderIcon />, path: "/favorites" },
+  { text: "Anunciar", icon: <AddIcon />, path: "/register-product" },
+  { text: "Meu dashboard", icon: <ShoppingBagIcon />, path: "/dashboard" },
+  { text: "Explorar produtos", icon: <SearchIcon />, path: "/explore" },
 ];
 
 export default function MiniDrawer() {
+  const isMobile = useMediaQuery("(max-width:768px)");
   const theme = useTheme();
+  const container = React.useRef<HTMLElement | null>(null);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const openMenuPerfil = Boolean(anchorEl);
   const [open, setOpen] = React.useState(false);
+  const [logoutModalOpen, setLogoutModalOpen] = React.useState(false);
+  const navigate = useNavigate();
+
+  const { themeMode } = useGlobal();
+
+  const { user, fetchGetUser } = useGetUser(
+    `/auth/get/${localStorage.getItem("userId")}`
+  );
+
+  React.useEffect(() => {
+    fetchGetUser();
+  }, []);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -140,6 +155,33 @@ export default function MiniDrawer() {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    console.log("Ação: Usuário deslogado!");
+    setLogoutModalOpen(false);
+    setAnchorEl(null);
+    logout();
+    navigate("/");
+  };
+
+  const [notificationModalOpen, setNotificationModalOpen] =
+    React.useState(false);
+
+  const [notifications, setNotifications] =
+    React.useState<Notification[]>(notificationsData);
+
+  const handleNotificationAction = (id: string | number) => {
+    console.log(`Ação da notificação ID ${id} foi clicada!`);
+    setNotificationModalOpen(false);
+  };
+
+  const handleDismissNotification = (id: string | number) => {
+    setNotifications((currentNotifications) =>
+      currentNotifications.filter((notif) => notif.id !== id)
+    );
   };
 
   return (
@@ -150,8 +192,9 @@ export default function MiniDrawer() {
         open={open}
         sx={{
           borderRadius: 0,
-          bgcolor: "white",
+          bgcolor: themeMode === "light" ? "white" : "#1D2333",
           boxShadow: "none",
+          zIndex: (theme) => theme.zIndex.drawer + 1,
         }}
       >
         <Toolbar className="flex border-0 rounded-none">
@@ -168,26 +211,91 @@ export default function MiniDrawer() {
               open && { display: "none" },
             ]}
           >
-            <MenuIcon className="text-gray-500"/>
+            <MenuIcon className="text-gray-500" />
           </IconButton>
-          <PontoLocalLogo />
+          <Link to="/home">
+            <PontoLocalLogo />
+          </Link>
 
           <div className="flex items-center space-x-2 ml-auto">
-            <DarkModeSwitch />
-            <AccountCircleIcon />
+            <ButtonSwitch />
           </div>
+
+          <div className="md:flex items-center justify-between">
+            <div className="flex items-center gap-6">
+              <div
+                className="flex items-center gap-2"
+                onClick={(e) => setAnchorEl(e.currentTarget)}
+              >
+                <Avatar sx={{ bgcolor: "#728CCC" }}>{user?.name[0]}</Avatar>
+                <div className="leading-tight hidden md:block">
+                  <div className="text-sm font-semibold text-blue-3">
+                    {user?.name.split(" ")[0]}
+                  </div>
+                  <div className="text-xs text-gray-500">
+                    {user?.role === "INDIVIDUAL" ? "consumidor" : "comerciante"}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <Menu
+            anchorEl={anchorEl}
+            open={openMenuPerfil}
+            onClose={() => setAnchorEl(null)}
+            sx={{
+              "& .MuiPaper-root": {
+                borderRadius: 2,
+                backgroundColor: themeMode=== "light" ? "white" : "#1d2333",
+                color: themeMode=== "light" ? "black" : "white",
+              },
+            }}
+          >
+            <Link to="/profile">
+              <MenuItem onClick={() => setAnchorEl(null)}>Meu Perfil</MenuItem>
+            </Link>
+            <MenuItem
+              onClick={() => setLogoutModalOpen(true)}
+              sx={{ color: "red" }}
+            >
+              Sair
+            </MenuItem>
+          </Menu>
         </Toolbar>
       </AppBar>
+      <LogoutModal
+        isOpen={logoutModalOpen}
+        onClose={() => setLogoutModalOpen(false)}
+        onConfirm={handleLogout}
+      />
       <Drawer
+        container={container.current}
+        isMobile={isMobile}
         variant="permanent"
         open={open}
+        onClose={handleDrawerClose}
+        ModalProps={{
+          keepMounted: true,
+        }}
         sx={{
           "& .MuiDrawer-paper": {
             borderRadius: 0,
+            boxSizing: "border-box",
+            transition: "transform 0.3s ease-in-out",
+            ...(isMobile && {
+              position: "fixed",
+              top: 0,
+              left: 0,
+              height: "100vh",
+              transform: open ? "translateX(0)" : "translateX(-100%)",
+              boxShadow: open ? "0 0 20px rgba(0,0,0,0.3)" : "none",
+              width: "100%",
+            }),
           },
         }}
       >
-        <DrawerHeader>
+        <DrawerHeader className={`${themeMode === "dark" && "bg-[#1d2333]"}`}>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />
@@ -198,9 +306,11 @@ export default function MiniDrawer() {
         </DrawerHeader>
         <Box
           sx={{
-            height: "100%", 
+            height: "100%",
             display: "flex",
             flexDirection: "column",
+            backgroundColor: `${themeMode === "light" ? "white" : "#1d2333"}`,
+            borderColor: "black",
           }}
         >
           <List>
@@ -209,18 +319,25 @@ export default function MiniDrawer() {
                 key={item.text}
                 disablePadding
                 sx={{ display: "block" }}
+                onClick={handleDrawerClose}
               >
                 <ListItemButton
-              component={Link} // Diz ao MUI para usar o componente Link
-              to={item.path}      // A URL de destino
-              sx={[
-                { minHeight: 48, px: 2.5 },
-                open ? { justifyContent: "initial" } : { justifyContent: "center" },
-              ]}
-            >
+                  component={Link}
+                  to={item.path}
+                  sx={[
+                    { minHeight: 48, px: 2.5 },
+                    open
+                      ? { justifyContent: "initial" }
+                      : { justifyContent: "center" },
+                  ]}
+                >
                   <ListItemIcon
                     sx={[
-                      { minWidth: 0, justifyContent: "center" },
+                      {
+                        minWidth: 0,
+                        justifyContent: "center",
+                        color: `${themeMode === "dark" && "white"}`,
+                      },
                       open ? { mr: 3 } : { mr: "auto" },
                     ]}
                   >
@@ -228,7 +345,10 @@ export default function MiniDrawer() {
                   </ListItemIcon>
                   <ListItemText
                     primary={item.text}
-                    sx={{ opacity: open ? 1 : 0 }}
+                    sx={{
+                      opacity: open ? 1 : 0,
+                      color: themeMode === "dark" ? "white" : "gray",
+                    }}
                   />
                 </ListItemButton>
               </ListItem>
@@ -238,35 +358,87 @@ export default function MiniDrawer() {
           <Box sx={{ marginTop: "auto" }}>
             <Divider sx={{ my: 1 }} />
             <List>
-              {helpItems.map((item) => (
-                <ListItem
-                  key={item.text}
-                  disablePadding
-                  sx={{ display: "block" }}
+              <ListItem
+                key="help"
+                disablePadding
+                sx={{ display: "block" }}
+                onClick={handleDrawerClose}
+              >
+                <ListItemButton
+                  component={Link}
+                  to="/faq"
+                  sx={[
+                    { minHeight: 48, px: 2.5 },
+                    open
+                      ? { justifyContent: "initial" }
+                      : { justifyContent: "center" },
+                  ]}
                 >
-                  <ListItemButton
-              component={Link} // Diz ao MUI para usar o componente Link
-              to={item.path}      // A URL de destino
-              sx={[
-                { minHeight: 48, px: 2.5 },
-                open ? { justifyContent: "initial" } : { justifyContent: "center" },
-              ]}
-            >
-                    <ListItemIcon
-                      sx={[
-                        { minWidth: 0, justifyContent: "center" },
-                        open ? { mr: 3 } : { mr: "auto" },
-                      ]}
-                    >
-                      {item.icon}
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={item.text}
-                      sx={{ opacity: open ? 1 : 0 }}
-                    />
-                  </ListItemButton>
-                </ListItem>
-              ))}
+                  <ListItemIcon
+                    sx={[
+                      {
+                        minWidth: 0,
+                        justifyContent: "center",
+                        color: themeMode === "dark" ? "white" : "gray",
+                      },
+                      open ? { mr: 3 } : { mr: "auto" },
+                    ]}
+                  >
+                    <HelpOutlineIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Ajuda"
+                    sx={{
+                      opacity: open ? 1 : 0,
+                      color: themeMode === "dark" ? "white" : "gray",
+                    }}
+                  />
+                </ListItemButton>
+              </ListItem>
+
+              <ListItem
+                key="notification"
+                disablePadding
+                sx={{ display: "block" }}
+                onClick={handleDrawerClose}
+              >
+                <ListItemButton
+                  onClick={() => setNotificationModalOpen(true)}
+                  sx={[
+                    { minHeight: 48, px: 2.5 },
+                    open
+                      ? { justifyContent: "initial" }
+                      : { justifyContent: "center" },
+                  ]}
+                >
+                  <ListItemIcon
+                    sx={[
+                      {
+                        minWidth: 0,
+                        justifyContent: "center",
+                        color: themeMode === "dark" ? "white" : "gray",
+                      },
+                      open ? { mr: 3 } : { mr: "auto" },
+                    ]}
+                  >
+                    <CircleNotificationsIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Notificação"
+                    sx={{
+                      opacity: open ? 1 : 0,
+                      color: themeMode === "dark" ? "white" : "gray",
+                    }}
+                  />
+                </ListItemButton>
+              </ListItem>
+              <NotificationModal
+                isOpen={notificationModalOpen}
+                onClose={() => setNotificationModalOpen(false)}
+                notifications={notifications}
+                onNotificationAction={handleNotificationAction}
+                onNotificationDismiss={handleDismissNotification}
+              />
             </List>
           </Box>
         </Box>

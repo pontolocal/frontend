@@ -7,8 +7,10 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Link, Link as RouterLink } from "react-router-dom";
 import { useCategories } from "../hooks/useCategories";
 import CategoryList from "../components/ui/CategoryList";
+import { useGlobal } from "../hooks/useGlobal";
 
 export const Home = () => {
+  const { themeMode } = useGlobal();
   const {
     products,
     isLoading: productsLoading,
@@ -29,11 +31,17 @@ export const Home = () => {
 
   return (
     <>
-      <main className="bg-blue-0">
-        <section className="flex flex-col gap-4 py-12 bg-gradient-to-b from-[#728CCC] to-[#C2D2FC]">
+      <main>
+        <section
+          className={`flex flex-col gap-4 py-12 ${
+            themeMode === "light"
+              ? "bg-gradient-to-b from-[#728CCC] to-[#C2D2FC]"
+              : "bg-gradient-to-b from-[#3C5491] to-[#1D2333]"
+          }`}
+        >
           <h1 className="text-center font-bold text-3xl">
             Conectando você aos
-            <strong className="text-blue-3"> Comerciantes Locais</strong>
+            <strong className={` ${themeMode === "light" ? "text-blue-3" : "text-blue-1"}`}> Comerciantes Locais</strong>
           </h1>
           <div className="text-center text-sm font-medium">
             <p>
@@ -64,7 +72,7 @@ export const Home = () => {
             </Button>
             <Button
               component={RouterLink}
-              to="/product-register"
+              to="/register-product"
               variant="contained"
               size="large"
               sx={{
@@ -82,17 +90,26 @@ export const Home = () => {
             </Button>
           </div>
         </section>
-        <section className="flex justify-center bg-blue-0 py-12">
+        <section
+          className={`flex justify-center py-12 ${
+            themeMode === "light" ? "bg-blue-0" : "bg-blue-4"
+          }`}
+        >
           <Link to="/explore">
-            <button className="flex items-center justify-between gap-4 p-4 bg-white h-12 w-80 rounded shadow-sm shadow-gray-400 ">
-              <span className="opacity-40 text-sm">
+            <button className="flex items-center justify-between gap-4 p-4 bg-white h-12 w-80 rounded shadow-sm shadow-gray-400">
+              <span className="text-black opacity-40 text-sm">
                 Buscar por produtos ou lojas
               </span>
-              <SearchIcon className="opacity-40" />
+              <SearchIcon className="text-black opacity-40" />
             </button>
           </Link>
         </section>
-        <section className="flex justify-center py-12 bg-blue-1">
+
+        <section
+          className={`flex justify-center py-12 bg-blue-1 ${
+            themeMode === "light" ? "bg-blue-0" : "bg-blue-3"
+          }`}
+        >
           <div className="m-auto">
             {categoriesLoading ? (
               <p>Carregando</p>
@@ -103,7 +120,11 @@ export const Home = () => {
             )}
           </div>
         </section>
-        <section className="py-12">
+        <section
+          className={`py-12 ${
+            themeMode === "light" ? "bg-blue-0" : "bg-blue-4"
+          }`}
+        >
           <h2 className="text-center font-bold text-2xl">
             Produtos perto de você
           </h2>
@@ -115,16 +136,22 @@ export const Home = () => {
             <p>{productsErrorMessage}</p>
           )}
         </section>
-        <section className="flex justify-center py-12 bg-blue-1">
-          <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-16 max-md:gap-4 ">
-            {storesLoading ? (
-              <p>Carregando</p>
-            ) : storesErrorMessage ? (
-              <p>{storesErrorMessage}</p>
-            ) : (
-              stores?.slice(0, 3).map((store) => <StoreCard store={store} key={store.id}/>)
-            )}
-          </div>
+        <section
+          className={`flex justify-center py-12 bg-blue-1 ${
+            themeMode === "light" ? "bg-blue-0" : "bg-blue-3"
+          }`}
+        >
+          {storesLoading ? (
+            <p>Carregando</p>
+          ) : storesErrorMessage ? (
+            <p>{storesErrorMessage}</p>
+          ) : (
+            <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-16 max-md:gap-4 ">
+              {stores?.slice(0, 3).map((store) => (
+                <StoreCard store={store} key={store.id} />
+              ))}
+            </div>
+          )}
         </section>
       </main>
     </>

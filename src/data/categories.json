@@ -1,92 +1,102 @@
 [
   {
     "id": 1,
-    "name": "padaria",
-    "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
+    "name": "Restaurante",
+    "image_url": "https://i.postimg.cc/qvqVydfq/restaurante.png"
   },
   {
     "id": 2,
-    "name": "padaria",
-    "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
+    "name": "Doces",
+    "image_url": "https://i.postimg.cc/QxXrNT0N/doces.png"
   },
   {
     "id": 3,
-    "name": "padaria",
-    "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
+    "name": "Bebidas",
+    "image_url": "https://i.postimg.cc/DzWhk35L/bebidas.png"
   },
   {
     "id": 4,
-    "name": "padaria",
-    "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
+    "name": "Lanches",
+    "image_url": "https://i.postimg.cc/ncZns5cb/lanches.png"
   },
   {
     "id": 5,
-    "name": "padaria",
-    "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
+    "name": "Artesanato",
+    "image_url": "https://i.postimg.cc/Y9WtgBW7/artesanato.png"
   },
   {
     "id": 6,
-    "name": "padaria",
-    "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
+    "name": "Roupas",
+    "image_url": "https://i.postimg.cc/66ZQ4nrZ/roupas.png"
   },
   {
     "id": 7,
-    "name": "padaria",
-    "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
+    "name": "Móveis",
+    "image_url": "https://i.postimg.cc/JhdhZQdw/moveis.png"
   },
   {
     "id": 8,
-    "name": "padaria",
-    "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
+    "name": "Decoração",
+    "image_url": "https://i.postimg.cc/vZhTHyrs/decoracao.png"
   },
   {
     "id": 9,
-    "name": "padaria",
-    "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
+    "name": "Massas",
+    "image_url": "https://i.postimg.cc/L4gJkrpn/massas.png"
   },
   {
     "id": 10,
-    "name": "padaria",
-    "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
+    "name": "Tecnologia",
+    "image_url": "https://i.postimg.cc/Bn0PnNRH/tecnologia.png"
   },
   {
     "id": 11,
-    "name": "padaria",
-    "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
+    "name": "Usados",
+    "image_url": "https://i.postimg.cc/rsRM1XRt/usados.png"
   },
   {
     "id": 12,
-    "name": "padaria",
-    "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
+    "name": "Jardinagem",
+    "image_url": "https://i.postimg.cc/Dz5vFcKh/jardinagem.png"
   },
   {
     "id": 13,
-    "name": "padaria",
+    "name": "Pet",
     "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
   },
   {
     "id": 14,
-    "name": "padaria",
-    "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
+    "name": "Beleza",
+    "image_url": "https://i.postimg.cc/qBF7zQ6c/cosmeticos.png"
   },
   {
     "id": 15,
-    "name": "padaria",
-    "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
+    "name": "Saúde",
+    "image_url": "https://i.postimg.cc/85Kzdmyw/remedios.png"
   },
   {
     "id": 16,
-    "name": "padaria",
-    "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
+    "name": "Outros",
+    "image_url": "https://i.postimg.cc/tCL7mDXj/outros.png"
   },
   {
     "id": 17,
-    "name": "padaria",
-    "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
+    "name": "Papelaria",
+    "image_url": "https://i.postimg.cc/B6qjB6JT/papelaria.png"
   },
   {
     "id": 18,
-    "name": "padaria",
-    "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
+    "name": "Livros",
+    "image_url": "https://i.postimg.cc/wTPsYgk8/livros.png"
+  },
+   {
+    "id": 19,
+    "name": "Brinquedos",
+    "image_url": "https://i.postimg.cc/Y0CmMSPb/brinquedo.png"
+  },
+   {
+    "id": 20,
+    "name": "Esporte",
+    "image_url": "https://i.postimg.cc/wTKdCrsc/esportes.png"
   }
 ]

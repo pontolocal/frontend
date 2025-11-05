@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { FavoriteBorder } from "@mui/icons-material";
 import whatsAppIcon from "../assets/images/whatsapp-icon.png";
@@ -8,6 +8,8 @@ import { useProduct } from "../hooks/useProduct";
 import { useState } from "react";
 import { Button } from "../components/ui/Button";
 import { Rating } from "@mui/material";
+import { SecAvaliacoes } from "./Dashboard/sections/SecAvaliacoes";
+import { useGlobal } from "../hooks/useGlobal";
 
 const product = {
   id: 1,
@@ -24,44 +26,45 @@ const product = {
 
 const relatedProducts = [
   {
-  id: 1,
-  name: "Mel Artesanal",
-  description:
-    "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
-  image: "https://i.postimg.cc/HL5zFhNS/mel-1.png",
-  price: 25.0,
-  storeName: "Apário São José",
-  categoryName: "Hortifruti",
-  is_active: true,
-  rating: 3.5,
-},
-{
-  id: 1,
-  name: "Mel Artesanal",
-  description:
-    "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
-  image: "https://i.postimg.cc/HL5zFhNS/mel-1.png",
-  price: 25.0,
-  storeName: "Apário São José",
-  categoryName: "Hortifruti",
-  is_active: true,
-  rating: 3.5,
-},
-{
-  id: 1,
-  name: "Mel Artesanal",
-  description:
-    "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
-  image: "https://i.postimg.cc/HL5zFhNS/mel-1.png",
-  price: 25.0,
-  storeName: "Apário São José",
-  categoryName: "Hortifruti",
-  is_active: true,
-  rating: 3.5,
-}
-]
+    id: 1,
+    name: "Mel Artesanal",
+    description:
+      "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
+    image: "https://i.postimg.cc/HL5zFhNS/mel-1.png",
+    price: 25.0,
+    storeName: "Apário São José",
+    categoryName: "Hortifruti",
+    is_active: true,
+    rating: 3.5,
+  },
+  {
+    id: 1,
+    name: "Mel Artesanal",
+    description:
+      "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
+    image: "https://i.postimg.cc/HL5zFhNS/mel-1.png",
+    price: 25.0,
+    storeName: "Apário São José",
+    categoryName: "Hortifruti",
+    is_active: true,
+    rating: 3.5,
+  },
+  {
+    id: 1,
+    name: "Mel Artesanal",
+    description:
+      "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
+    image: "https://i.postimg.cc/HL5zFhNS/mel-1.png",
+    price: 25.0,
+    storeName: "Apário São José",
+    categoryName: "Hortifruti",
+    is_active: true,
+    rating: 3.5,
+  },
+];
 
 const ProductDetail = () => {
+  const {themeMode} = useGlobal()
   const [isFavorited, setIsFavorited] = useState<boolean>();
 
   const { products, isLoading, errorMessage } = useProduct("/products.json");
@@ -70,8 +73,8 @@ const ProductDetail = () => {
   // Fazer o get para detalhar o produto
 
   return (
-    <main className="bg-blue-0 px-4 py-12">
-      <section className="flex max-md:flex-col gap-8 bg-white rounded p-8 max-w-[1069px] m-auto">
+    <main className={`px-4 py-12 ${themeMode === "light" ? "bg-blue-0" : "bg-blue-8"}`}>
+      <section className={`flex max-md:flex-col gap-8 rounded-2xl p-8 max-w-[1069px] m-auto ${themeMode === "light" ? "bg-white" : "bg-blue-4"}`}>
         <div className="relative flex-1">
           <img
             src={product.image}
@@ -116,12 +119,15 @@ const ProductDetail = () => {
             />
             <Link to="/" className="flex-1">
               <Button
-                styles="bg-white border justify-center text-blue-3 font-semibold text-sm"
+                styles="border justify-center text-blue-3 font-semibold text-sm"
                 text="Ver loja"
               />
             </Link>
           </div>
         </div>
+      </section>
+      <section className="pt-8 max-w-[1069px] m-auto">
+        <SecAvaliacoes />
       </section>
       <section className="pt-8 max-w-[1069px] m-auto">
         <h2 className="font-bold text-xl">Produtos relacionados</h2>

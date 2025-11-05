@@ -3,7 +3,7 @@ import WhatsAppIcon from "../../assets/images/whatsapp-icon.png";
 import EmailIcon from "../../assets/images/email-icon.png";
 export const Footer = () => {
   return (
-    <footer className="text-white bg-blue-4 flex w-full h-auto p-6  items-center flex-col">
+    <footer className="text-white bg-blue-4 flex w-full h-auto py-6 pl-20 max-md:px-4 items-center flex-col">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 w-full">
         <div className="w-auto flex gap-4 flex-col ">
           <p className="font-extrabold text-xs">Sobre</p>

@@ -1,20 +1,24 @@
-import React, { useRef, useState, useEffect } from "react";
-import type { Product } from "../types/Product";
+import React, { useRef, useState, useEffect, useMemo } from "react";
+// import type { Product } from "../types/Product";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import ChevronDown from "../assets/images/chevron-down.svg";
+import { useParams } from "react-router-dom";
+import { buildAnuncios } from "../data/dashboardMock";
+import { FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material";
 const UpdateProduct: React.FC = () => {
-  const [formData, setFormData] = useState<Product>({
-    name: "",
-    description: "",
-    price: 0,
-    stock: 0,
-    category: "",
-    image: undefined,
-  });
+  const productId = useParams();
+
+  const data = useMemo(buildAnuncios, []);
+
+  const productFiltered = data.filter(
+    (product) => Number(productId.id) == product.id
+  )[0];
+
+  const [formData, setFormData] = useState(productFiltered);
 
   const [preview, setPreview] = useState<string | null>(null);
   const [dragActive, setDragActive] = useState(false);
 
-  // referência para o input file
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleChange = (
@@ -23,9 +27,10 @@ const UpdateProduct: React.FC = () => {
     >
   ) => {
     const { name, value } = e.target;
+
     setFormData((prev) => ({
       ...prev,
-      [name]: name === "price" || name === "stock" ? Number(value) : value,
+      [name]: value,
     }));
   };
 
@@ -64,7 +69,7 @@ const UpdateProduct: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
+    console.log("produto atualizado:", formData);
   };
 
   return (
@@ -80,29 +85,29 @@ const UpdateProduct: React.FC = () => {
           onSubmit={handleSubmit}
           className="flex flex-col gap-2 bg-white rounded-2xl shadow p-12 w-full"
         >
-          <label htmlFor="name" className="text-sm font-bold">
+          <label htmlFor="title" className="text-sm font-bold">
             Nome do produto
           </label>
           <input
             type="text"
-            name="name"
+            name="title"
             placeholder="Digite o nome do produto"
-            value={formData.name}
+            value={formData.title}
             onChange={handleChange}
             className="border-2 pl-6 p-2 rounded-10 border-blue-5"
           />
 
-          <label htmlFor="description" className="text-sm font-bold">
+          <label htmlFor="desc" className="text-sm font-bold">
             Descrição
           </label>
           <textarea
-            name="description"
+            name="desc"
             placeholder="Descreva seu produto..."
-            value={formData.description}
+            value={formData.desc}
             onChange={handleChange}
             className="border-2 pl-6 p-2 rounded-10 border-blue-5"
           />
-         
+
           <label htmlFor="price" className="text-sm font-bold">
             Preço
           </label>
@@ -114,12 +119,50 @@ const UpdateProduct: React.FC = () => {
               type="text"
               name="price"
               placeholder="0,00"
-              value={formData.price}
+              value="10"
               onChange={handleChange}
               className="border-2 pl-10 p-2 rounded-10 border-blue-5 w-full"
             />
           </div>
 
+          <FormControl >
+            <RadioGroup
+              aria-labelledby="demo-controlled-radio-buttons-group"
+              name="controlled-radio-buttons-group"
+              value={formData.disponibilidade}
+              onChange={handleChange}
+            >
+              <FormControlLabel
+                value="indisponivel"
+                control={
+                  <Radio
+                    sx={{
+                      color: "#3C5491",
+                      "&.Mui-checked": {
+                        color: "#3C5491",
+                      },
+                    }}
+                  />
+                }
+                label="indisponível"
+              />
+              <FormControlLabel
+                value="disponivel"
+                control={
+                  <Radio
+                    sx={{
+                      color: "#3C5491",
+                      "&.Mui-checked": {
+                        color: "#3C5491",
+                      },
+                    }}
+                  />
+                }
+                label="disponível"
+              />
+            </RadioGroup>
+          </FormControl>
+          {/* 
           <label htmlFor="stock" className="text-sm font-bold mt-2">
             Estoque disponível
           </label>
@@ -127,27 +170,51 @@ const UpdateProduct: React.FC = () => {
             type="number"
             name="stock"
             placeholder="Quantidade em estoque"
-            value={formData.stock}
+            value={formData.disponibilidade}
             onChange={handleChange}
             className="border-2 pl-6 p-2 rounded-10 border-blue-5 w-full"
-          />
+          /> */}
 
           <label htmlFor="category" className="text-sm font-bold">
             Categoria
           </label>
           <select
             name="category"
-            value={formData.category}
+            value="esporte"
             onChange={handleChange}
             className="border-2 pl-6 p-2 rounded-10 border-blue-5"
           >
-            <option value="">Selecione uma categoria</option>
+            <option value="">{formData.title}</option>
             <option value="eletronicos">Eletrônicos</option>
             <option value="roupas">Roupas</option>
             <option value="alimentos">Alimentos</option>
           </select>
 
-          <div
+          <div className="relative w-fit h-fit m-auto">
+            <div
+              className="absolute flex items-center justify-center top-4 right-[-20px] bg-blue-1 w-12 h-12 rounded-full cursor-pointer"
+              onClick={() => fileInputRef.current?.click()}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+            >
+              <EditOutlinedIcon />
+            </div>
+            <img
+              src={preview || formData.imageUrl}
+              alt={formData.title}
+              className="w-80 m-auto object-cover rounded-2xl my-8"
+            />
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="hidden"
+            />
+          </div>
+
+          {/* <div
             onClick={() => fileInputRef.current?.click()}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
@@ -172,15 +239,15 @@ const UpdateProduct: React.FC = () => {
               onChange={handleFileChange}
               className="hidden"
             />
-          </div>
+          </div> */}
 
-          {preview && (
+          {/* {preview && (
             <img
               src={preview}
               alt="Preview"
               className="w-40 h-40 object-cover rounded-lg shadow mx-auto"
             />
-          )}
+          )} */}
           <div className="w-full flex justify-center items-center gap-4 max-ss:flex-col flex-row ">
             <button className=" w-full max-h-[50px] bg-white hover:bg-blue-2 flex justify-center items-center hover:text-white rounded-10 text-base text-blue-3 border-2 border-blue-3 font-bold p-4">
               Cancelar

@@ -1,8 +1,11 @@
 import AppRoutes from "./AppRoutes"
+import { GlobalProvider } from "./context/GlobalContext"
 
 function App() {
   return (
-    <AppRoutes />
+    <GlobalProvider>
+      <AppRoutes />
+    </GlobalProvider>
   )
 }
 

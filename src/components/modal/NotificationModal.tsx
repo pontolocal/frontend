@@ -1,9 +1,6 @@
-// ARQUIVO: src/components/modal/NotificationModal.tsx
-
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Stack, Typography } from '@mui/material'
 import type { Notification } from '../../types/notifications'
 import { NotificationItem } from '../notification/NotificationItem'
-
 interface NotificationModalProps {
   isOpen: boolean
   onClose: () => void

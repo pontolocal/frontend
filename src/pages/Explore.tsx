@@ -8,9 +8,7 @@ import { useState } from "react";
 import Button from "@mui/material/Button";
 import FilterComponent from "../components/ui/FilterComponent";
 import { Pagination } from "@mui/material";
-
-// import { useCategories } from "../hooks/useCategories";
-// import CategoryList from "../components/ui/CategoryList";
+import { useGlobal } from "../hooks/useGlobal";
 
 const pages = [
   { name: "Todos", path: "/explore" },
@@ -19,6 +17,7 @@ const pages = [
 ];
 
 const Explore = () => {
+  const {themeMode} = useGlobal()
   const [searchValue, setSearchValue] = useState<string>("");
   let location: string = useLocation().pathname;
 
@@ -44,17 +43,17 @@ const Explore = () => {
   };
 
   return (
-    <main className="bg-blue-0">
+    <main className={`${themeMode=== "light" ? "bg-blue-0" : "bg-blue-8"}`}>
       <section className="flex flex-col gap-4 items-center justify-center py-12 px-4">
         <h2 className="text-center font-bold text-2xl">
           Encontre produtos e lojas próximos de você
         </h2>
-        <div className="flex items-center justify-between gap-4 p-4 bg-white h-12 max-w-96 w-full rounded shadow-sm shadow-gray-400 ">
+        <div className={`flex items-center justify-between gap-4 p-4 ${themeMode=== "light" ? "bg-white" : "bg-blue-4 text-white"} h-12 max-w-96 w-full rounded shadow-sm shadow-gray-400`}>
           <input
             type="text"
             placeholder="Buscar por produtos ou lojas"
             autoFocus
-            className=" w-full outline-0"
+            className="w-full outline-0"
             onChange={(e) => {
               setSearchValue(e.target.value);
             }}
@@ -91,10 +90,14 @@ const Explore = () => {
         </div>
       </section>
 
-      <FilterComponent />
+      <FilterComponent
+        prevCategory={
+          (location !== "/stores" || "/products" || "/explore") && location
+        }
+      />
 
       {location === "/stores" ? (
-        <section className="flex flex-col gap-4 justify-center items-center py-12 ">
+        <section className="flex flex-col gap-4 justify-center items-center py-12">
           <div className="flex justify-between w-full max-w-[1069px] m-auto px-4">
             {stores ? (
               <div>
@@ -118,7 +121,13 @@ const Explore = () => {
                 .map((store) => <StoreCard store={store} key={store.id} />)
             )}
           </div>
-          <Pagination count={10} page={page} onChange={handleChange} color="primary" className="m-auto w-fit pt-8" />
+          <Pagination
+            count={10}
+            page={page}
+            onChange={handleChange}
+            color="primary"
+            className="m-auto w-fit pt-8"
+          />
         </section>
       ) : location === "/products" ? (
         <section className="py-12">
@@ -141,7 +150,13 @@ const Explore = () => {
           ) : (
             <p>{productsErrorMessage}</p>
           )}
-          <Pagination count={10} page={page} onChange={handleChange} color="primary" className="m-auto w-fit pt-8" />
+          <Pagination
+            count={10}
+            page={page}
+            onChange={handleChange}
+            color="primary"
+            className="m-auto w-fit pt-8"
+          />
         </section>
       ) : (
         <div>
@@ -172,11 +187,13 @@ const Explore = () => {
               <p>{productsErrorMessage}</p>
             )}
           </section>
-          <section className="flex flex-col gap-4 justify-center items-center py-24 bg-blue-1">
+          <section className={`flex flex-col gap-4 justify-center items-center py-24 ${themeMode=== "light" ? "bg-blue-1" : "bg-blue-3"}`}>
             <div className="flex justify-between items-end w-full max-w-[1069px] m-auto px-4">
               {stores ? (
                 <div>
-                  <h2 className="font-bold text-2xl">Resultados da busca</h2>
+                  <h2 className="font-bold text-2xl">
+                    Resultados da busca
+                  </h2>
                   <span>{stores.length} lojas encontradas</span>
                 </div>
               ) : (
