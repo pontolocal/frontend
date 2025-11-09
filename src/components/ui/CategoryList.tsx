@@ -93,14 +93,14 @@ export default function CategoryList({ categories }: Props) {
                 <Link
                   to={`/${category?.name}`}
                   key={
-                    (category && (category.id ?? category.image_url)) ??
+                    (category && (category.id ?? category.imageUrl)) ??
                     `empty-${i}`
                   }
                 >
                   {category ? (
                     <CategoryCard
                       name={category.name}
-                      image_url={category.image_url}
+                      imageUrl={category.imageUrl}
                     />
                   ) : (
                     <div className="w-full h-32" />

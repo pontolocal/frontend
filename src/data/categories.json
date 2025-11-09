@@ -2,101 +2,101 @@
   {
     "id": 1,
     "name": "Restaurante",
-    "image_url": "https://i.postimg.cc/qvqVydfq/restaurante.png"
+    "imageUrl": "https://i.postimg.cc/qvqVydfq/restaurante.png"
   },
   {
     "id": 2,
     "name": "Doces",
-    "image_url": "https://i.postimg.cc/QxXrNT0N/doces.png"
+    "imageUrl": "https://i.postimg.cc/QxXrNT0N/doces.png"
   },
   {
     "id": 3,
     "name": "Bebidas",
-    "image_url": "https://i.postimg.cc/DzWhk35L/bebidas.png"
+    "imageUrl": "https://i.postimg.cc/DzWhk35L/bebidas.png"
   },
   {
     "id": 4,
     "name": "Lanches",
-    "image_url": "https://i.postimg.cc/ncZns5cb/lanches.png"
+    "imageUrl": "https://i.postimg.cc/ncZns5cb/lanches.png"
   },
   {
     "id": 5,
     "name": "Artesanato",
-    "image_url": "https://i.postimg.cc/Y9WtgBW7/artesanato.png"
+    "imageUrl": "https://i.postimg.cc/Y9WtgBW7/artesanato.png"
   },
   {
     "id": 6,
     "name": "Roupas",
-    "image_url": "https://i.postimg.cc/66ZQ4nrZ/roupas.png"
+    "imageUrl": "https://i.postimg.cc/66ZQ4nrZ/roupas.png"
   },
   {
     "id": 7,
     "name": "Móveis",
-    "image_url": "https://i.postimg.cc/JhdhZQdw/moveis.png"
+    "imageUrl": "https://i.postimg.cc/JhdhZQdw/moveis.png"
   },
   {
     "id": 8,
     "name": "Decoração",
-    "image_url": "https://i.postimg.cc/vZhTHyrs/decoracao.png"
+    "imageUrl": "https://i.postimg.cc/vZhTHyrs/decoracao.png"
   },
   {
     "id": 9,
     "name": "Massas",
-    "image_url": "https://i.postimg.cc/L4gJkrpn/massas.png"
+    "imageUrl": "https://i.postimg.cc/L4gJkrpn/massas.png"
   },
   {
     "id": 10,
     "name": "Tecnologia",
-    "image_url": "https://i.postimg.cc/Bn0PnNRH/tecnologia.png"
+    "imageUrl": "https://i.postimg.cc/Bn0PnNRH/tecnologia.png"
   },
   {
     "id": 11,
     "name": "Usados",
-    "image_url": "https://i.postimg.cc/rsRM1XRt/usados.png"
+    "imageUrl": "https://i.postimg.cc/rsRM1XRt/usados.png"
   },
   {
     "id": 12,
     "name": "Jardinagem",
-    "image_url": "https://i.postimg.cc/Dz5vFcKh/jardinagem.png"
+    "imageUrl": "https://i.postimg.cc/Dz5vFcKh/jardinagem.png"
   },
   {
     "id": 13,
     "name": "Pet",
-    "image_url": "https://i.postimg.cc/L5djz93K/bread.png"
+    "imageUrl": "https://i.postimg.cc/L5djz93K/bread.png"
   },
   {
     "id": 14,
     "name": "Beleza",
-    "image_url": "https://i.postimg.cc/qBF7zQ6c/cosmeticos.png"
+    "imageUrl": "https://i.postimg.cc/qBF7zQ6c/cosmeticos.png"
   },
   {
     "id": 15,
     "name": "Saúde",
-    "image_url": "https://i.postimg.cc/85Kzdmyw/remedios.png"
+    "imageUrl": "https://i.postimg.cc/85Kzdmyw/remedios.png"
   },
   {
     "id": 16,
     "name": "Outros",
-    "image_url": "https://i.postimg.cc/tCL7mDXj/outros.png"
+    "imageUrl": "https://i.postimg.cc/tCL7mDXj/outros.png"
   },
   {
     "id": 17,
     "name": "Papelaria",
-    "image_url": "https://i.postimg.cc/B6qjB6JT/papelaria.png"
+    "imageUrl": "https://i.postimg.cc/B6qjB6JT/papelaria.png"
   },
   {
     "id": 18,
     "name": "Livros",
-    "image_url": "https://i.postimg.cc/wTPsYgk8/livros.png"
+    "imageUrl": "https://i.postimg.cc/wTPsYgk8/livros.png"
   },
-   {
+  {
     "id": 19,
     "name": "Brinquedos",
-    "image_url": "https://i.postimg.cc/Y0CmMSPb/brinquedo.png"
+    "imageUrl": "https://i.postimg.cc/Y0CmMSPb/brinquedo.png"
   },
-   {
+  {
     "id": 20,
     "name": "Esporte",
-    "image_url": "https://i.postimg.cc/wTKdCrsc/esportes.png"
+    "imageUrl": "https://i.postimg.cc/wTKdCrsc/esportes.png"
   }
 ]

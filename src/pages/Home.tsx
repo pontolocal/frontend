@@ -27,7 +27,7 @@ export const Home = () => {
     categories,
     loading: categoriesLoading,
     error: categoriesError,
-  } = useCategories("/categories.json");
+  } = useCategories("/categories");
 
   return (
     <>
