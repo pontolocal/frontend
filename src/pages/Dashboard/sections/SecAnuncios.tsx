@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from "react";
+import { useState } from "react";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import {
@@ -6,44 +6,20 @@ import {
   type Disponibilidade,
 } from "../../../data/dashboardMock.js";
 import { BtnPrimary } from "../../../components/ui/Buttons/BtnPrimary.js";
-import { ChipDisponibilidade } from "../../../components/ui/Chips/ChipDisponibilidade.js";
 import { BtnGhost } from "../../../components/ui/Buttons/BtnGhost.js";
-import Pagination from "../../../components/ui/Pagination/index.js";
 import { Link } from "react-router-dom";
 import { useGlobal } from "../../../hooks/useGlobal.js";
+import { useProduct } from "../../../hooks/useProduct.js";
+import imageDefault from "../../../assets/images/no-image.png"
 
 type Filtro = "todos" | Disponibilidade;
 
-function BreakAfter({ text, anchor }: { text: string; anchor: string }) {
-  const i = text.toLowerCase().indexOf(anchor.toLowerCase());
-  if (i === -1) return <>{text}</>;
-  const a = i + anchor.length;
-  return (
-    <>
-      {text.slice(0, a)}
-      <br />
-      {text.slice(a).trimStart()}
-    </>
-  );
-}
-
 export function SecAnuncios() {
-  const {themeMode} = useGlobal()
+  const { themeMode, userId } = useGlobal();
+  const { products } = useProduct(`products/user/${userId}`);
   const [filter, setFilter] = useState<Filtro>("todos");
   const [page, setPage] = useState(1);
   const pageSize = 10;
-
-  const data = useMemo(buildAnuncios, []);
-  const filtered =
-    filter === "todos"
-      ? data
-      : data.filter((d) => d.disponibilidade === filter);
-  const totalPages = Math.ceil(filtered.length / pageSize);
-  const pageData = filtered.slice((page - 1) * pageSize, page * pageSize);
-
-  useEffect(() => {
-    if (page > totalPages) setPage(totalPages || 1);
-  }, [totalPages, page]);
 
   const FILTERS: Filtro[] = [
     "todos",
@@ -60,7 +36,11 @@ export function SecAnuncios() {
 
   return (
     <div>
-      <div className={`md:rounded-xl shadow-sm mb-4 md:mb-8 ${themeMode === "light" ? "bg-white" : "bg-blue-4"}`}>
+      <div
+        className={`md:rounded-xl shadow-sm mb-4 md:mb-8 ${
+          themeMode === "light" ? "bg-white" : "bg-blue-4"
+        }`}
+      >
         <div className="flex items-center justify-between">
           <div className="flex w-full gap-1 px-1 py-5 md:gap-5 md:px-6 md:py-6">
             {FILTERS.map((k) => (
@@ -93,44 +73,35 @@ export function SecAnuncios() {
 
         <div className="flex flex-col items-center gap-2">
           <span className="mb-2 text-xs md:text-sm">
-            {filtered.length} anúncios encontrados
+            {} anúncios encontrados
           </span>
           <button className={BtnPrimary}>Criar novo produto</button>
         </div>
       </div>
 
       <div className="flex flex-col gap-4">
-        {pageData.map((a) => (
+        {products.map((product) => (
           <div
-            key={a.id}
-            className={`md:rounded-xl border border-[#DDDDDD] p-4 sm:px-6 md:px-8 ${themeMode === "light" ? "bg-white" : "bg-blue-4 text-white!"}`}
+            className={`md:rounded-xl border border-[#DDDDDD] p-4 sm:px-6 md:px-8 ${
+              themeMode === "light" ? "bg-white" : "bg-blue-4 text-white!"
+            }`}
           >
             <div className="grid grid-cols-1 sm:grid-cols-[2fr_1fr_2fr] gap-4 sm:gap-6 items-center">
               <div className="flex items-start gap-[38px] min-w-0">
                 <img
-                  src={a.imageUrl}
-                  alt={a.title}
+                  src={imageDefault}
+                  alt="sem imagem"
                   className="w-[153px] h-[114px] rounded-md object-cover block shrink-0"
                 />
                 <div className="min-w-0">
-                  <p className="text-base font-bold truncate">{a.title}</p>
-                  <p className="text-xs leading-snug line-clamp-2 break-words">
-                    <BreakAfter text={a.desc} anchor="crocante" />
-                  </p>
-
-                  <div className="sm:hidden mt-8">
-                    <ChipDisponibilidade d={a.disponibilidade} />
-                  </div>
+                  <p className="text-base font-bold truncate w-52">{product.name}</p>
+                  <p className="text-sm leading-snug line-clamp-2 break-words">{product.description}</p>
                 </div>
               </div>
 
-              <div className="hidden sm:flex justify-center items-center">
-                <ChipDisponibilidade d={a.disponibilidade} />
-              </div>
+              <span className="m-auto text-xs px-4 py-1 border">Status</span>
 
-              <div
-                className=" grid grid-cols-2 gap-2 sm:flex sm:flex-col sm:items-end sm:justify-center sm:gap-3 sm:min-w-[220px]"
-              >    
+              <div className=" grid grid-cols-2 gap-2 sm:flex sm:flex-col sm:items-end sm:justify-center sm:gap-3 sm:min-w-[220px]">
                 <button
                   className={`${BtnGhost} whitespace-nowrap w-auto max-w-none shrink-0 order-1 sm:order-2`}
                 >
@@ -138,7 +109,7 @@ export function SecAnuncios() {
                 </button>
 
                 <div className="flex items-center gap-2 justify-end shrink-0 order-2 sm:order-1">
-                  <Link to={`update-product/${a.id}`}>
+                  <Link to={`update-product/${product.id}`}>
                     <button
                       className="p-1 rounded-md border border-transparent text-gray-600 hover:text-[#1E40AF] hover:bg-[#EEF3FB] hover:border-[#E2E8F0] transition-colors"
                       title="Editar"
@@ -160,14 +131,6 @@ export function SecAnuncios() {
           </div>
         ))}
       </div>
-
-      <Pagination
-        page={page}
-        setPage={setPage}
-        total={filtered.length}
-        pageSize={pageSize}
-        totalPages={totalPages}
-      />
     </div>
   );
 }

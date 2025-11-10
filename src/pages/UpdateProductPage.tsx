@@ -1,16 +1,21 @@
-import React, { useRef, useState, useEffect, useMemo } from "react";
+import React, { useRef, useState, useEffect } from "react";
 // import type { Product } from "../types/Product";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import ChevronDown from "../assets/images/chevron-down.svg";
 import { useParams } from "react-router-dom";
-import { buildAnuncios } from "../data/dashboardMock";
+// import { buildAnuncios } from "../data/dashboardMock";
 import { FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import { useProduct } from "../hooks/useProduct";
+import { useGlobal } from "../hooks/useGlobal";
+
 const UpdateProduct: React.FC = () => {
   const productId = useParams();
+  const { themeMode, userId } = useGlobal();
+  const { products } = useProduct(`products/user/${userId}`);
 
-  const data = useMemo(buildAnuncios, []);
+  // const data = useMemo(buildAnuncios, []);
 
-  const productFiltered = data.filter(
+  const productFiltered = products.filter(
     (product) => Number(productId.id) == product.id
   )[0];
 
@@ -92,7 +97,7 @@ const UpdateProduct: React.FC = () => {
             type="text"
             name="title"
             placeholder="Digite o nome do produto"
-            value={formData.title}
+            value={formData?.name}
             onChange={handleChange}
             className="border-2 pl-6 p-2 rounded-10 border-blue-5"
           />
@@ -103,7 +108,7 @@ const UpdateProduct: React.FC = () => {
           <textarea
             name="desc"
             placeholder="Descreva seu produto..."
-            value={formData.desc}
+            value={formData?.description}
             onChange={handleChange}
             className="border-2 pl-6 p-2 rounded-10 border-blue-5"
           />
@@ -129,7 +134,7 @@ const UpdateProduct: React.FC = () => {
             <RadioGroup
               aria-labelledby="demo-controlled-radio-buttons-group"
               name="controlled-radio-buttons-group"
-              value={formData.disponibilidade}
+              value={formData?.type ? "disponível" : "indisponível"}
               onChange={handleChange}
             >
               <FormControlLabel
@@ -184,13 +189,13 @@ const UpdateProduct: React.FC = () => {
             onChange={handleChange}
             className="border-2 pl-6 p-2 rounded-10 border-blue-5"
           >
-            <option value="">{formData.title}</option>
+            <option value="">{formData?.name}</option>
             <option value="eletronicos">Eletrônicos</option>
             <option value="roupas">Roupas</option>
             <option value="alimentos">Alimentos</option>
           </select>
 
-          <div className="relative w-fit h-fit m-auto">
+          {/* <div className="relative w-fit h-fit m-auto">
             <div
               className="absolute flex items-center justify-center top-4 right-[-20px] bg-blue-1 w-12 h-12 rounded-full cursor-pointer"
               onClick={() => fileInputRef.current?.click()}
@@ -201,8 +206,8 @@ const UpdateProduct: React.FC = () => {
               <EditOutlinedIcon />
             </div>
             <img
-              src={preview || formData.imageUrl}
-              alt={formData.title}
+              src={preview || formData?.image}
+              alt={formData.name}
               className="w-80 m-auto object-cover rounded-2xl my-8"
             />
             <input
@@ -212,7 +217,7 @@ const UpdateProduct: React.FC = () => {
               onChange={handleFileChange}
               className="hidden"
             />
-          </div>
+          </div> */}
 
           {/* <div
             onClick={() => fileInputRef.current?.click()}
