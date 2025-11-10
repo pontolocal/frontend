@@ -1,8 +1,8 @@
 import Button from "@mui/material/Button";
-import StoreCard from "../components/ui/StoreCard";
+// import StoreCard from "../components/ui/StoreCard";
 import ProductList from "../components/ui/ProductList";
 import { useProduct } from "../hooks/useProduct";
-import { useStores } from "../hooks/useStores";
+// import { useStores } from "../hooks/useStores";
 import SearchIcon from "@mui/icons-material/Search";
 import { Link, Link as RouterLink } from "react-router-dom";
 import { useCategories } from "../hooks/useCategories";
@@ -10,18 +10,18 @@ import CategoryList from "../components/ui/CategoryList";
 import { useGlobal } from "../hooks/useGlobal";
 
 export const Home = () => {
-  const { themeMode } = useGlobal();
+  const { themeMode, userId } = useGlobal();
   const {
     products,
     isLoading: productsLoading,
     errorMessage: productsErrorMessage,
-  } = useProduct("/products.json");
+  } = useProduct(`/products/user/${userId}`);
 
-  const {
-    stores,
-    isLoading: storesLoading,
-    errorMessage: storesErrorMessage,
-  } = useStores("/stores.json");
+  // const {
+  //   stores,
+  //   isLoading: storesLoading,
+  //   errorMessage: storesErrorMessage,
+  // } = useStores("/");
 
   const {
     categories,
@@ -141,7 +141,7 @@ export const Home = () => {
             themeMode === "light" ? "bg-blue-0" : "bg-blue-3"
           }`}
         >
-          {storesLoading ? (
+          {/* {storesLoading ? (
             <p>Carregando</p>
           ) : storesErrorMessage ? (
             <p>{storesErrorMessage}</p>
@@ -151,7 +151,7 @@ export const Home = () => {
                 <StoreCard store={store} key={store.id} />
               ))}
             </div>
-          )}
+          )} */}
         </section>
       </main>
     </>

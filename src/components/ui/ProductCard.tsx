@@ -1,20 +1,21 @@
-import type { ProductType } from "../../models/Products";
+import type { Product } from "../../types/Product";
 import { Button } from "./Button";
 import whatsAppIcon from "../../assets/images/whatsapp-icon.png";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import Rating from "@mui/material/Rating";
+// import Rating from "@mui/material/Rating";
 import { FavoriteBorder } from "@mui/icons-material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useGlobal } from "../../hooks/useGlobal";
+import imageDefault from "../../assets/images/no-image.png"
 
-const ProductCard = ({ product }: { product: ProductType }) => {
+const ProductCard = ({ product }: { product: Product }) => {
   const {themeMode} = useGlobal()
   const [isFavorited, setIsFavorited] = useState<boolean>();
   return (
-    <div className={`relative flex flex-col w-[335px] p-8 shadow-xl rounded-2xl ${themeMode === "light" ? "bg-white" : "bg-blue-4"}`}>
+    <div className={`relative flex flex-col w-[335px] p-8 shadow-xl rounded-2xl ${themeMode === "light" ? "bg-white" : "bg-blue-3"}`}>
       <img
-        src={product.image}
+        src={imageDefault}
         alt={product.name}
         className="w-full h-[180px] object-cover rounded-2xl"
       />
@@ -27,26 +28,26 @@ const ProductCard = ({ product }: { product: ProductType }) => {
             {isFavorited ? (
               <FavoriteIcon className="text-red-600" />
             ) : (
-              <FavoriteBorder className="text-gray-500" />
+              <FavoriteBorder className="text-gray-400" />
             )}
           </button>
 
           <h2 className="font-bold text-xl">{product.name}</h2>
-          <h3 className="text-[#585A5C] font-medium text-xs opacity-60">
-            {product.categoryName}
+          <h3 className=" font-medium text-xs opacity-60">
+            {/* {product.categoryName} */} Categoria
           </h3>
-          <h3 className="text-[#585A5C] font-bold">{product.storeName}</h3>
-          <Rating
+          <h3 className="opacity-50 font-bold">Nome da loja</h3>
+          {/* <Rating
             name="half-rating-read"
             defaultValue={5}
             value={product.rating}
             precision={0.5}
             readOnly
             size="small"
-          />
+          /> */}
         </div>
         <div className="flex flex-col">
-          <span className="text-blue-3 font-bold text-xl">
+          <span className={`${themeMode === "light" ? "text-blue-3" : "text-green-300"} font-bold text-xl`}>
             R$ {product.price.toFixed(2).replace(".", ",")}
           </span>
           <span className="font-bold text-sm">à unidade</span>
@@ -56,12 +57,12 @@ const ProductCard = ({ product }: { product: ProductType }) => {
       <div className="flex flex-col gap-2">
         <Link to={`/products/${product.id}`}>
           <Button
-            styles="border justify-center text-blue-3 font-semibold"
+            styles={`${themeMode === "light" ? "text-blue-3" : "text-blue-0"} border justify-center font-semibold`}
             text="Ver detalhes"
           />
         </Link>
         <Button
-          styles="bg-blue-3 text-white font-semibold"
+          styles={`${themeMode === "light" ? "bg-blue-3" : "bg-blue-4"} text-white font-semibold`}
           text="Comprar na What's App"
           icon={whatsAppIcon}
         />
