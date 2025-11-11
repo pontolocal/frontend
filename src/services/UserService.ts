@@ -25,7 +25,7 @@ export class UserServices {
       const loginUser: UserLoginResponse = response.data;
       return loginUser;
     } catch (error) {
-      console.error("Erro no registerUser:", error);
+      console.error("Erro no login user:", error);
       throw error;
     }
   }

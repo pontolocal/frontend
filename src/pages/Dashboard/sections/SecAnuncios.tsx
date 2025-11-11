@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import {
@@ -11,12 +11,14 @@ import { Link } from "react-router-dom";
 import { useGlobal } from "../../../hooks/useGlobal.js";
 import { useProduct } from "../../../hooks/useProduct.js";
 import imageDefault from "../../../assets/images/no-image.png"
+import { useDeleteProduct } from "../../../hooks/useDeleteProduct.js";
 
 type Filtro = "todos" | Disponibilidade;
 
 export function SecAnuncios() {
   const { themeMode, userId } = useGlobal();
-  const { products } = useProduct(`products/user/${userId}`);
+  const { products, fetchProducts } = useProduct(`products/user/${userId}`);
+  const {fetchDeleteProduct} = useDeleteProduct()
   const [filter, setFilter] = useState<Filtro>("todos");
   const [page, setPage] = useState(1);
   const pageSize = 10;
@@ -33,6 +35,14 @@ export function SecAnuncios() {
     indisponivel: "Indisponíveis",
     cancelado: "Cancelados",
   };
+
+  const handleDeleteProduct = async (productId : number) => {
+    fetchDeleteProduct(`/products/${productId}/user/${userId}`)
+  }
+
+  useEffect(() => {
+    fetchProducts()
+  }, [fetchDeleteProduct])
 
   return (
     <div>
@@ -75,13 +85,16 @@ export function SecAnuncios() {
           <span className="mb-2 text-xs md:text-sm">
             {} anúncios encontrados
           </span>
+          <Link to="/register-product">
           <button className={BtnPrimary}>Criar novo produto</button>
+          </Link>
         </div>
       </div>
 
       <div className="flex flex-col gap-4">
         {products.map((product) => (
           <div
+            key={product.id}
             className={`md:rounded-xl border border-[#DDDDDD] p-4 sm:px-6 md:px-8 ${
               themeMode === "light" ? "bg-white" : "bg-blue-4 text-white!"
             }`}
@@ -122,6 +135,7 @@ export function SecAnuncios() {
                     className="p-2 rounded-md border border-transparent text-gray-600 hover:text-[#1E40AF] hover:bg-[#EEF3FB] hover:border-[#E2E8F0] transition-colors"
                     title="Excluir"
                     aria-label="Excluir"
+                    onClick={() => handleDeleteProduct(product.id!)}
                   >
                     <RiDeleteBin6Line />
                   </button>

@@ -1,35 +1,50 @@
-import React, { useRef, useState, useEffect } from "react";
-// import type { Product } from "../types/Product";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import React, { useState, useEffect } from "react";
+import type { Product } from "../types/Product";
+// import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import ChevronDown from "../assets/images/chevron-down.svg";
 import { useParams } from "react-router-dom";
-// import { buildAnuncios } from "../data/dashboardMock";
-import { FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import {
+  FormControl,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+} from "@mui/material";
 import { useProduct } from "../hooks/useProduct";
 import { useGlobal } from "../hooks/useGlobal";
+import { useCategories } from "../hooks/useCategories";
+import { useUpdateProduct } from "../hooks/useUpdateProduct";
 
 const UpdateProduct: React.FC = () => {
   const productId = useParams();
   const { themeMode, userId } = useGlobal();
   const { products } = useProduct(`products/user/${userId}`);
-
-  // const data = useMemo(buildAnuncios, []);
+  const { categories } = useCategories("categories");
+  const [selectedCategoryId, setSelectedCategoryId] = useState("teste");
+  const {fetchUpdateProducts} = useUpdateProduct()
+  
+  const [formData, setFormData] = useState<Product>({
+    name: "",
+    description: "",
+    type: true,
+    price: 0
+  });
 
   const productFiltered = products.filter(
     (product) => Number(productId.id) == product.id
   )[0];
+  
+  useEffect(() => {
+    setFormData(productFiltered)
+  }, [products]);
 
-  const [formData, setFormData] = useState(productFiltered);
 
   const [preview, setPreview] = useState<string | null>(null);
-  const [dragActive, setDragActive] = useState(false);
+  // const [dragActive, setDragActive] = useState(false);
 
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  // const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
 
@@ -39,32 +54,37 @@ const UpdateProduct: React.FC = () => {
     }));
   };
 
-  const handleFile = (file: File) => {
-    setFormData((prev) => ({ ...prev, image: file }));
-    setPreview(URL.createObjectURL(file));
+  const handleChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCategoryId(e.target.value);
+    console.log(e.target.value);
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      handleFile(e.target.files[0]);
-    }
-  };
+  // const handleFile = (file: File) => {
+  //   setFormData((prev) => ({ ...prev, image: file }));
+  //   setPreview(URL.createObjectURL(file));
+  // };
 
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setDragActive(true);
-  };
+  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (e.target.files && e.target.files[0]) {
+  //     handleFile(e.target.files[0]);
+  //   }
+  // };
 
-  const handleDragLeave = () => setDragActive(false);
+  // const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+  //   e.preventDefault();
+  //   setDragActive(true);
+  // };
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setDragActive(false);
+  // const handleDragLeave = () => setDragActive(false);
 
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      handleFile(e.dataTransfer.files[0]);
-    }
-  };
+  // const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  //   e.preventDefault();
+  //   setDragActive(false);
+
+  //   if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+  //     handleFile(e.dataTransfer.files[0]);
+  //   }
+  // };
 
   useEffect(() => {
     return () => {
@@ -74,39 +94,40 @@ const UpdateProduct: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    fetchUpdateProducts(`/products/${productId.id}/user/${userId}`, formData)
     console.log("produto atualizado:", formData);
   };
 
   return (
-    <main className="w-full  flex justify-center items-start bg-blue-0 p-4">
+    <main className={`w-full  flex justify-center items-start p-4 ${themeMode === "light" ? "bg-blue-0" : "bg-blue-8"}`}>
       <div className="flex justify-center items-center h-full w-full max-w-[750px]  flex-col p-2 gap-4 ">
         <h2 className="text-xl font-bold">Editar Produto</h2>
         <div className="flex self-start">
           <img src={ChevronDown} alt="ChevronDown" className="-rotate-90" />{" "}
-          <p className="font-bold text-black-opacity-60">Voltar ao início</p>
+          <p className="font-bold opacity-60">Voltar ao início</p>
         </div>
 
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-2 bg-white rounded-2xl shadow p-12 w-full"
+          className={`flex flex-col gap-2 rounded-2xl shadow p-12 w-full ${themeMode === "light" ? "bg-white" : "bg-blue-4"}`}
         >
-          <label htmlFor="title" className="text-sm font-bold">
+          <label htmlFor="name" className="text-sm font-bold">
             Nome do produto
           </label>
           <input
             type="text"
-            name="title"
+            name="name"
             placeholder="Digite o nome do produto"
             value={formData?.name}
             onChange={handleChange}
             className="border-2 pl-6 p-2 rounded-10 border-blue-5"
           />
 
-          <label htmlFor="desc" className="text-sm font-bold">
+          <label htmlFor="description" className="text-sm font-bold">
             Descrição
           </label>
           <textarea
-            name="desc"
+            name="description"
             placeholder="Descreva seu produto..."
             value={formData?.description}
             onChange={handleChange}
@@ -124,13 +145,13 @@ const UpdateProduct: React.FC = () => {
               type="text"
               name="price"
               placeholder="0,00"
-              value="10"
+              value={`${formData?.price}`}
               onChange={handleChange}
               className="border-2 pl-10 p-2 rounded-10 border-blue-5 w-full"
             />
           </div>
 
-          <FormControl >
+          <FormControl>
             <RadioGroup
               aria-labelledby="demo-controlled-radio-buttons-group"
               name="controlled-radio-buttons-group"
@@ -167,32 +188,19 @@ const UpdateProduct: React.FC = () => {
               />
             </RadioGroup>
           </FormControl>
-          {/* 
-          <label htmlFor="stock" className="text-sm font-bold mt-2">
-            Estoque disponível
-          </label>
-          <input
-            type="number"
-            name="stock"
-            placeholder="Quantidade em estoque"
-            value={formData.disponibilidade}
-            onChange={handleChange}
-            className="border-2 pl-6 p-2 rounded-10 border-blue-5 w-full"
-          /> */}
 
           <label htmlFor="category" className="text-sm font-bold">
             Categoria
           </label>
           <select
             name="category"
-            value="esporte"
-            onChange={handleChange}
+            value={selectedCategoryId}
+            onChange={handleChangeCategory}
             className="border-2 pl-6 p-2 rounded-10 border-blue-5"
           >
-            <option value="">{formData?.name}</option>
-            <option value="eletronicos">Eletrônicos</option>
-            <option value="roupas">Roupas</option>
-            <option value="alimentos">Alimentos</option>
+            {categories.map((category) => (
+              <option value={`${category?.id}`}>{category.name}</option>
+            ))}
           </select>
 
           {/* <div className="relative w-fit h-fit m-auto">

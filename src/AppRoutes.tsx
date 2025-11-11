@@ -121,7 +121,7 @@ export default function AppRoutes() {
               }
             />
             <Route
-              path="/:categoryName"
+              path="/explore/:categoryName"
               element={
                 <PrivateRoute>
                   <Explore />
