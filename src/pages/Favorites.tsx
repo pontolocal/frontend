@@ -1,29 +1,33 @@
 import { Button, Pagination } from "@mui/material";
 import ProductList from "../components/ui/ProductList";
-import { useProduct } from "../hooks/useProduct";
-import { useState } from "react";
+import { useGetFavorites } from "../hooks/useGetFavorites";
+import { useEffect, useState } from "react";
 import noProducts from "../assets/images/no-products.png";
 import { useGlobal } from "../hooks/useGlobal";
 import { Link } from "react-router-dom";
 
 const Favorites = () => {
-  const { themeMode } = useGlobal();
+  const { themeMode, userId } = useGlobal();
   const [page, setPage] = useState(1);
   const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
 
   const {
-    products,
-    isLoading: productsLoading,
-    errorMessage: productsErrorMessage,
-  } = useProduct("/products.json");
+    favorites,
+    isLoading: favoritesLoading,
+    errorMessage: favoritesErrorMessage,
+  } = useGetFavorites(`favorites/user/${userId}`);
+
+  useEffect(() => {
+    console.log(userId, favorites)
+  }, [])
 
   return (
     <main className={`${themeMode === "light" ? "bg-blue-0" : "bg-blue-8"}`}>
       <section className="py-12">
         <div className="flex justify-between w-full max-w-[1069px] m-auto px-4">
-          {products ? (
+          {favorites ? (
             <div
               className={`flex justify-between max-md:items-start max-md:flex-col max-md:gap-4 ${
                 themeMode === "light" ? "bg-white" : "bg-blue-4"
@@ -39,7 +43,7 @@ const Favorites = () => {
                 <span className="text-grey-2 text-sm">
                   produtos favoritados
                 </span>
-                <span className="font-semibold">{products?.length}</span>
+                <span className="font-semibold">{favorites?.length}</span>
               </div>
             </div>
           ) : (
@@ -48,14 +52,14 @@ const Favorites = () => {
             </h2>
           )}
         </div>
-        {productsLoading ? (
+        {favoritesLoading ? (
           <p>Carregando</p>
-        ) : products ? (
-          <ProductList products={products} limit={9} />
+        ) : favorites ? (
+          <ProductList products={favorites} limit={9} />
         ) : (
-          <p>{productsErrorMessage}</p>
+          <p>{favoritesErrorMessage}</p>
         )}
-        {products.length === 0 && (
+        {favorites.length === 0 && (
           <div className="flex flex-col items-center justify-center gap-4 py-10">
             <img src={noProducts} alt="no products" className="w-72" />
             <h2>Não há produtos ainda nos favoritos</h2>
@@ -67,7 +71,7 @@ const Favorites = () => {
             </Link>
           </div>
         )}
-        {products.length > 10 && (
+        {favorites.length > 10 && (
           <Pagination
             count={10}
             page={page}

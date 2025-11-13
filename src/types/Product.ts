@@ -1,8 +1,15 @@
 export interface Product {
   id?: number;
   name: string;
-  description: string;
+  description?: string;
   price: number;
-  type: boolean;
-  image?: File; // foto pode ser opcional
+  type?: boolean;
+  image?: File; 
+  categoryId?: number;
+  categoryName: string;
+  userId?: number;
+  userName: string;
+  userCity?: string;
+  userState?: string;
+  userZipCode?: string;
 }

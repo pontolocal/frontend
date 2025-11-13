@@ -142,7 +142,7 @@ const UpdateProduct: React.FC = () => {
               R$
             </span>
             <input
-              type="text"
+              type="number"
               name="price"
               placeholder="0,00"
               value={`${formData?.price}`}
