@@ -56,7 +56,7 @@ const SignUpPage = () => {
     address_complement: "",
     document: "",
     role: 1,
-    description: "",
+    bio: "",
     state: "",
     city: "",
     address: "",
@@ -477,7 +477,7 @@ const SignUpPage = () => {
                 />
                 <TextField
                   size="small"
-                  name="description"
+                  name="bio"
                   label={
                     formData.role === 1
                       ? "Fale sobre você"
@@ -487,7 +487,7 @@ const SignUpPage = () => {
                   multiline
                   rows={3}
                   onChange={handleChange}
-                  value={formData.description}
+                  value={formData.bio}
                 />
 
                 <Box

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import FavoriteServices from "../services/FavoriteServices";
+import { transformProducts } from "../utils/formaJsonResponse";
 
 export const useGetFavorites = (endpoint: string) => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -11,7 +12,9 @@ export const useGetFavorites = (endpoint: string) => {
     try {
       setIsLoading(true);
       const response = await api.getFavorites(endpoint);
-      setFavorites(response);
+      const favoritesFormatted : any = transformProducts(response);
+      console.log("favoritos", favoritesFormatted)
+      setFavorites(favoritesFormatted);
       setErrorMessage("");
     } catch (error) {
       setErrorMessage("Erro ao carregar favoritos");

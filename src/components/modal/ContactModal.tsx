@@ -1,6 +1,7 @@
 import { Dialog, DialogContent, DialogActions, Button, Typography, Box, Stack } from '@mui/material'
 import emailIcon from '../../assets/images/email-icon.png'
 import whatsappIcon from '../../assets/images/whatsapp-icon.png'
+import { useGlobal } from '../../hooks/useGlobal'
 
 interface ContactModalProps {
   isOpen: boolean
@@ -8,6 +9,7 @@ interface ContactModalProps {
 }
 
 export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
+  const {themeMode} = useGlobal()
   return (
     <Dialog
       open={isOpen}
@@ -19,6 +21,8 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
           width: '100%',
           maxWidth: '400px',
           alignItems: 'center',
+          backgroundColor: themeMode === "light" ? "white" : "#1D2333",
+          color: themeMode === "light" ? "black" : "white"
         },
       }}
     >
@@ -32,7 +36,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
           Fale Conosco
         </Typography>
 
-        <Typography variant="body1" color="text.secondary" sx={{ 
+        <Typography variant="body1" sx={{ 
             mt: 1, 
             mb: 3 
             }}>
@@ -54,7 +58,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
               borderRadius: 2,
               textAlign: 'left',
               textDecoration: 'none',
-              color: 'inherit',
+              backgroundColor: themeMode === "light" ? "#E4EBFF" : "#323848",
             }}
           >
             <Box component="img" src={emailIcon} alt="Ícone de Email" sx={{ 
@@ -67,7 +71,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
                 }}>
                 Email
                 </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2">
                 contato@plataformalocal.com
               </Typography>
             </Box>
@@ -87,7 +91,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
               borderRadius: 2,
               textAlign: 'left',
               textDecoration: 'none',
-              color: 'inherit',
+              backgroundColor: themeMode === "light" ? "#E4EBFF" : "#323848",
             }}
           >
             <Box component="img" src={whatsappIcon} alt="Ícone do WhatsApp" sx={{ 
@@ -100,7 +104,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
                 }}>
                 WhatsApp
                 </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2">
                 (11) 9 9999-9999
                 </Typography>
             </Box>

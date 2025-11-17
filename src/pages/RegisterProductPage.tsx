@@ -1,24 +1,28 @@
-import React, { useRef, useState, useEffect } from "react";
-import type { Product } from "../types/Product";
+import React, { useState } from "react";
 import ChevronDown from "../assets/images/chevron-down.svg";
 import { useGlobal } from "../hooks/useGlobal";
 import { useCategories } from "../hooks/useCategories";
 import { useRegisterProduct } from "../hooks/useRegisterProduct";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
-import { useNavigate } from "react-router-dom";
 import { CreatedProductModal } from "../components/modal/createdProductModal";
+import {
+  FormControl,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+} from "@mui/material";
+import { Link } from "react-router-dom";
 
 const RegisterProduct: React.FC = () => {
-  const [formData, setFormData] = useState<Product>({
+  const [formData, setFormData] = useState<any>({
     name: "",
     description: "",
-    price: 0,
+    price: null,
     type: true,
   });
 
-  const navigate = useNavigate()
-   const [reviewModalOpen, setReviewModalOpen] = useState(false)
+  const [reviewModalOpen, setReviewModalOpen] = useState(false);
 
   const { userId } = useGlobal();
   const { fetchRegisterProducts, isLoading } = useRegisterProduct();
@@ -28,9 +32,9 @@ const RegisterProduct: React.FC = () => {
 
   const { themeMode } = useGlobal();
 
-  const [preview, setPreview] = useState<string | null>(null);
-  const [dragActive, setDragActive] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  // const [preview, setPreview] = useState<string | null>(null);
+  // const [dragActive, setDragActive] = useState(false);
+  // const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -38,9 +42,16 @@ const RegisterProduct: React.FC = () => {
     >
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFormData((prev: any) => ({
       ...prev,
-      [name]: name === "price" || name === "type" ? Number(value) : value,
+      [name]:
+        name === "price"
+          ? Number(value)
+          : name === "type"
+          ? value === "disponivel"
+            ? true
+            : false
+          : value,
     }));
 
     console.log("value", value);
@@ -50,38 +61,38 @@ const RegisterProduct: React.FC = () => {
     }
   };
 
-  const handleFile = (file: File) => {
-    setFormData((prev) => ({ ...prev, image: file }));
-    setPreview(URL.createObjectURL(file));
-  };
+  // const handleFile = (file: File) => {
+  //   setFormData((prev: any) => ({ ...prev, image: file }));
+  //   setPreview(URL.createObjectURL(file));
+  // };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      handleFile(e.target.files[0]);
-    }
-  };
+  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (e.target.files && e.target.files[0]) {
+  //     handleFile(e.target.files[0]);
+  //   }
+  // };
 
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setDragActive(true);
-  };
+  // const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+  //   e.preventDefault();
+  //   setDragActive(true);
+  // };
 
-  const handleDragLeave = () => setDragActive(false);
+  // const handleDragLeave = () => setDragActive(false);
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setDragActive(false);
+  // const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  //   e.preventDefault();
+  //   setDragActive(false);
 
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      handleFile(e.dataTransfer.files[0]);
-    }
-  };
+  //   if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+  //     handleFile(e.dataTransfer.files[0]);
+  //   }
+  // };
 
-  useEffect(() => {
-    return () => {
-      if (preview) URL.revokeObjectURL(preview);
-    };
-  }, [preview]);
+  // useEffect(() => {
+  //   return () => {
+  //     if (preview) URL.revokeObjectURL(preview);
+  //   };
+  // }, [preview]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -89,13 +100,20 @@ const RegisterProduct: React.FC = () => {
       `/products/${userId}/${selectedCategoryId}`,
       formData
     );
-    setReviewModalOpen(true)
+    setReviewModalOpen(true);
   };
 
   return (
     <>
       {isLoading ? (
-        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh" }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100vh",
+          }}
+        >
           <CircularProgress />
         </Box>
       ) : (
@@ -104,13 +122,24 @@ const RegisterProduct: React.FC = () => {
             themeMode === "light" ? "bg-blue-0" : "bg-blue-8"
           }`}
         >
-          <CreatedProductModal isOpen={reviewModalOpen} onClose={() => setReviewModalOpen(false)} />
-            
+          <CreatedProductModal
+            isOpen={reviewModalOpen}
+            onClose={() => setReviewModalOpen(false)}
+            title="Produto criado com sucesso"
+            message="Obrigado por usar o Ponto Local. Boas vendas!"
+            blueButtonText="Criar outro produto"
+            ghostButtonText="ir para dashboard"
+          />
+
           <div className="flex justify-center items-center h-full w-full max-w-[750px]  flex-col p-2 gap-4">
             <h2 className="text-xl font-bold">Cadastrar Produto</h2>
             <div className="flex self-start">
               <img src={ChevronDown} alt="ChevronDown" className="-rotate-90" />{" "}
-              <p className="font-bold opacity-50">Voltar ao início</p>
+              <Link to="/home">
+                <p className="font-bold opacity-60 cursor-pointer">
+                  Voltar a home
+                </p>
+              </Link>
             </div>
 
             <form
@@ -160,16 +189,53 @@ const RegisterProduct: React.FC = () => {
               </div>
 
               <label htmlFor="type" className="text-sm font-bold mt-2">
-                Estoque disponível
+                Estoque
               </label>
-              <input
+              <FormControl>
+                <RadioGroup
+                  aria-labelledby="demo-controlled-radio-buttons-group"
+                  name="type"
+                  value={formData?.type ? "disponivel" : "indisponivel"}
+                  onChange={handleChange}
+                >
+                  <FormControlLabel
+                    value="indisponivel"
+                    control={
+                      <Radio
+                        sx={{
+                          color: "#3C5491",
+                          "&.Mui-checked": {
+                            color: "#3C5491",
+                          },
+                        }}
+                      />
+                    }
+                    label="indisponível"
+                  />
+                  <FormControlLabel
+                    value="disponivel"
+                    control={
+                      <Radio
+                        sx={{
+                          color: "#3C5491",
+                          "&.Mui-checked": {
+                            color: "#3C5491",
+                          },
+                        }}
+                      />
+                    }
+                    label="disponível"
+                  />
+                </RadioGroup>
+              </FormControl>
+              {/* <input
                 type="number"
                 name="type"
                 placeholder="Quantidade em estoque"
                 value={formData.type ? "disponivel" : "indisponivel"}
                 onChange={handleChange}
                 className="border-2 pl-6 p-2 rounded-10 border-blue-5 w-full"
-              />
+              /> */}
 
               <label htmlFor="category" className="text-sm font-bold">
                 Categoria
@@ -188,7 +254,7 @@ const RegisterProduct: React.FC = () => {
                 ))}
               </select>
 
-              <div
+              {/* <div
                 onClick={() => fileInputRef.current?.click()}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
@@ -213,15 +279,15 @@ const RegisterProduct: React.FC = () => {
                   onChange={handleFileChange}
                   className="hidden"
                 />
-              </div>
+              </div> */}
 
-              {preview && (
+              {/* {preview && (
                 <img
                   src={preview}
                   alt="Preview"
                   className="w-40 h-40 object-cover rounded-lg shadow mx-auto"
                 />
-              )}
+              )} */}
 
               <button
                 type="submit"

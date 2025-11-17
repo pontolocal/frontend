@@ -57,7 +57,7 @@ const EditProfile = () => {
   const [errors, setErrors] = useState<Partial<any>>({});
   const [isCepLoading, setIsCepLoading] = useState<boolean>(false);
   const [cepValidated, setCepValidated] = useState<boolean>(false);
-  const [documentValidated, setDocumentValidated] = useState<boolean>(false);
+  // const [documentValidated, setDocumentValidated] = useState<boolean>(false);
   // const [termsAccepted, setTermsAccepted] = useState<boolean>(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
   const { themeMode } = useGlobal();
@@ -75,12 +75,12 @@ const EditProfile = () => {
       const { id, password, ...getRequest } = user;
       setFormData({
         name: user.name || "",
-        address_complement: user.addressComplement || "",
+        address_complement: user.address_complement || "",
         document: user.document || "",
-        role: 1,
-        social_media_link: user.socialMediaLink || "",
+        role: user.role || 1,
+        social_media_link: user.social_media_link || "",
         whatsapp: user.whatsapp || "",
-        zip_code: user.zipCode || "",
+        zip_code: user.zip_code || "",
         city: user.city || "",
         address: user.address || "",
         state: user.state || "",
@@ -97,9 +97,9 @@ const EditProfile = () => {
     const hasErrors = Object.values(errors).some((error) => error);
 
     setIsButtonDisabled(
-      !(requiredFieldsFilled && cepValidated && documentValidated && !hasErrors)
+      !(requiredFieldsFilled && cepValidated && !hasErrors)
     );
-  }, [formData, cepValidated, documentValidated, errors]);
+  }, [formData, cepValidated, errors]);
 
   const placeholders = {
     name: "Digite seu nome",
@@ -110,6 +110,7 @@ const EditProfile = () => {
     zip_code: "00000-000",
     address_complement: "Ex: Apto 101, Bloco B",
     role: 1,
+    bio: "escreva sobre você"
   };
 
   const handleChange = (
@@ -144,7 +145,7 @@ const EditProfile = () => {
       if (value && !isValid) {
         errorMsg = `${formData.role === 1 ? "CPF" : "CNPJ"} inválido.`;
       }
-      setDocumentValidated(isValid);
+      // setDocumentValidated(isValid);
     }
     setErrors((prev) => ({ ...prev, [name]: errorMsg || undefined }));
   };
@@ -155,7 +156,7 @@ const EditProfile = () => {
     const newDocType = e.target.value;
     setFormData({ ...formData, role: Number(newDocType) });
     setFormData((prev: any) => ({ ...prev, document: "", name: "" }));
-    setDocumentValidated(false);
+    // setDocumentValidated(false);
     setErrors((prev) => ({ ...prev, document: undefined }));
   };
 
@@ -202,6 +203,7 @@ const EditProfile = () => {
     city,
     address,
     state,
+    bio
   } = formData;
 
   const requestData: any = {
@@ -215,6 +217,7 @@ const EditProfile = () => {
     city,
     address,
     state,
+    bio
   };
 
   const { fetchUpdateUser, isLoading, errorMessage } = useUpdateUser(
@@ -516,9 +519,9 @@ const EditProfile = () => {
                     },
                   }}
                 />
-                {/* <TextField
+                <TextField
                   size="small"
-                  name="description"
+                  name="bio"
                   label={
                     formData.role === 1
                       ? "Fale sobre você"
@@ -528,8 +531,8 @@ const EditProfile = () => {
                   multiline
                   rows={3}
                   onChange={handleChange}
-                  value={formData.description}
-                /> */}
+                  value={formData.bio}
+                />
 
                 <Box
                   sx={{

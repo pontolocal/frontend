@@ -72,11 +72,11 @@ const ProductCard = ({ product }: { product: Product }) => {
               themeMode === "light" ? "text-blue-3" : "text-green-300"
             } font-bold text-xl`}
           >
-            R$ {product.price.toFixed(2).replace(".", ",")}
+            R$ {product?.price.toFixed(2).replace(".", ",")}
           </span>
           <span className="font-bold text-sm">à unidade</span>
         </div>
-        <p className="text-sm w-68 truncate">{product.description}</p>
+        <p className="text-sm w-68 truncate">{product?.description}</p>
       </div>
       <div className="flex flex-col gap-2">
         <Link to={`/products/${product.id}`}>
@@ -87,13 +87,23 @@ const ProductCard = ({ product }: { product: Product }) => {
             text="Ver detalhes"
           />
         </Link>
-        <Button
-          styles={`${
-            themeMode === "light" ? "bg-blue-3" : "bg-blue-4"
-          } text-white font-semibold`}
-          text="Comprar na What's App"
-          icon={whatsAppIcon}
-        />
+        <Link
+          to={`https://wa.me/${product?.whatsapp?.replace(
+            /\D/g,
+            ""
+          )}?text=Olá,%20gostei%20do%20produto:%20${
+            product?.name
+          }!%20Vamos%20negociar?`}
+          target="_blank"
+        >
+          <Button
+            styles={`${
+              themeMode === "light" ? "bg-blue-3" : "bg-blue-4"
+            } text-white font-semibold`}
+            text="Comprar na What's App"
+            icon={whatsAppIcon}
+          />
+        </Link>
       </div>
     </div>
   );

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import type { Product } from "../types/Product";
 // import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import ChevronDown from "../assets/images/chevron-down.svg";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   FormControl,
   FormControlLabel,
@@ -13,32 +12,40 @@ import { useProduct } from "../hooks/useProduct";
 import { useGlobal } from "../hooks/useGlobal";
 import { useCategories } from "../hooks/useCategories";
 import { useUpdateProduct } from "../hooks/useUpdateProduct";
+import { CreatedProductModal } from "../components/modal/createdProductModal";
 
 const UpdateProduct: React.FC = () => {
   const productId = useParams();
   const { themeMode, userId } = useGlobal();
-  const { products } = useProduct(`products/user/${userId}`);
+  const { products, fetchProducts } = useProduct();
   const { categories } = useCategories("categories");
-  const [selectedCategoryId, setSelectedCategoryId] = useState("teste");
-  const {fetchUpdateProducts} = useUpdateProduct()
+  const { fetchUpdateProducts } = useUpdateProduct();
+  const [reviewModalOpen, setReviewModalOpen] = useState(false);
   
-  const [formData, setFormData] = useState<Product>({
+  const [formData, setFormData] = useState<any>({
     name: "",
     description: "",
     type: true,
-    price: 0
+    price: 0,
   });
-
+  
   const productFiltered = products.filter(
     (product) => Number(productId.id) == product.id
   )[0];
   
+  
   useEffect(() => {
-    setFormData(productFiltered)
+    fetchProducts(`products/user/${userId}`);
+  }, []);
+
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string | undefined>("");
+
+  useEffect(() => {
+    setFormData(productFiltered);
+    setSelectedCategoryId(productFiltered?.categoryId?.toString())
   }, [products]);
 
-
-  const [preview, setPreview] = useState<string | null>(null);
+  // const [preview, setPreview] = useState<string | null>(null);
   // const [dragActive, setDragActive] = useState(false);
 
   // const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -48,9 +55,16 @@ const UpdateProduct: React.FC = () => {
   ) => {
     const { name, value } = e.target;
 
-    setFormData((prev) => ({
+    setFormData((prev: any) => ({
       ...prev,
-      [name]: value,
+      [name]:
+        name === "price"
+          ? Number(value)
+          : name === "type"
+          ? value === "disponivel"
+            ? true
+            : false
+          : value,
     }));
   };
 
@@ -86,30 +100,46 @@ const UpdateProduct: React.FC = () => {
   //   }
   // };
 
-  useEffect(() => {
-    return () => {
-      if (preview) URL.revokeObjectURL(preview);
-    };
-  }, [preview]);
+  // useEffect(() => {
+  //   return () => {
+  //     if (preview) URL.revokeObjectURL(preview);
+  //   };
+  // }, [preview]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    fetchUpdateProducts(`/products/${productId.id}/user/${userId}`, formData)
-    console.log("produto atualizado:", formData);
+    fetchUpdateProducts(`/products/${productId.id}/user/${userId}`, formData);
+    setReviewModalOpen(true);
   };
 
   return (
-    <main className={`w-full  flex justify-center items-start p-4 ${themeMode === "light" ? "bg-blue-0" : "bg-blue-8"}`}>
+    <main
+      className={`w-full  flex justify-center items-start p-4 ${
+        themeMode === "light" ? "bg-blue-0" : "bg-blue-8"
+      }`}
+    >
+      <CreatedProductModal
+        isOpen={reviewModalOpen}
+        onClose={() => setReviewModalOpen(false)}
+        title="Produto atualizado com sucesso"
+        message="Obrigado por usar o Ponto Local. Sempre bom deixar seus produtos atualizados. Boas vendas!"
+        blueButtonText="Criar outro produto"
+        ghostButtonText="Ir para dashboard"
+      />
       <div className="flex justify-center items-center h-full w-full max-w-[750px]  flex-col p-2 gap-4 ">
         <h2 className="text-xl font-bold">Editar Produto</h2>
         <div className="flex self-start">
           <img src={ChevronDown} alt="ChevronDown" className="-rotate-90" />{" "}
-          <p className="font-bold opacity-60">Voltar ao início</p>
+          <Link to="/home">
+          <p className="font-bold opacity-60 cursor-pointer">Voltar a home</p>
+          </Link>
         </div>
 
         <form
           onSubmit={handleSubmit}
-          className={`flex flex-col gap-2 rounded-2xl shadow p-12 w-full ${themeMode === "light" ? "bg-white" : "bg-blue-4"}`}
+          className={`flex flex-col gap-2 rounded-2xl shadow p-12 w-full ${
+            themeMode === "light" ? "bg-white" : "bg-blue-4"
+          }`}
         >
           <label htmlFor="name" className="text-sm font-bold">
             Nome do produto
@@ -154,8 +184,8 @@ const UpdateProduct: React.FC = () => {
           <FormControl>
             <RadioGroup
               aria-labelledby="demo-controlled-radio-buttons-group"
-              name="controlled-radio-buttons-group"
-              value={formData?.type ? "disponível" : "indisponível"}
+              name="type"
+              value={formData?.type ? "disponivel" : "indisponivel"}
               onChange={handleChange}
             >
               <FormControlLabel

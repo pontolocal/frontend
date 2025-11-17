@@ -1,10 +1,10 @@
-import StoreCard from "../components/ui/StoreCard";
+// import StoreCard from "../components/ui/StoreCard";
 import ProductList from "../components/ui/ProductList";
 import { useProduct } from "../hooks/useProduct";
-import { useStores } from "../hooks/useStores";
+// import { useStores } from "../hooks/useStores";
 import SearchIcon from "@mui/icons-material/Search";
 import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import FilterComponent from "../components/ui/FilterComponent";
 import { Pagination } from "@mui/material";
@@ -17,30 +17,35 @@ const pages = [
 ];
 
 const Explore = () => {
-  const {themeMode} = useGlobal()
+  const {themeMode, userId} = useGlobal()
   const [searchValue, setSearchValue] = useState<string>("");
   let location: string = useLocation().pathname;
 
   const [page, setPage] = useState(1);
-  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+  const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
 
   const {
     products,
+    fetchProducts,
     isLoading: productsLoading,
     errorMessage: productsErrorMessage,
-  } = useProduct("/products.json");
+  } = useProduct()
 
-  const {
-    stores,
-    isLoading: storesLoading,
-    errorMessage: storesErrorMessage,
-  } = useStores("/stores.json");
+  // const {
+  //   stores,
+  //   isLoading: storesLoading,
+  //   errorMessage: storesErrorMessage,
+  // } = useStores("/stores.json");
 
   const handleSearch = () => {
     console.log(searchValue);
   };
+
+  useEffect(() => {
+    fetchProducts(`/products/user/${userId}`)
+  }, [])
 
   return (
     <main className={`${themeMode=== "light" ? "bg-blue-0" : "bg-blue-8"}`}>
@@ -99,7 +104,7 @@ const Explore = () => {
       {location === "/stores" ? (
         <section className="flex flex-col gap-4 justify-center items-center py-12">
           <div className="flex justify-between w-full max-w-[1069px] m-auto px-4">
-            {stores ? (
+            {/* {stores ? (
               <div>
                 <h2 className="font-bold text-2xl">Resultados da busca</h2>
                 <span>{stores.length} lojas encontradas</span>
@@ -119,7 +124,7 @@ const Explore = () => {
               stores
                 ?.slice(0, 12)
                 .map((store) => <StoreCard store={store} key={store.id} />)
-            )}
+            )} */}
           </div>
           <Pagination
             count={10}
@@ -187,7 +192,7 @@ const Explore = () => {
               <p>{productsErrorMessage}</p>
             )}
           </section>
-          <section className={`flex flex-col gap-4 justify-center items-center py-24 ${themeMode=== "light" ? "bg-blue-1" : "bg-blue-3"}`}>
+          {/* <section className={`flex flex-col gap-4 justify-center items-center py-24 ${themeMode=== "light" ? "bg-blue-1" : "bg-blue-3"}`}>
             <div className="flex justify-between items-end w-full max-w-[1069px] m-auto px-4">
               {stores ? (
                 <div>
@@ -219,7 +224,7 @@ const Explore = () => {
                   .map((store) => <StoreCard store={store} key={store.id} />)
               )}
             </div>
-          </section>
+          </section> */}
         </div>
       )}
     </main>

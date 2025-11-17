@@ -13,11 +13,19 @@ import { Link } from "react-router-dom";
 interface CreatedProductModalProps {
   isOpen: boolean;
   onClose: () => void;
+  title : string;
+  message : string;
+  blueButtonText : string;
+  ghostButtonText : string;
 }
 
 export const CreatedProductModal = ({
   isOpen,
   onClose,
+  title,
+  message,
+  blueButtonText,
+  ghostButtonText
 }: CreatedProductModalProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -50,14 +58,14 @@ export const CreatedProductModal = ({
           component="h2"
           sx={{ fontWeight: "bold" }}
         >
-          Produto criado com sucesso!
+          {title}
         </Typography>
         <Typography
           variant={isMobile ? "body2" : "body1"}
           color="text.secondary"
           sx={{ marginTop: 1, fontWeight: "bold" }}
         >
-          Boas vendas! Aproveite tudo que a plataforma pode te oferecer
+          {message}
         </Typography>
       </DialogContent>
 
@@ -84,7 +92,7 @@ export const CreatedProductModal = ({
             padding: "10px 16px",
           }}
         >
-          Criar outro produto
+          {blueButtonText}
         </Button>
 
         <Link to="/dashboard">
@@ -103,7 +111,7 @@ export const CreatedProductModal = ({
               },
             }}
           >
-            Dashboard
+            {ghostButtonText}
           </Button>
         </Link>
       </DialogActions>

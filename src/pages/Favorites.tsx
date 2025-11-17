@@ -19,9 +19,11 @@ const Favorites = () => {
     errorMessage: favoritesErrorMessage,
   } = useGetFavorites(`favorites/user/${userId}`);
 
+
   useEffect(() => {
-    console.log(userId, favorites)
-  }, [])
+    // console.log(userId, favorites)
+
+  }, [favorites])
 
   return (
     <main className={`${themeMode === "light" ? "bg-blue-0" : "bg-blue-8"}`}>

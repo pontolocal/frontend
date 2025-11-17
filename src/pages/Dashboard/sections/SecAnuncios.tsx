@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import {
-  buildAnuncios,
   type Disponibilidade,
 } from "../../../data/dashboardMock.js";
 import { BtnPrimary } from "../../../components/ui/Buttons/BtnPrimary.js";
@@ -17,11 +16,12 @@ type Filtro = "todos" | Disponibilidade;
 
 export function SecAnuncios() {
   const { themeMode, userId } = useGlobal();
-  const { products, fetchProducts } = useProduct(`products/user/${userId}`);
+  const { products, fetchProducts } = useProduct();
   const {fetchDeleteProduct} = useDeleteProduct()
   const [filter, setFilter] = useState<Filtro>("todos");
   const [page, setPage] = useState(1);
-  const pageSize = 10;
+  const [updateLProductList, setUpdateProductList] = useState(false)
+  // const pageSize = 10;
 
   const FILTERS: Filtro[] = [
     "todos",
@@ -38,11 +38,17 @@ export function SecAnuncios() {
 
   const handleDeleteProduct = async (productId : number) => {
     fetchDeleteProduct(`/products/${productId}/user/${userId}`)
+    setUpdateProductList(true)
   }
 
   useEffect(() => {
-    fetchProducts()
-  }, [fetchDeleteProduct])
+    fetchProducts(`/products/user/${userId}`)
+  }, [])
+
+  useEffect(() => {
+    fetchProducts(`/products/user/${userId}`)
+    setUpdateProductList(false)
+  }, [updateLProductList])
 
   return (
     <div>
@@ -99,22 +105,22 @@ export function SecAnuncios() {
               themeMode === "light" ? "bg-white" : "bg-blue-4 text-white!"
             }`}
           >
-            <div className="grid grid-cols-1 sm:grid-cols-[2fr_1fr_2fr] gap-4 sm:gap-6 items-center">
-              <div className="flex items-start gap-[38px] min-w-0">
+            <div className="flex max-md:flex-col justify-between gap-2 sm:gap-6 items-center">
+              <div className="flex items-start gap-4 min-w-0">
                 <img
                   src={imageDefault}
                   alt="sem imagem"
                   className="w-[153px] h-[114px] rounded-md object-cover block shrink-0"
                 />
                 <div className="min-w-0">
-                  <p className="text-base font-bold truncate w-52">{product.name}</p>
+                  <p className="text-base font-bold truncate w-32">{product.name}</p>
                   <p className="text-sm leading-snug line-clamp-2 break-words">{product.description}</p>
                 </div>
               </div>
 
-              <span className="m-auto text-xs px-4 py-1 border">Status</span>
+              {/* <span className="m-auto text-xs px-4 py-1 border">Status</span> */}
 
-              <div className=" grid grid-cols-2 gap-2 sm:flex sm:flex-col sm:items-end sm:justify-center sm:gap-3 sm:min-w-[220px]">
+              <div className="flex flex-col max-md:flex-row gap-2 items-end justify-center min-w-[220px]">
                 <button
                   className={`${BtnGhost} whitespace-nowrap w-auto max-w-none shrink-0 order-1 sm:order-2`}
                 >

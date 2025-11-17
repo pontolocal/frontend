@@ -12,4 +12,5 @@ export interface Product {
   userCity?: string;
   userState?: string;
   userZipCode?: string;
+  whatsapp? : string;
 }
