@@ -1,8 +1,8 @@
 import ProductCard from "../../components/ui/ProductCard";
-import type { ProductType } from "../../models/Products";
+import type { Product } from "../../types/Product";
 
 interface ProductListProps {
-  products: ProductType[];
+  products: Product[];
   limit: number;
 }
 

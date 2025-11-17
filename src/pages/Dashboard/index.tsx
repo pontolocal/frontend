@@ -13,7 +13,7 @@ export const Dashboard = () => {
   const {themeMode} = useGlobal()
   const {fetchGetUser, user} = useGetUser(`/auth/get/${localStorage.getItem("userId")}`)
 
-  const [tab, setTab] = useState<Tab>("Negociações");
+  const [tab, setTab] = useState<Tab>("anuncios");
 
   const tabBtn =
     "flex-1 basis-1/4 md:basis-auto md:flex-none \
@@ -46,10 +46,10 @@ border border-[#D2D2D2] transition";
       <div className="p-2 md:p-0 flex gap-3 md:gap-5 pb-6 md:mb-11">
         {(
           [
-            ["Negociações", "Negociações"],
-            ["vendas", "Vendas"],
+            // ["Negociações", "Negociações"],
+            // ["vendas", "Vendas"],
             ["anuncios", "Meus anúncios"],
-            ["avaliacoes", "Avaliações de clientes"],
+            // ["avaliacoes", "Avaliações de clientes"],
           ] as [Tab, string][]
         ).map(([k, label]) => (
           <button
@@ -62,10 +62,10 @@ border border-[#D2D2D2] transition";
         ))}
       </div>
 
-      {tab === "Negociações" && <SecNegociacoes />}
-      {tab === "vendas" && <SecVendas />}
       {tab === "anuncios" && <SecAnuncios />}
-      {tab === "avaliacoes" && <SecAvaliacoes />}
+      {/* {tab === "Negociações" && <SecNegociacoes />}
+      {tab === "vendas" && <SecVendas />}
+      {tab === "avaliacoes" && <SecAvaliacoes />} */}
     </div>
   );
 };

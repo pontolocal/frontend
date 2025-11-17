@@ -1,8 +1,10 @@
+import { useGlobal } from "../../hooks/useGlobal";
 import type CategoryType from "../../models/Categories";
 
 const CategoryCard = ({ name, imageUrl }: CategoryType) => {
+  const {themeMode} = useGlobal()
   return (
-    <div className="w-full h-48 flex flex-col gap-2 items-center justify-around rounded-xl cursor-pointer bg-white">
+    <div className={`w-full h-48 flex flex-col gap-2 items-center justify-around rounded-xl cursor-pointer ${themeMode === "light" ? "bg-white" : "bg-blue-4"}`}>
       <img src={imageUrl} alt={name} className="w-28 h-28 object-cover rounded-full" />
       <span className="text-center font-semibold text-grey-3 truncate w-24">{name}</span>
     </div>

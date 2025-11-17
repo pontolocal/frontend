@@ -22,7 +22,7 @@ export const GlobalContext = createContext<GlobalContextType | undefined>(
 
 export const GlobalProvider = ({ children }: { children: ReactNode }) => {
   const [themeMode, setThemeMode] = useState(localStorage.getItem("theme") || "light");
-  const [userId, setUserId] = useState<number | null>(null);
+  const [userId, setUserId] = useState<number | null>(Number(localStorage.getItem("userId")) || null);
   const [userInfos, setUserInfos] = useState<GoogleJwtPayload | null>(null);
 
   useEffect(() => {
@@ -46,14 +46,6 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
       } else {
         const storageId = localStorage.getItem("userId");
         setUserId(Number(storageId));
-        // if (storageId) {
-        //   setUserId(Number(storageId));
-        // }
-
-        console.log(
-          "user Id que veio do storage",
-          localStorage.getItem("userId")
-        );
       }
     } catch (err) {
       console.error("Token inválido:", err);

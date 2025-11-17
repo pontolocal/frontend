@@ -1,109 +1,165 @@
-import React, { useRef, useState, useEffect, useMemo } from "react";
-// import type { Product } from "../types/Product";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import React, { useState, useEffect } from "react";
+// import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import ChevronDown from "../assets/images/chevron-down.svg";
-import { useParams } from "react-router-dom";
-import { buildAnuncios } from "../data/dashboardMock";
-import { FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import { Link, useParams } from "react-router-dom";
+import {
+  FormControl,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+} from "@mui/material";
+import { useProduct } from "../hooks/useProduct";
+import { useGlobal } from "../hooks/useGlobal";
+import { useCategories } from "../hooks/useCategories";
+import { useUpdateProduct } from "../hooks/useUpdateProduct";
+import { CreatedProductModal } from "../components/modal/createdProductModal";
+
 const UpdateProduct: React.FC = () => {
   const productId = useParams();
-
-  const data = useMemo(buildAnuncios, []);
-
-  const productFiltered = data.filter(
+  const { themeMode, userId } = useGlobal();
+  const { products, fetchProducts } = useProduct();
+  const { categories } = useCategories("categories");
+  const { fetchUpdateProducts } = useUpdateProduct();
+  const [reviewModalOpen, setReviewModalOpen] = useState(false);
+  
+  const [formData, setFormData] = useState<any>({
+    name: "",
+    description: "",
+    type: true,
+    price: 0,
+  });
+  
+  const productFiltered = products.filter(
     (product) => Number(productId.id) == product.id
   )[0];
+  
+  
+  useEffect(() => {
+    fetchProducts(`products/user/${userId}`);
+  }, []);
 
-  const [formData, setFormData] = useState(productFiltered);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string | undefined>("");
 
-  const [preview, setPreview] = useState<string | null>(null);
-  const [dragActive, setDragActive] = useState(false);
+  useEffect(() => {
+    setFormData(productFiltered);
+    setSelectedCategoryId(productFiltered?.categoryId?.toString())
+  }, [products]);
 
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  // const [preview, setPreview] = useState<string | null>(null);
+  // const [dragActive, setDragActive] = useState(false);
+
+  // const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
 
-    setFormData((prev) => ({
+    setFormData((prev: any) => ({
       ...prev,
-      [name]: value,
+      [name]:
+        name === "price"
+          ? Number(value)
+          : name === "type"
+          ? value === "disponivel"
+            ? true
+            : false
+          : value,
     }));
   };
 
-  const handleFile = (file: File) => {
-    setFormData((prev) => ({ ...prev, image: file }));
-    setPreview(URL.createObjectURL(file));
+  const handleChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCategoryId(e.target.value);
+    console.log(e.target.value);
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      handleFile(e.target.files[0]);
-    }
-  };
+  // const handleFile = (file: File) => {
+  //   setFormData((prev) => ({ ...prev, image: file }));
+  //   setPreview(URL.createObjectURL(file));
+  // };
 
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setDragActive(true);
-  };
+  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (e.target.files && e.target.files[0]) {
+  //     handleFile(e.target.files[0]);
+  //   }
+  // };
 
-  const handleDragLeave = () => setDragActive(false);
+  // const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+  //   e.preventDefault();
+  //   setDragActive(true);
+  // };
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setDragActive(false);
+  // const handleDragLeave = () => setDragActive(false);
 
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      handleFile(e.dataTransfer.files[0]);
-    }
-  };
+  // const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  //   e.preventDefault();
+  //   setDragActive(false);
 
-  useEffect(() => {
-    return () => {
-      if (preview) URL.revokeObjectURL(preview);
-    };
-  }, [preview]);
+  //   if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+  //     handleFile(e.dataTransfer.files[0]);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   return () => {
+  //     if (preview) URL.revokeObjectURL(preview);
+  //   };
+  // }, [preview]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("produto atualizado:", formData);
+    fetchUpdateProducts(`/products/${productId.id}/user/${userId}`, formData);
+    setReviewModalOpen(true);
   };
 
   return (
-    <main className="w-full  flex justify-center items-start bg-blue-0 p-4">
+    <main
+      className={`w-full  flex justify-center items-start p-4 ${
+        themeMode === "light" ? "bg-blue-0" : "bg-blue-8"
+      }`}
+    >
+      <CreatedProductModal
+        isOpen={reviewModalOpen}
+        onClose={() => setReviewModalOpen(false)}
+        title="Produto atualizado com sucesso"
+        message="Obrigado por usar o Ponto Local. Sempre bom deixar seus produtos atualizados. Boas vendas!"
+        blueButtonText="Criar outro produto"
+        ghostButtonText="Ir para dashboard"
+      />
       <div className="flex justify-center items-center h-full w-full max-w-[750px]  flex-col p-2 gap-4 ">
         <h2 className="text-xl font-bold">Editar Produto</h2>
         <div className="flex self-start">
           <img src={ChevronDown} alt="ChevronDown" className="-rotate-90" />{" "}
-          <p className="font-bold text-black-opacity-60">Voltar ao início</p>
+          <Link to="/home">
+          <p className="font-bold opacity-60 cursor-pointer">Voltar a home</p>
+          </Link>
         </div>
 
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-2 bg-white rounded-2xl shadow p-12 w-full"
+          className={`flex flex-col gap-2 rounded-2xl shadow p-12 w-full ${
+            themeMode === "light" ? "bg-white" : "bg-blue-4"
+          }`}
         >
-          <label htmlFor="title" className="text-sm font-bold">
+          <label htmlFor="name" className="text-sm font-bold">
             Nome do produto
           </label>
           <input
             type="text"
-            name="title"
+            name="name"
             placeholder="Digite o nome do produto"
-            value={formData.title}
+            value={formData?.name}
             onChange={handleChange}
             className="border-2 pl-6 p-2 rounded-10 border-blue-5"
           />
 
-          <label htmlFor="desc" className="text-sm font-bold">
+          <label htmlFor="description" className="text-sm font-bold">
             Descrição
           </label>
           <textarea
-            name="desc"
+            name="description"
             placeholder="Descreva seu produto..."
-            value={formData.desc}
+            value={formData?.description}
             onChange={handleChange}
             className="border-2 pl-6 p-2 rounded-10 border-blue-5"
           />
@@ -116,20 +172,20 @@ const UpdateProduct: React.FC = () => {
               R$
             </span>
             <input
-              type="text"
+              type="number"
               name="price"
               placeholder="0,00"
-              value="10"
+              value={`${formData?.price}`}
               onChange={handleChange}
               className="border-2 pl-10 p-2 rounded-10 border-blue-5 w-full"
             />
           </div>
 
-          <FormControl >
+          <FormControl>
             <RadioGroup
               aria-labelledby="demo-controlled-radio-buttons-group"
-              name="controlled-radio-buttons-group"
-              value={formData.disponibilidade}
+              name="type"
+              value={formData?.type ? "disponivel" : "indisponivel"}
               onChange={handleChange}
             >
               <FormControlLabel
@@ -162,35 +218,22 @@ const UpdateProduct: React.FC = () => {
               />
             </RadioGroup>
           </FormControl>
-          {/* 
-          <label htmlFor="stock" className="text-sm font-bold mt-2">
-            Estoque disponível
-          </label>
-          <input
-            type="number"
-            name="stock"
-            placeholder="Quantidade em estoque"
-            value={formData.disponibilidade}
-            onChange={handleChange}
-            className="border-2 pl-6 p-2 rounded-10 border-blue-5 w-full"
-          /> */}
 
           <label htmlFor="category" className="text-sm font-bold">
             Categoria
           </label>
           <select
             name="category"
-            value="esporte"
-            onChange={handleChange}
+            value={selectedCategoryId}
+            onChange={handleChangeCategory}
             className="border-2 pl-6 p-2 rounded-10 border-blue-5"
           >
-            <option value="">{formData.title}</option>
-            <option value="eletronicos">Eletrônicos</option>
-            <option value="roupas">Roupas</option>
-            <option value="alimentos">Alimentos</option>
+            {categories.map((category) => (
+              <option value={`${category?.id}`}>{category.name}</option>
+            ))}
           </select>
 
-          <div className="relative w-fit h-fit m-auto">
+          {/* <div className="relative w-fit h-fit m-auto">
             <div
               className="absolute flex items-center justify-center top-4 right-[-20px] bg-blue-1 w-12 h-12 rounded-full cursor-pointer"
               onClick={() => fileInputRef.current?.click()}
@@ -201,8 +244,8 @@ const UpdateProduct: React.FC = () => {
               <EditOutlinedIcon />
             </div>
             <img
-              src={preview || formData.imageUrl}
-              alt={formData.title}
+              src={preview || formData?.image}
+              alt={formData.name}
               className="w-80 m-auto object-cover rounded-2xl my-8"
             />
             <input
@@ -212,7 +255,7 @@ const UpdateProduct: React.FC = () => {
               onChange={handleFileChange}
               className="hidden"
             />
-          </div>
+          </div> */}
 
           {/* <div
             onClick={() => fileInputRef.current?.click()}

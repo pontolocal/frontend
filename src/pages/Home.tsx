@@ -1,27 +1,34 @@
 import Button from "@mui/material/Button";
-import StoreCard from "../components/ui/StoreCard";
+// import StoreCard from "../components/ui/StoreCard";
 import ProductList from "../components/ui/ProductList";
 import { useProduct } from "../hooks/useProduct";
-import { useStores } from "../hooks/useStores";
+// import { useStores } from "../hooks/useStores";
 import SearchIcon from "@mui/icons-material/Search";
 import { Link, Link as RouterLink } from "react-router-dom";
 import { useCategories } from "../hooks/useCategories";
 import CategoryList from "../components/ui/CategoryList";
 import { useGlobal } from "../hooks/useGlobal";
+import { useEffect } from "react";
+import { useGetFavorites } from "../hooks/useGetFavorites";
 
 export const Home = () => {
-  const { themeMode } = useGlobal();
+  const { themeMode, userId } = useGlobal();
   const {
     products,
+    fetchProducts,
     isLoading: productsLoading,
     errorMessage: productsErrorMessage,
-  } = useProduct("/products.json");
+  } = useProduct();
 
-  const {
-    stores,
-    isLoading: storesLoading,
-    errorMessage: storesErrorMessage,
-  } = useStores("/stores.json");
+    const {
+      favorites,
+      isLoading: favoritesLoading,
+      errorMessage: favoritesErrorMessage,
+    } = useGetFavorites(`favorites/user/${userId}`);
+
+  useEffect(() => {
+    fetchProducts(`/products/user/${userId}`);
+  }, []);
 
   const {
     categories,
@@ -41,7 +48,14 @@ export const Home = () => {
         >
           <h1 className="text-center font-bold text-3xl">
             Conectando você aos
-            <strong className={` ${themeMode === "light" ? "text-blue-3" : "text-blue-1"}`}> Comerciantes Locais</strong>
+            <strong
+              className={` ${
+                themeMode === "light" ? "text-blue-3" : "text-blue-1"
+              }`}
+            >
+              {" "}
+              Comerciantes Locais
+            </strong>
           </h1>
           <div className="text-center text-sm font-medium">
             <p>
@@ -131,7 +145,7 @@ export const Home = () => {
           {productsLoading ? (
             <p>Carregando</p>
           ) : products ? (
-            <ProductList products={products} limit={6} />
+            <ProductList products={products} favorites={favorites} limit={6} />
           ) : (
             <p>{productsErrorMessage}</p>
           )}
@@ -141,7 +155,7 @@ export const Home = () => {
             themeMode === "light" ? "bg-blue-0" : "bg-blue-3"
           }`}
         >
-          {storesLoading ? (
+          {/* {storesLoading ? (
             <p>Carregando</p>
           ) : storesErrorMessage ? (
             <p>{storesErrorMessage}</p>
@@ -151,7 +165,7 @@ export const Home = () => {
                 <StoreCard store={store} key={store.id} />
               ))}
             </div>
-          )}
+          )} */}
         </section>
       </main>
     </>

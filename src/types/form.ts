@@ -9,7 +9,7 @@ export interface SignUpFormData {
   address_complement: string;
   document: string;
   photo?: string;
-  description?: string;
+  bio?: string;
   role: number;
   address: string;
   city: string;
@@ -25,7 +25,7 @@ export interface EditFormData {
   address_complement: string;
   document: string;
   photo?: string;
-  description?: string;
+  bio?: string;
   role: number;
   address: string;
   city: string;
