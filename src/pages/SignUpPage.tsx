@@ -200,7 +200,7 @@ const SignUpPage = () => {
     document,
     role,
     address_complement,
-    social_media_link,
+    social_media_link
   } = formData;
   const requestData = {
     name,
@@ -224,6 +224,7 @@ const SignUpPage = () => {
   const handleSubmit = (e: React.FormEvent): void => {
     setFormSummited(true);
     e.preventDefault();
+    console.log("request", requestData)
     fetchUser(requestData);
   };
 

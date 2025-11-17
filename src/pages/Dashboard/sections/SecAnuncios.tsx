@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import {
-  type Disponibilidade,
-} from "../../../data/dashboardMock.js";
+import { type Disponibilidade } from "../../../data/dashboardMock.js";
 import { BtnPrimary } from "../../../components/ui/Buttons/BtnPrimary.js";
 import { BtnGhost } from "../../../components/ui/Buttons/BtnGhost.js";
 import { Link } from "react-router-dom";
 import { useGlobal } from "../../../hooks/useGlobal.js";
 import { useProduct } from "../../../hooks/useProduct.js";
-import imageDefault from "../../../assets/images/no-image.png"
+import imageDefault from "../../../assets/images/no-image.png";
 import { useDeleteProduct } from "../../../hooks/useDeleteProduct.js";
 
 type Filtro = "todos" | Disponibilidade;
@@ -17,10 +15,10 @@ type Filtro = "todos" | Disponibilidade;
 export function SecAnuncios() {
   const { themeMode, userId } = useGlobal();
   const { products, fetchProducts } = useProduct();
-  const {fetchDeleteProduct} = useDeleteProduct()
+  const { fetchDeleteProduct } = useDeleteProduct();
   const [filter, setFilter] = useState<Filtro>("todos");
   const [page, setPage] = useState(1);
-  const [updateLProductList, setUpdateProductList] = useState(false)
+  const [updateLProductList, setUpdateProductList] = useState(false);
   // const pageSize = 10;
 
   const FILTERS: Filtro[] = [
@@ -36,22 +34,22 @@ export function SecAnuncios() {
     cancelado: "Cancelados",
   };
 
-  const handleDeleteProduct = async (productId : number) => {
-    fetchDeleteProduct(`/products/${productId}/user/${userId}`)
-    setUpdateProductList(true)
-  }
+  const handleDeleteProduct = async (productId: number) => {
+    fetchDeleteProduct(`/products/${productId}/user/${userId}`);
+    setUpdateProductList(true);
+  };
 
   useEffect(() => {
-    fetchProducts(`/products/user/${userId}`)
-  }, [])
+    fetchProducts(`/products/user/${userId}`);
+  }, []);
 
   useEffect(() => {
-    fetchProducts(`/products/user/${userId}`)
-    setUpdateProductList(false)
-  }, [updateLProductList])
+    fetchProducts(`/products/user/${userId}`);
+    setUpdateProductList(false);
+  }, [updateLProductList]);
 
   return (
-    <div>
+    <div className="h-full min-h-[500px]">
       <div
         className={`md:rounded-xl shadow-sm mb-4 md:mb-8 ${
           themeMode === "light" ? "bg-white" : "bg-blue-4"
@@ -92,7 +90,7 @@ export function SecAnuncios() {
             {} anúncios encontrados
           </span>
           <Link to="/register-product">
-          <button className={BtnPrimary}>Criar novo produto</button>
+            <button className={BtnPrimary}>Criar novo produto</button>
           </Link>
         </div>
       </div>
@@ -113,19 +111,25 @@ export function SecAnuncios() {
                   className="w-[153px] h-[114px] rounded-md object-cover block shrink-0"
                 />
                 <div className="min-w-0">
-                  <p className="text-base font-bold truncate w-32">{product.name}</p>
-                  <p className="text-sm leading-snug line-clamp-2 break-words">{product.description}</p>
+                  <p className="text-base font-bold truncate w-32">
+                    {product.name}
+                  </p>
+                  <p className="text-sm leading-snug line-clamp-2 break-words">
+                    {product.description}
+                  </p>
                 </div>
               </div>
 
               {/* <span className="m-auto text-xs px-4 py-1 border">Status</span> */}
 
               <div className="flex flex-col max-md:flex-row gap-2 items-end justify-center min-w-[220px]">
-                <button
-                  className={`${BtnGhost} whitespace-nowrap w-auto max-w-none shrink-0 order-1 sm:order-2`}
-                >
-                  Ver detalhes
-                </button>
+                <Link to={`/products/${product?.id}`}>
+                  <button
+                    className={`${BtnGhost} whitespace-nowrap w-auto max-w-none shrink-0 order-1 sm:order-2`}
+                  >
+                    Ver detalhes
+                  </button>
+                </Link>
 
                 <div className="flex items-center gap-2 justify-end shrink-0 order-2 sm:order-1">
                   <Link to={`update-product/${product.id}`}>

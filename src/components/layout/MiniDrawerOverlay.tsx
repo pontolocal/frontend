@@ -41,6 +41,7 @@ import ButtonSwitch from "../ui/ButtonSwitch";
 import { useGlobal } from "../../hooks/useGlobal";
 import { useAuth } from "../../api/AuthContext";
 import { useGetUser } from "../../hooks/useGetUser";
+import { useUpdateUser } from "../../hooks/useUpdateUser";
 
 const drawerWidth = 300;
 
@@ -247,8 +248,8 @@ export default function MiniDrawer() {
             sx={{
               "& .MuiPaper-root": {
                 borderRadius: 2,
-                backgroundColor: themeMode=== "light" ? "white" : "#1d2333",
-                color: themeMode=== "light" ? "black" : "white",
+                backgroundColor: themeMode === "light" ? "white" : "#1d2333",
+                color: themeMode === "light" ? "black" : "white",
               },
             }}
           >
