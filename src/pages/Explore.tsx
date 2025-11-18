@@ -44,7 +44,7 @@ const Explore = () => {
   };
 
   useEffect(() => {
-    fetchProducts(`/products/user/${userId}`)
+    fetchProducts(`/products/`)
   }, [])
 
   return (

@@ -9,10 +9,10 @@ import { useCategories } from "../hooks/useCategories";
 import CategoryList from "../components/ui/CategoryList";
 import { useGlobal } from "../hooks/useGlobal";
 import { useEffect } from "react";
-import { useGetFavorites } from "../hooks/useGetFavorites";
+// import { useGetFavorites } from "../hooks/useGetFavorites";
 
 export const Home = () => {
-  const { themeMode, userId } = useGlobal();
+  const { themeMode } = useGlobal();
   const {
     products,
     fetchProducts,
@@ -20,14 +20,14 @@ export const Home = () => {
     errorMessage: productsErrorMessage,
   } = useProduct();
 
-    const {
-      favorites,
-      isLoading: favoritesLoading,
-      errorMessage: favoritesErrorMessage,
-    } = useGetFavorites(`favorites/user/${userId}`);
+    // const {
+    //   favorites,
+    //   isLoading: favoritesLoading,
+    //   errorMessage: favoritesErrorMessage,
+    // } = useGetFavorites(`favorites/user/${userId}`);
 
   useEffect(() => {
-    fetchProducts(`/products/user/${userId}`);
+    fetchProducts(`/products/`);
   }, []);
 
   const {
@@ -145,7 +145,7 @@ export const Home = () => {
           {productsLoading ? (
             <p>Carregando</p>
           ) : products ? (
-            <ProductList products={products} favorites={favorites} limit={6} />
+            <ProductList products={products} limit={6} />
           ) : (
             <p>{productsErrorMessage}</p>
           )}
