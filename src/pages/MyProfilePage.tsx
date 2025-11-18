@@ -63,7 +63,7 @@ export const MyProfile = () => {
               </p>
             </div>
           </div>
-          <div className="flex flex-col gap-4 order-2 lg:order-1 w-full lg:w-auto">
+          <div className="flex flex-col gap-4 order-2 lg:order-1 w-full min-w-82 lg:w-auto">
             <p className="font-semibold">{user?.name}</p>
             <p className="font-semibold">
               ***.***.{user?.document.slice(8, 14)}
@@ -72,7 +72,7 @@ export const MyProfile = () => {
               <p className="font-semibold">
                 Sobre:{" "}
                 <span className="font-normal">
-                  Sou um engenheiro que sonha em ter uma casa própria.
+                  {user?.bio || "sem descrição"}
                 </span>
               </p>
             </div>

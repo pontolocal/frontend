@@ -91,16 +91,16 @@ export default function CategoryList({ categories }: Props) {
             <div className="grid grid-cols-6 max-lg:grid-cols-3 max-md:grid-cols-2 gap-8 max-md:gap-4 w-full m-auto">
               {padPage(page, perPage).map((category, i) => (
                 <Link
-                  to={`/${category?.name}`}
+                  to={`/explore/${category?.name}`}
                   key={
-                    (category && (category.id ?? category.image_url)) ??
+                    (category && (category.id ?? category.imageUrl)) ??
                     `empty-${i}`
                   }
                 >
                   {category ? (
                     <CategoryCard
                       name={category.name}
-                      image_url={category.image_url}
+                      imageUrl={category.imageUrl}
                     />
                   ) : (
                     <div className="w-full h-32" />

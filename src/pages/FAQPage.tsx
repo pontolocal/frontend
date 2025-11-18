@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ChevronDown from "../assets/images/chevron-down.svg";
 import { ContactModal } from "../components/modal/ContactModal";
+import { useGlobal } from "../hooks/useGlobal";
 
 const faqData = [
   {
@@ -38,11 +39,13 @@ acompanhamento`,
 ];
 
 export const FAQPage = () => {
+  const { themeMode } = useGlobal();
+
   const [openIndexes, setOpenIndexes] = useState(
     Array(faqData.length).fill(false)
   );
 
-  const [contactModalOpen, setContactModalOpen] = useState(false)
+  const [contactModalOpen, setContactModalOpen] = useState(false);
 
   const toggleItem = (index: number) => {
     setOpenIndexes((prev) =>
@@ -51,14 +54,19 @@ export const FAQPage = () => {
   };
 
   return (
-    <main className="w-full h-screen flex justify-center items-center bg-blue-0  p-4 flex-col gap-4">
-      <h2 className="sm:text-4xl text-3xl font-bold text-center">Central de Ajuda</h2>
+    <main className="w-full h-screen flex justify-center items-center p-4 flex-col gap-4">
+      <h2 className="sm:text-4xl text-3xl font-bold text-center">
+        Central de Ajuda
+      </h2>
       <p className="font-medium text-xs  text-center">
         Encontre respostas para as suas dúvidas mais frequentes{" "}
       </p>
-      <div className="bg-white w-full flex flex-col  justify-start items-center max-w-[812px] h-auto max-h-[738px]">
+      <div className={`w-full flex flex-col  justify-start items-center max-w-[812px] h-auto max-h-[738px] border-1 border-gray-400 rounded-xl ${themeMode=== "light" ? "bg-white" : "bg-blue-8"}`}>
         {faqData.map((key, index) => (
-          <div key={index} className="w-full border-b p-4 flex justify-center flex-col">
+          <div
+            key={index}
+            className="w-full border-b p-4 flex justify-center flex-col"
+          >
             <div className="flex justify-between items-center">
               <h3 className="font-medium text-xs">{key.question}</h3>
               <span
@@ -70,7 +78,7 @@ export const FAQPage = () => {
                   src={ChevronDown}
                   onClick={() => toggleItem(index)}
                   alt="ChevronDown"
-                  className="cursor-pointer"
+                  className="cursor-pointer bg-gray-300 opacity-40"
                 />
               </span>
             </div>
@@ -85,10 +93,16 @@ export const FAQPage = () => {
           </div>
         ))}
       </div>
-      <button className="max-w-[250px] w-full max-h-[50px] bg-blue-3 hover:bg-blue-2 flex justify-center items-center rounded-10 text-base text-white font-bold p-4" onClick={() => setContactModalOpen(true)}>
-       Fale Conosco
+      <button
+        className="max-w-[250px] w-full max-h-[50px] bg-blue-3 hover:bg-blue-2 flex justify-center items-center rounded-10 text-base text-white font-bold p-4"
+        onClick={() => setContactModalOpen(true)}
+      >
+        Fale Conosco
       </button>
-      <ContactModal isOpen={contactModalOpen} onClose={() => setContactModalOpen(false)} />
+      <ContactModal
+        isOpen={contactModalOpen}
+        onClose={() => setContactModalOpen(false)}
+      />
     </main>
   );
 };

@@ -1,3 +1,5 @@
+import httpClient from "../api/axiosConfig";
+
 export type Status = "confirmado" | "pendente" | "cancelado";
 export type Disponibilidade = "disponivel" | "indisponivel" | "cancelado";
 
@@ -41,14 +43,28 @@ export const buildVendas = () =>
     imageUrl: produtoThumb,
   }));
 
-export const buildAnuncios = () =>
-  Array.from({ length: 15 }, (_, i) => ({
-    id: i + 1,
-    title: "Morango do amor",
-    desc: "Um doce, suculento e coberto com uma camada crocante de açúcar caramelizado. Uma paixão à primeira mordida...",
-    disponibilidade: disponibilidadeFromIndex(i),
-    imageUrl: produtoThumb,
-  }));
+export const buildAnuncios = async () => {
+  try {
+    const userId = localStorage.getItem("userId");
+    const response = await httpClient({
+      url: `/products/user/${userId}`,
+      method: "get",
+    });
+    const products = response.data;
+    console.log(products)
+    return products;
+  } catch (error) {
+    console.error("Erro no get de produtos:", error);
+    throw error;
+  }
+};
+// Array.from({ length: 15 }, (_, i) => ({
+//   id: i + 1,
+//   title: "Morango do amor",
+//   desc: "Um doce, suculento e coberto com uma camada crocante de açúcar caramelizado. Uma paixão à primeira mordida...",
+//   disponibilidade: disponibilidadeFromIndex(i),
+//   imageUrl: produtoThumb,
+// }));
 
 export const avaliacoesMock = [
   {

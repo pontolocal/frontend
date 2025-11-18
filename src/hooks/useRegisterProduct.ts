@@ -2,18 +2,17 @@ import { useState } from "react";
 import ProductServices from "../services/ProductServices";
 import type { Product } from "../types/Product";
 
-export const useProduct = () => {
+export const useRegisterProduct = () => {
   const [errorMessage, setErrorMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [productCreated, setProductCreated] = useState<Product>();
 
   const api = new ProductServices();
-  const fetchProducts = async (endpoint: string) => {
+  const fetchRegisterProducts = async (endpoint : string, request : Product) => {
     try {
       setIsLoading(true);
-      const response = await api.getProducts(endpoint);
-      console.log("response", response)
-      setProducts(response);
+      const response = await api.createProduct(endpoint, request);
+      setProductCreated(response);
       setErrorMessage("");
     } catch (error) {
       setErrorMessage("Erro ao carregar os produtos");
@@ -22,5 +21,5 @@ export const useProduct = () => {
     }
   }
 
-  return { products, fetchProducts, isLoading, errorMessage };
+  return { productCreated, fetchRegisterProducts, isLoading, errorMessage };
 };

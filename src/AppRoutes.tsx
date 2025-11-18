@@ -33,6 +33,7 @@ import { Notifications } from "@mui/icons-material";
 import { AuthProvider } from "./api/AuthContext";
 import { PrivateRoute } from "./api/PrivateRoute";
 import { useGlobal } from "./hooks/useGlobal";
+import PaginaDeTeste from "./pages/PaginaDeTesteModal";
 
 // Layout para páginas públicas (com Header e Footer)
 
@@ -120,7 +121,7 @@ export default function AppRoutes() {
               }
             />
             <Route
-              path="/:categoryName"
+              path="/explore/:categoryName"
               element={
                 <PrivateRoute>
                   <Explore />
@@ -216,6 +217,14 @@ export default function AppRoutes() {
               }
             />
             <Route
+              path="/dashboard/update-product/:id"
+              element={
+                <PrivateRoute>
+                  <UpdateProduct />
+                </PrivateRoute>
+              }
+            />
+            <Route
               path="/notifications"
               element={
                 <PrivateRoute>
@@ -234,7 +243,7 @@ export default function AppRoutes() {
           </Route>
 
           {/* ROTA DE TESTE*/}
-          {/* <Route path="/teste-modal" element={<PaginaDeTeste />} /> */}
+          <Route path="/teste-modal" element={<PaginaDeTeste />} />
 
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

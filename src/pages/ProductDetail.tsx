@@ -1,84 +1,37 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { FavoriteBorder } from "@mui/icons-material";
 import whatsAppIcon from "../assets/images/whatsapp-icon.png";
-import ProductList from "../components/ui/ProductList";
-
 import { useProduct } from "../hooks/useProduct";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../components/ui/Button";
 import { Rating } from "@mui/material";
 import { SecAvaliacoes } from "./Dashboard/sections/SecAvaliacoes";
 import { useGlobal } from "../hooks/useGlobal";
-
-const product = {
-  id: 1,
-  name: "Mel Artesanal",
-  description:
-    "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
-  image: "https://i.postimg.cc/HL5zFhNS/mel-1.png",
-  price: 25.0,
-  storeName: "Apário São José",
-  categoryName: "Hortifruti",
-  is_active: true,
-  rating: 3.5,
-};
-
-const relatedProducts = [
-  {
-    id: 1,
-    name: "Mel Artesanal",
-    description:
-      "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
-    image: "https://i.postimg.cc/HL5zFhNS/mel-1.png",
-    price: 25.0,
-    storeName: "Apário São José",
-    categoryName: "Hortifruti",
-    is_active: true,
-    rating: 3.5,
-  },
-  {
-    id: 1,
-    name: "Mel Artesanal",
-    description:
-      "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
-    image: "https://i.postimg.cc/HL5zFhNS/mel-1.png",
-    price: 25.0,
-    storeName: "Apário São José",
-    categoryName: "Hortifruti",
-    is_active: true,
-    rating: 3.5,
-  },
-  {
-    id: 1,
-    name: "Mel Artesanal",
-    description:
-      "é um produto natural, produzido em pequenas quantidades por apicultores locais, com mínimo processamento e sem aditivos.",
-    image: "https://i.postimg.cc/HL5zFhNS/mel-1.png",
-    price: 25.0,
-    storeName: "Apário São José",
-    categoryName: "Hortifruti",
-    is_active: true,
-    rating: 3.5,
-  },
-];
+import noImage from "../assets/images/no-image.png"
 
 const ProductDetail = () => {
-  const {themeMode} = useGlobal()
+  const {themeMode, userId} = useGlobal()
   const [isFavorited, setIsFavorited] = useState<boolean>();
+  const productId = useParams().id
+  console.log("productId", productId)
 
-  const { products, isLoading, errorMessage } = useProduct("/products.json");
+  const { products, fetchProducts } = useProduct();
 
-  // const id = useParams().id;
-  // Fazer o get para detalhar o produto
+  const product = products.filter(product => product.id == productId)[0]
+  console.log("product", product)
+
+  useEffect(() => {
+    fetchProducts(`products/user/${userId}`)
+  }, [])
 
   return (
     <main className={`px-4 py-12 ${themeMode === "light" ? "bg-blue-0" : "bg-blue-8"}`}>
       <section className={`flex max-md:flex-col gap-8 rounded-2xl p-8 max-w-[1069px] m-auto ${themeMode === "light" ? "bg-white" : "bg-blue-4"}`}>
         <div className="relative flex-1">
           <img
-            src={product.image}
-            alt={product.name}
+            src={noImage}
+            alt={product?.name}
             className="h-80 max-md:h-64 w-full object-cover rounded-xl"
           />
           <button
@@ -94,29 +47,37 @@ const ProductDetail = () => {
         </div>
         <div className="flex-1 flex flex-col gap-4">
           <div>
-            <h2 className="font-bold">{product.name}</h2>
+            <h2 className="font-bold">{product?.name}</h2>
             <h3 className="font-medium text-gray-600 text-xs">
-              {product.storeName}
+              {product?.userName}
             </h3>
           </div>
           <Rating
             name="half-rating-read"
             defaultValue={5}
-            value={product.rating}
+            value={4}
             precision={0.5}
             readOnly
             size="small"
           />
           <span className="text-green-600 font-semibold text-xl">
-            R$ {product.price},00
+            R$ {product?.price.toFixed(2).toString().replace(".", ",")}
           </span>
-          <p className="text-sm">{product.description}</p>
+          <p className="text-sm">{product?.description}</p>
           <div className="flex max-md:flex-col gap-2">
+            <Link to={`https://wa.me/${product?.whatsapp?.replace(
+            /\D/g,
+            ""
+          )}?text=Olá,%20gostei%20do%20produto:%20${
+            product?.name
+          }!%20Vamos%20negociar?`}
+          target="_blank">
             <Button
               styles="flex-1 bg-blue-3 text-white font-semibold text-sm"
               text="Comprar no What's App"
               icon={whatsAppIcon}
             />
+            </Link>
             <Link to="/" className="flex-1">
               <Button
                 styles="border justify-center text-blue-3 font-semibold text-sm"
@@ -129,7 +90,7 @@ const ProductDetail = () => {
       <section className="pt-8 max-w-[1069px] m-auto">
         <SecAvaliacoes />
       </section>
-      <section className="pt-8 max-w-[1069px] m-auto">
+      {/* <section className="pt-8 max-w-[1069px] m-auto">
         <h2 className="font-bold text-xl">Produtos relacionados</h2>
         {isLoading ? (
           <p>Carregando</p>
@@ -138,7 +99,7 @@ const ProductDetail = () => {
         ) : (
           <p>{errorMessage}</p>
         )}
-      </section>
+      </section> */}
     </main>
   );
 };
