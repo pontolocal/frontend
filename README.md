@@ -12,13 +12,13 @@ Consumers can **discover local products**, contact local sellers and manager the
 ---
 
 ## ⚙️ Technologies
-- **Frontend**: [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/) + [Tailwind CSS](https://tailwindcss.com/)
+- **Frontend**: [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/) + [Tailwind CSS](https://tailwindcss.com/) + [Material UI](https://mui.com/material-ui/)
 - **Routing**: React Router
 - **API Communication**: Axios
 - **Authentication**: JWT + Social Login
 - **Build Tool**: Vite
 - **Version Control**: Git + Conventional Commits
-- **Database (Backend)**: PostgreSQL / MySQL (handled by backend)
+- **Database (Backend)**: PostgreSQL (handled by backend)
 
 ---
 
@@ -157,4 +157,3 @@ This project is licensed under the MIT License — see the LICENSE file for deta
 - [Gabriel Nascimento da Silva](https://github.com/devgabrielnascimento)
 - [Cauã Gonçalves Melgarejo](https://github.com/CauaMelgarejo)
 - [Jakeline da Silva Melo](https://github.com/jakemello)
-- [Pamela Gomes Toscano](https://github.com/PamelaToscano)

@@ -100,7 +100,7 @@ const ProductCard = ({ product }: { product: Product }) => {
             styles={`${
               themeMode === "light" ? "bg-blue-3" : "bg-blue-4"
             } text-white font-semibold`}
-            text="Comprar na What's App"
+            text="Comprar no What's App"
             icon={whatsAppIcon}
           />
         </Link>
